@@ -1,5 +1,13 @@
 # Mission — Lost Update：计数器为什么少了？
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Knowledge — Race Condition](../../../01-Knowledge-Base/RTOS/04-Race-Condition.md)
+- [Lab — Race Interleaving Visualizer](../../../03-Interactive-Labs/Race-Interleaving-Visualizer/)
+- [Debug Cases](../../../06-Debugging-Cases/README.md)
+- [Boss — RTOS Refactor](../../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
+
 ## Scene
 
 两个 Task 各自执行 1000 次：
