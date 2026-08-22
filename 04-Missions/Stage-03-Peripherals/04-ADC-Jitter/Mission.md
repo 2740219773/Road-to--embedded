@@ -1,5 +1,11 @@
 # Mission — ADC 为什么一直抖？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
+- Knowledge：`01-Knowledge-Base/MCU/06-ADC.md`
+- Lab：`03-Interactive-Labs/ADC-Sampling-Simulator/`
+
 ## 故障现场
 
 输入一个你认为稳定的电压，ADC 读数却在多个码值之间变化。
