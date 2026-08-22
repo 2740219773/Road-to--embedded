@@ -1,5 +1,12 @@
 # Debugging Case — System Alive, Functions Frozen
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Mission — Deadlock](../../04-Missions/Stage-05-RTOS/03-Deadlock/Mission.md)
+- [Knowledge — Deadlock](../../01-Knowledge-Base/RTOS/06-Deadlock.md)
+- [Knowledge — Queue / Semaphore / Mutex](../../01-Knowledge-Base/RTOS/02-Queue-Semaphore-Mutex.md)
+
 ## Symptom
 
 系统 Tick 正常、Idle Task 仍运行、看门狗也没有复位，但采集和通信两个功能都停止推进。
