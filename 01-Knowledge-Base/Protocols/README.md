@@ -1,15 +1,16 @@
 # Protocols Knowledge Base
 
-这里保存通信协议和接口的技术知识底稿。
+通信协议知识按“信号 → 帧 → 控制器 → 驱动 → 应用”的层次组织。
 
-计划内容：
+计划覆盖 UART、I2C、SPI、CAN、USB、Ethernet、TCP/IP、Modbus 等。
 
-- UART；
-- SPI；
-- I2C；
-- CAN；
-- Ethernet；
-- Modbus；
-- CRC / framing / timeout / retry 等工程基础。
+每个协议尽量同时提供：
 
-当前旧 `06-Protocols/` 内容将在 V2.1 后续迁移到这里。
+- 最小工作模型；
+- 时序/帧可视化；
+- MCU 配置入口；
+- 仪器观察方法；
+- 常见故障现象；
+- 对应 Mission。
+
+学习主入口为 `02-Learning-Path/Stage-03-Peripheral-Engineer/`。
