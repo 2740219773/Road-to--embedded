@@ -4,11 +4,9 @@
 
 ## 当前状态
 
-项目目前处于 **V2.1 架构重构分支** `refactor/v2.1-learning-system`。
+项目目前处于 **V2.1 架构重构分支** `refactor/v2.1-learning-system`，尚未正式合并到 `main`。重构前状态保存在 `backup/pre-v2.1-restructure`。
 
-这意味着：新架构和大量样板内容已经写入 GitHub，但尚未正式合并到 `main`。重构前状态保存在 `backup/pre-v2.1-restructure`。
-
-V2.1 现在的重点不是继续无止境增加课程，而是统一导航、命名、内部链接、新手可读性和旧目录清理。
+V2.1 的结构迁移已经完成，旧的课程目录已经退休。当前 P0 工作只剩：导航与内部链接验证、命名一致性、新手可读性复查、PR 最终检查。
 
 ## 为什么做这个项目
 
@@ -20,9 +18,7 @@ Road to Embedded 希望把学习变成：
 
 ## 学习者从哪里开始
 
-不要从仓库第一个文件开始顺序阅读。
-
-从 [`02-Learning-Path/README.md`](02-Learning-Path/README.md) 进入。
+从 [`02-Learning-Path/README.md`](02-Learning-Path/README.md) 进入，不要从仓库第一个文件开始顺序阅读。
 
 ```text
 Stage 00  System Explorer
@@ -36,7 +32,7 @@ Stage 07  FPGA Builder
 Stage 08  System Integrator
 ```
 
-如果第一次看到 MCU、UART、DMA、ISR、Mutex、FPGA 等术语，先查 [`01-Knowledge-Base/Glossary.md`](01-Knowledge-Base/Glossary.md)。核心内容遵循 [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)：先解释“它是什么、在哪儿、为什么需要”，再进入正式术语和参数。
+第一次看到 MCU、UART、DMA、ISR、Mutex、FPGA 等术语时，可以先查 [`01-Knowledge-Base/Glossary.md`](01-Knowledge-Base/Glossary.md)。核心内容遵循 [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)：先解释“它是什么、在哪儿、为什么需要”，再进入正式术语和参数。
 
 ## 内容模型
 
@@ -64,6 +60,7 @@ Road-to--embedded/
 ├─ ROADMAP.md
 ├─ CONTRIBUTING.md
 ├─ docs/
+├─ 00-Project/
 ├─ 01-Knowledge-Base/
 ├─ 02-Learning-Path/
 ├─ 03-Interactive-Labs/
@@ -75,7 +72,7 @@ Road-to--embedded/
 └─ 09-Progress/
 ```
 
-旧的 `01-Fundamentals`、旧 MCU/RTOS/Linux/FPGA/Protocols 等目录仍处于迁移期，仅作为 Legacy 参考，不再作为学习者正式入口。迁移规则见 [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)。
+旧结构与迁移历史记录在 [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)，但旧目录已不再存在于当前重构分支。
 
 ## 一节课的理想体验
 
@@ -101,8 +98,8 @@ Stage 01 当前入口：
 
 - [`Memory Detective`](04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
 - [`Bit Hacker`](04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
-- `03-Interactive-Labs/Memory-Visualizer/`
-- `03-Interactive-Labs/Register-Playground/`
+- [`Memory Visualizer`](03-Interactive-Labs/Memory-Visualizer/)
+- [`Register Playground`](03-Interactive-Labs/Register-Playground/)
 
 ## 五级能力模型
 
@@ -126,9 +123,8 @@ L5 迁移     换芯片、换项目仍能使用
 4. [`docs/CONTENT-DESIGN.md`](docs/CONTENT-DESIGN.md)
 5. [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)
 6. [`docs/DEVELOPMENT-PLAN.md`](docs/DEVELOPMENT-PLAN.md)
-7. [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)
-8. [`09-Progress/V2.1-Migration-Status.md`](09-Progress/V2.1-Migration-Status.md)
-9. [`CONTRIBUTING.md`](CONTRIBUTING.md)
+7. [`09-Progress/V2.1-Migration-Status.md`](09-Progress/V2.1-Migration-Status.md)
+8. [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 新增内容前先判断最合适的媒介，不要默认创建新的长篇 Markdown。
 
