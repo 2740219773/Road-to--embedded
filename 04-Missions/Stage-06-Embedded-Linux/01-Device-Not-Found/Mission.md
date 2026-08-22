@@ -1,5 +1,14 @@
 # Mission — Device Not Found：应用为什么看不到设备？
 
+## Related
+
+- [Stage 06 — Embedded Linux](../../../02-Learning-Path/Stage-06-Embedded-Linux/README.md)
+- [Knowledge — Linux System Layers](../../../01-Knowledge-Base/Embedded-Linux/02-Linux-System-Layers.md)
+- [Knowledge — Process / File / Device](../../../01-Knowledge-Base/Embedded-Linux/03-Process-File-Device.md)
+- [Knowledge — Device Tree](../../../01-Knowledge-Base/Embedded-Linux/05-Device-Tree.md)
+
+> Stage 06 当前是 V2.1 的纵向样板阶段，尚未建设完整 Interactive Lab、Debug Case 和 Boss Project。这里不创建空链接。
+
 ## Scene
 
 应用程序启动后提示：
