@@ -1,5 +1,11 @@
 # Mission — 两个 CAN 节点同时说话，为什么没有撞车？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
+- Knowledge：`01-Knowledge-Base/Protocols/04-CAN.md`
+- Lab：`03-Interactive-Labs/CAN-Arbitration-Visualizer/`
+
 ## 场景
 
 Node A 使用标准 ID `0x120`，Node B 使用 `0x080`。它们在同一时刻开始发送。
