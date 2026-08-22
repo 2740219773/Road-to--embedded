@@ -1,5 +1,7 @@
 # Mission — UART 乱码：到底是谁的波特率错了？
 
+> 学习路径：[Stage 03 — Peripheral Explorer](../../../02-Learning-Path/Stage-03-Peripheral-Explorer/README.md) · 知识支撑：[UART](../../../01-Knowledge-Base/Protocols/01-UART.md) · [Clock Tree](../../../01-Knowledge-Base/MCU/05-Clock-Tree.md) · 互动实验：[UART Frame Visualizer](../../../03-Interactive-Labs/UART-Frame-Visualizer/README.md)
+
 ## 故障现场
 
 MCU 持续发送 `Hello`，PC 串口工具却显示乱码。
