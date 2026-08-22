@@ -25,3 +25,10 @@
 ## Lesson
 
 “中断太多”不是完整根因。必须找到是谁持续请求中断，以及硬件要求怎样解除该请求。
+
+## Learning Links
+
+- [Stage 04 — Debug Hunter](../../02-Learning-Path/Stage-04-Debug-Hunter/README.md)
+- [Interrupt Knowledge](../../01-Knowledge-Base/MCU/02-Interrupt.md)
+- [Evidence-Driven Debugging](../../01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md)
+- [Choose the Instrument Mission](../../04-Missions/Stage-04-Debug-Hunter/03-Choose-The-Instrument/Mission.md)
