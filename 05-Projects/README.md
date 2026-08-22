@@ -1,29 +1,11 @@
-# Projects
+# Projects — 综合工程
 
-Projects 用于验证多个知识点能否被组合成真实工程能力。
+Project 与 Mission 不同：Mission 训练一个主要能力，Project 要求把多个能力组合起来完成可运行系统。
 
-## 分层
+## 分级
 
-```text
-Beginner/
-Intermediate/
-Advanced/
-Boss/
-```
+- Beginner：PC 模拟器、GPIO/UART 小系统。
+- Intermediate：多外设、RTOS、协议、数据采集。
+- Advanced：MCU + FPGA / Linux / 上位机系统级联调。
 
-## 项目要求
-
-每个核心项目尽量包含：
-
-- Requirement；
-- Constraints；
-- Architecture；
-- Milestones；
-- Acceptance Criteria；
-- Failure Injection；
-- Debug Notes；
-- Retrospective。
-
-项目不以“代码能运行”为唯一完成标准，还需要说明如何验证、出现故障如何定位，以及哪些设计可以迁移到其他系统。
-
-旧 `07-Projects/` 内容将在 V2.1 后续迁移到这里。
+每个项目至少包含需求、接口、验收标准、故障场景和复盘，不以“代码能运行”作为唯一完成标准。

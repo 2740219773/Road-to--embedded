@@ -1,34 +1,9 @@
-# Debugging Cases
+# Debugging Cases — 故障案例库
 
-这里保存真实或高仿真的故障案例。
+这里保存可以重复训练的真实工程故障。
 
-目标不是积累“答案”，而是积累问题定位方法。
+标准过程：`现象 → 假设 → 证据 → 排除 → 根因 → 修复 → 回归验证`。
 
-统一结构：
+计划案例包括 UART 乱码、SPI 无响应、GPIO 不动作、HardFault、栈溢出、RTOS 死锁、DMA 不触发、FPGA 时序/CDC 等。
 
-```text
-Symptom
-Context
-Evidence
-Hypotheses
-Experiments
-Root Cause
-Fix
-Verification
-Prevention
-```
-
-## 计划案例
-
-- Build / Link Error；
-- GPIO No Response；
-- UART Garbled Data；
-- SPI No Response；
-- I2C NACK；
-- Interrupt Not Firing；
-- DMA Abnormal；
-- HardFault；
-- Timing Issue；
-- Power / Wiring / Ground Issue。
-
-案例可以被 Mission 和 Boss Project 引用。
+案例应尽量提供日志、波形、寄存器快照或代码片段，让学习者依据证据判断，而不是猜答案。

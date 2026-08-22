@@ -1,39 +1,7 @@
-# Missions
+# Missions — 工程任务关卡
 
-Mission 是学习体验的核心入口。
+Mission 是 Road to Embedded 的核心学习单元。
 
-它不按“第几章知识”组织，而按真实问题、现象或工程目标组织。
+每个 Mission 从现象或目标开始，而不是从定义开始。标准节奏：Hook → Predict → Observe/Play → Build → Break It → Debug → Boss → Review。
 
-## Mission 基本结构
-
-```text
-Hook
-→ Mission Goal
-→ Predict
-→ Explore
-→ Action
-→ Break It
-→ Debug
-→ Boss Challenge
-→ Review
-```
-
-## 命名
-
-使用：
-
-```text
-Mission-001-Memory-Detective
-Mission-002-Bit-Hacker
-Mission-003-Volatile-Mystery
-...
-```
-
-## 规则
-
-- Mission 不复制 Knowledge Base 长文；
-- 至少包含一次预测；
-- 至少包含一次实际操作；
-- 重要 Mission 要有典型错误；
-- Debug 过程优先要求证据，而不是直接给答案；
-- 最终必须有明确通过标准。
+一个 Mission 应有明确能力目标，并链接 Knowledge Base、Interactive Lab、真实硬件实验和 OpenMAIC 课堂源。
