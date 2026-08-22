@@ -24,4 +24,9 @@ I²C 常见 Open-Drain 总线需要上拉形成高电平。当前 SDA/SCL 空闲
 
 协议分析之前先确认电气层。没有有效 HIGH/LOW，就没有值得继续解释的 I²C 字节。
 
-关联 Mission：`04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md`。
+## Learning Links
+
+- [Stage 03 — Peripheral Engineer](../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md)
+- [Mission — I²C No ACK](../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md)
+- [I²C Knowledge](../../01-Knowledge-Base/Protocols/02-I2C.md)
+- [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/README.md)
