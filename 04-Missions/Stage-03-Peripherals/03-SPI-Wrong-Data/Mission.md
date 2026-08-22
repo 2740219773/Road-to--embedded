@@ -1,5 +1,7 @@
 # Mission — SPI 有波形，但数据为什么是错的？
 
+> 学习路径：[Stage 03 — Peripheral Explorer](../../../02-Learning-Path/Stage-03-Peripheral-Explorer/README.md) · 知识支撑：[SPI](../../../01-Knowledge-Base/Protocols/03-SPI.md) · 互动实验：[SPI Timing Playground](../../../03-Interactive-Labs/SPI-Timing-Playground/README.md)
+
 ## 故障现场
 
 逻辑分析仪上 SCLK、MOSI、MISO、CS 都有波形，程序也确实收到字节，但设备 ID 应该是 `0xA5`，你读到的却总是错误值。
