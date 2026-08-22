@@ -1,5 +1,14 @@
 # Mission — Software or Hardware：这段 Verilog 到底变成了什么？
 
+## Related
+
+- [Stage 07 — FPGA](../../../02-Learning-Path/Stage-07-FPGA/README.md)
+- [Knowledge — What Is FPGA](../../../01-Knowledge-Base/FPGA/01-What-Is-FPGA.md)
+- [Knowledge — Combinational vs Sequential Logic](../../../01-Knowledge-Base/FPGA/02-Combinational-Sequential.md)
+- [Knowledge — RTL / Verilog Mindset](../../../01-Knowledge-Base/FPGA/03-RTL-Verilog-Mindset.md)
+
+> Stage 07 当前仍是 V2.1 的纵向样板阶段，FPGA Interactive Lab、Debug Case 和 Boss Project 尚未建设，因此这里不创建空链接。
+
 ## Scene
 
 你已经会 C/C#，第一次看到：
