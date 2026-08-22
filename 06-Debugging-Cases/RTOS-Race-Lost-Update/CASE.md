@@ -1,5 +1,12 @@
 # Debugging Case — Lost Update in RTOS
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Mission — Race Condition](../../04-Missions/Stage-05-RTOS/01-Race-Condition/Mission.md)
+- [Knowledge — Race Condition](../../01-Knowledge-Base/RTOS/04-Race-Condition.md)
+- [Lab — Race Interleaving Visualizer](../../03-Interactive-Labs/Race-Interleaving-Visualizer/)
+
 ## Symptom
 
 两个 Task 分别对共享 `counter` 增加 1000 次，最终值低于 2000，并且每次运行结果不同。
