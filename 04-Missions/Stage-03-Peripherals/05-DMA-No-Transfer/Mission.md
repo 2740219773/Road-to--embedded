@@ -1,5 +1,11 @@
 # Mission — DMA 配好了，为什么一个字节都没搬？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
+- Knowledge：`01-Knowledge-Base/MCU/04-DMA.md`
+- Lab：`03-Interactive-Labs/DMA-Transfer-Simulator/`
+
 ## 故障现场
 
 UART RX 已经能产生数据，DMA 也完成初始化，但目标 Buffer 始终不变化。
