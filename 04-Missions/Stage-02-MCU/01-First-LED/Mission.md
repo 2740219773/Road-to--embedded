@@ -1,5 +1,7 @@
 # Mission — 第一盏 LED：代码执行了，灯为什么没亮？
 
+> 学习路径：[Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md) · 知识支撑：[GPIO](../../../01-Knowledge-Base/MCU/01-GPIO.md) · [Clock Tree](../../../01-Knowledge-Base/MCU/05-Clock-Tree.md)
+
 ## 故障现场
 
 你已经成功编译、下载程序，Debugger 也能运行，但开发板上的 LED 没有任何反应。
