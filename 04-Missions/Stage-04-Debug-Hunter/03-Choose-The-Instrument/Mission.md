@@ -1,5 +1,13 @@
 # Mission — Choose the Instrument：这次该拿什么工具？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-04-Debug-Hunter/`
+- Knowledge：`01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md`
+- Instruments：`01-Knowledge-Base/Debugging/05-Oscilloscope-Logic-Analyzer.md`
+- Watchpoint：`01-Knowledge-Base/Debugging/04-Debugger-Watchpoint.md`
+- Boss Project：`05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md`
+
 每个场景先选“信息量最高的第一件工具”，并说明原因。
 
 ## Scene A
