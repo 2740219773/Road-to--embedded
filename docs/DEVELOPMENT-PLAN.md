@@ -2,7 +2,9 @@
 
 ## 目标
 
-V2.1 不以增加课程数量为目标，而以完成架构重构和维护体系为目标。
+V2.1 的核心仍然是完成架构重构和维护体系，而不是宣布所有后续课程完成。
+
+当前分支已经提前制作了多个后续 Stage 的纵向样板，用来验证新架构是否能支持 MCU、Debugging、RTOS、Embedded Linux、FPGA。接下来必须从“继续扩内容”切回“整理、验证、收口”。
 
 ## Workstream A — Project Governance
 
@@ -11,13 +13,15 @@ V2.1 不以增加课程数量为目标，而以完成架构重构和维护体系
 - [x] `CONTRIBUTING.md`
 - [x] `docs/ARCHITECTURE.md`
 - [x] `docs/CONTENT-DESIGN.md`
-- [ ] `docs/MIGRATION-V2.1.md`
-- [ ] 课程/任务/实验模板
-- [ ] README 与新架构完全一致
+- [x] `docs/MIGRATION-V2.1.md`
+- [x] `docs/BEGINNER-READABILITY.md`
+- [x] 课程 / Mission / Lab / Debug Case 模板
+- [x] README 已切换到新架构
+- [ ] 完成本轮 Repository Audit 修订
 
 ## Workstream B — New Directory Model
 
-建立：
+新主结构已经建立：
 
 ```text
 01-Knowledge-Base/
@@ -31,27 +35,27 @@ V2.1 不以增加课程数量为目标，而以完成架构重构和维护体系
 09-Progress/
 ```
 
-每个目录先建立职责说明，再迁移内容。
+当前任务不是再增加新的顶层分类，而是保持这些职责稳定。
 
-## Workstream C — Migration
+## Workstream C — Migration & Cleanup
 
-优先迁移 Phase 0 / Phase 1，因为这些内容已经存在且能用于验证架构。
+已完成第一轮内容迁移，但旧目录仍然存在，因此当前存在“新旧双轨”。
 
-迁移顺序：
+接下来按下面顺序收口：
 
-1. System Map → Knowledge Base；
-2. Embedded C → Knowledge Base；
-3. Memory Detective → Mission；
-4. OpenMAIC prompt → OpenMAIC；
-5. Progress → 09-Progress；
-6. Projects / Debugging / Resources → 新目录；
-7. 旧路径标注 deprecated；
-8. 内部链接统一更新；
-9. 确认无引用后删除旧目录。
+1. 统一 Mission 命名为 `Stage-XX-.../NN-Mission-Name/`；
+2. 修复 Stage README 中仍指向旧知识目录的说明；
+3. 检查 README / Mission / OpenMAIC 的内部路径；
+4. 在旧顶层目录增加明确 Legacy 标识；
+5. 搜索仍引用 `01-Fundamentals`、旧 `02-MCU`～`10-Interactive-Labs` 的新内容；
+6. 确认旧文件已经迁移或废弃；
+7. 最后删除旧目录。
 
-## Workstream D — Learning Path
+在完成第 1～6 步之前，不直接批量删除旧目录。
 
-建立 Stage Map：
+## Workstream D — Learning Path Consistency
+
+Stage 主线保持：
 
 ```text
 Stage 00 System Explorer
@@ -65,69 +69,104 @@ Stage 07 FPGA Builder
 Stage 08 System Integrator
 ```
 
-每个 Stage 定义：
+检查每个 Stage 是否至少明确：
 
-- Entry Requirements；
-- Missions；
-- Labs；
-- Debug Challenges；
-- Boss；
+- 学之前要知道什么；
+- 为什么现在学这个；
+- 核心 Mission；
+- 可用 Interactive Lab；
+- Debug Challenge；
+- Boss Project；
 - Exit Criteria。
 
-V2.1 至少完成 Stage 00 和 Stage 01 的具体映射。
+V2.1 不要求每个 Stage 内容完整，但不允许 Stage 顺序和技术职责互相冲突。
 
-## Workstream E — Interactive Pilot
+## Workstream E — Vertical-Slice Validation
 
-V2.1 只要求验证机制，不要求批量开发模拟器。
+已经完成的纵向样板包括：
 
-保留第一关 Memory Detective，并规划：
+- Stage 01：Memory / Register；
+- Stage 02～03：GPIO、UART、I2C、SPI、ADC、PWM、DMA、CAN、Modbus；
+- Stage 04：HardFault、Watchpoint、Stack、仪器取证；
+- Stage 05：Scheduler、Race、Deadlock 等；
+- Stage 06：Linux System / Boot / Device Tree / Cross Compilation；
+- Stage 07：FPGA mindset / combinational / sequential / RTL。
 
-- Memory Visualizer；
-- 32-bit Register Playground。
+这些样板用于验证：
 
-真正实现交互工具放到 V2.2。
+```text
+Beginner Concept
+→ Knowledge
+→ Mission
+→ Interactive Lab
+→ Real / Simulated Evidence
+→ Debug Case
+→ Boss
+```
 
-## Workstream F — Quality
+后续正式版本再补齐缺失环节。
 
-重构完成前检查：
+## Workstream F — Beginner Readability
 
-- [ ] 主 README 不再把旧目录当最终结构；
-- [ ] 所有新顶层目录都有 README；
-- [ ] Stage 00 / 01 能从首页连续导航；
-- [ ] Knowledge 和 Mission 没有大段重复；
-- [ ] OpenMAIC prompt 指向正确源文件；
-- [ ] 没有明显死链；
+所有新人第一次可能遇到的术语，按以下顺序表达：
+
+```text
+它是什么
+→ 在系统哪里
+→ 为什么需要
+→ 直觉类比
+→ 英文名 / 缩写
+→ 最小结构图
+→ 参数 / API / 寄存器
+```
+
+当前优先反查：MCU、Protocol、Debugging、RTOS、Linux、FPGA 的第一入口页面。
+
+## Workstream G — Quality Gate
+
+V2.1 合并前必须满足：
+
+- [ ] 首页只把新结构作为正式入口；
+- [ ] 所有新顶层目录职责清晰；
+- [ ] Stage 00～08 导航一致；
+- [ ] Mission 命名一致；
+- [ ] Knowledge 与 Mission 没有大段重复维护；
+- [ ] OpenMAIC prompt 指向正确 Knowledge / Mission；
+- [ ] 无关键死链；
+- [ ] 旧目录带 Legacy 标识；
 - [ ] 旧内容都有迁移去向；
-- [ ] backup branch 可恢复重构前状态。
+- [ ] 新手关键术语有第一次解释；
+- [ ] backup branch 可恢复重构前状态；
+- [ ] `09-Progress/V2.1-Migration-Status.md` 与真实状态一致。
 
-## 优先级
+## 当前优先级
 
 ### P0
 
-架构、迁移、导航、维护文档。
+一致性、导航、命名、迁移、死链、Legacy 清理。
 
 ### P1
 
-Stage 00 / 01 的新结构落地。
+Stage 01 完整闭环和新手可读性。
 
 ### P2
 
-第二个 Mission 和 Register Playground。
+修订现有纵向样板，使其真正引用同一套 Knowledge / Mission / Lab。
 
 ### P3
 
-继续扩展 MCU 课程。
+在 V2.1 合并后，再继续批量扩展新内容。
 
-## 维护节奏建议
+## 维护节奏
 
-后续每次新增内容尽量采用小批次：
+后续新增内容继续采用小闭环：
 
 ```text
 一个知识主题
 → 一个 Mission
-→ 一个实验/互动
-→ 一个故障案例
-→ 更新 Stage Progress
+→ 一个互动或真实实验
+→ 一个故障场景
+→ 更新 Stage / Progress
 ```
 
-避免一次生成几十篇互相没有验证过的课程。
+避免再次出现“内容增加很快，但导航和版本说明没有同步”的情况。
