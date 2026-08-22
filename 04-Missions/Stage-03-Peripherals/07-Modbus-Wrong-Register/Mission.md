@@ -1,5 +1,11 @@
 # Mission — Modbus 通了，为什么读到的寄存器不对？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
+- Knowledge：`01-Knowledge-Base/Protocols/05-RS485-Modbus.md`
+- Lab：`03-Interactive-Labs/Modbus-Frame-Builder/`
+
 ## 故障现场
 
 设备手册写“Holding Register 40001”，你在程序中把起始地址直接填写为 40001，设备返回 Illegal Data Address 或读到完全不相关的数据。
