@@ -1,29 +1,61 @@
-# ADC — 电压如何变成数字
+# ADC — MCU 怎么“测量电压”
 
-ADC 把一定范围内的模拟输入映射为数字码值。
+## 先用一句人话理解
 
-理想化模型：
+ADC 是 Analog-to-Digital Converter，中文叫模数转换器。它的作用是把现实世界里的模拟电压，转换成 MCU 能处理的数字。
+
+例如一个电位器输出 0～3.3V，MCU 本身不能像万用表一样直接“理解 1.65V”，ADC 会把这个电压转换成一个数字码值。
 
 ```text
-Analog Voltage → Sample → Quantize → Digital Code
+真实电压
+1.65 V
+  ↓
+ADC
+  ↓
+数字值
+例如 2048（12-bit ADC，理想情况附近）
 ```
 
-## 核心问题
+可以把 ADC 想成一把电子尺子：Reference Voltage 决定尺子的总量程，Resolution 决定这把尺子一共被分成多少小格。
 
-- Resolution 与可表示码值数量是什么关系？
-- Reference Voltage 为什么决定换算尺度？
-- Sampling Time 为什么不是越短越好？
-- 输入阻抗、噪声、接地和参考源为什么会影响结果？
-- ADC 读数抖动一定是软件问题吗？
+## Resolution 是什么
+
+Resolution（分辨率）通常用 bit 表示。
+
+例如 12-bit ADC 可以表示大约 `2^12 = 4096` 个等级，也就是从 0 到 4095。
+
+如果量程是 0～3.3V，那么理想情况下每一个最小数字格代表大约：
+
+```text
+3.3 V / 4095
+```
+
+的电压变化。
+
+## Reference Voltage 是什么
+
+Reference Voltage（参考电压，Vref）告诉 ADC“满量程电压是多少”。
+
+所以 ADC 的数字值不是凭空产生的，它一定是“输入电压相对于参考电压”的结果。
+
+## Sampling 是什么
+
+ADC 不是连续无穷快地看电压，而是在某个时刻把输入“取样”下来再转换。这个过程叫 Sampling（采样）。
+
+Sampling Time 太短时，某些高阻信号可能还没来得及稳定；太长则会影响采样速度。因此它不是简单的“越短越好”。
+
+## 为什么 ADC 数值会抖
+
+真实世界不是理想公式。输入噪声、电源、Vref、接地、PCB 布线、信号源阻抗、数字开关干扰以及量化本身都会让读数变化。
+
+所以看到 ADC 抖动，不要第一反应就是“加平均滤波”。先判断它为什么抖。
 
 ## 推荐互动
 
-ADC Sampling Simulator：拖动输入电压、Reference、Resolution 和 Noise，实时观察量化码值；改变 Sampling Rate，观察对变化信号的采样结果。
+进入 `03-Interactive-Labs/ADC-Sampling-Simulator/`，改变 Input Voltage、Resolution 和 Noise，观察同一个模拟电压为什么可能对应不同数字结果。
 
-## 真机验证
+## 第一次真机实验
 
-用已知稳定电压源或电位器输入 ADC，同时使用万用表测真实电压，比较理论值和 ADC 结果。
+用一个已知稳定电压或电位器接 ADC，引入万用表作为“现实世界参考”，同时比较：万用表电压、理论 ADC Code、MCU 实际 ADC Code。
 
-## 故障视角
-
-数值异常时同时检查软件配置、Pin Mode、Vref、采样时间、源阻抗、地线、噪声和换算公式。
+这样就建立了“模拟世界 → ADC → 数字世界”的第一条链路。
