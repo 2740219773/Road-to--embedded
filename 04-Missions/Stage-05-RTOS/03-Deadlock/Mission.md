@@ -1,5 +1,13 @@
 # Mission — Two Locks, No Progress
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Knowledge — Queue / Semaphore / Mutex](../../../01-Knowledge-Base/RTOS/02-Queue-Semaphore-Mutex.md)
+- [Knowledge — Deadlock](../../../01-Knowledge-Base/RTOS/06-Deadlock.md)
+- [Debug Cases](../../../06-Debugging-Cases/README.md)
+- [Boss — RTOS Refactor](../../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
+
 ## Scene
 
 Task A 与 Task B 都还存在，系统没有 crash，但两个关键功能永远不再推进。
