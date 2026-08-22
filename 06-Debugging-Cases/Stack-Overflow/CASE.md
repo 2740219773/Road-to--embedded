@@ -27,3 +27,12 @@
 ## Lesson
 
 “加大 stack 后不崩了”是重要证据，但最终仍要理解真实 stack usage，而不是无限增大栈。
+
+## Learning Links
+
+- [Stage 04 — Debug Hunter](../../02-Learning-Path/Stage-04-Debug-Hunter/README.md)
+- [Stage 05 — RTOS Engineer](../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Stack & Memory Corruption](../../01-Knowledge-Base/Debugging/03-Stack-and-Memory-Corruption.md)
+- [Task Stack & Deadline](../../01-Knowledge-Base/RTOS/08-Task-Stack-and-Deadline.md)
+- [Stage 04 Boss Project](../../05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md)
+- [Stage 05 Boss Project](../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
