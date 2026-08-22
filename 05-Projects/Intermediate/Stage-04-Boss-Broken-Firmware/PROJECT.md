@@ -1,5 +1,13 @@
 # Stage 04 Boss Project — Broken Firmware Investigation
 
+## Navigation
+
+- [Stage 04 — Debug Hunter](../../../02-Learning-Path/Stage-04-Debug-Hunter/README.md)
+- [Fault Scene Mission](../../../04-Missions/Stage-04-Debug-Hunter/01-Fault-Scene/Mission.md)
+- [Who Wrote It Mission](../../../04-Missions/Stage-04-Debug-Hunter/02-Who-Wrote-It/Mission.md)
+- [Choose the Instrument Mission](../../../04-Missions/Stage-04-Debug-Hunter/03-Choose-The-Instrument/Mission.md)
+- [Debugging Cases](../../../06-Debugging-Cases/README.md)
+
 ## 目标
 
 你拿到的不是一个待开发项目，而是一份“别人写好但充满故障”的 Firmware。
