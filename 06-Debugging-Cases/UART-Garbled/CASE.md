@@ -29,4 +29,10 @@ MCU 预期发送 ASCII `U` (`0x55`)，PC 端持续收到乱码。
 
 配置文件不是物理事实。示波器测到的 bit time 才是当前 TX 引脚真正发生的事情。
 
-关联 Mission：`04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md`。
+## Learning Links
+
+- [Stage 03 — Peripheral Engineer](../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md)
+- [Mission — UART Garbled](../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md)
+- [UART Knowledge](../../01-Knowledge-Base/Protocols/01-UART.md)
+- [Clock Tree](../../01-Knowledge-Base/MCU/05-Clock-Tree.md)
+- [UART Frame Visualizer](../../03-Interactive-Labs/UART-Frame-Visualizer/README.md)
