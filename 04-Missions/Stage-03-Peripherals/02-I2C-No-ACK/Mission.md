@@ -1,5 +1,7 @@
 # Mission — I²C No ACK：地址明明对，为什么设备不回答？
 
+> 学习路径：[Stage 03 — Peripheral Explorer](../../../02-Learning-Path/Stage-03-Peripheral-Explorer/README.md) · 知识支撑：[I²C](../../../01-Knowledge-Base/Protocols/02-I2C.md) · 互动实验：[I²C Bus Visualizer](../../../03-Interactive-Labs/I2C-Bus-Visualizer/README.md)
+
 ## 故障现场
 
 Datasheet 写着设备地址是 `0x50`，程序也配置了 `0x50`，但 MCU 始终得到 NACK。
