@@ -1,5 +1,13 @@
 # Mission — High Priority Why Waiting?
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Knowledge — Queue / Semaphore / Mutex](../../../01-Knowledge-Base/RTOS/02-Queue-Semaphore-Mutex.md)
+- [Knowledge — Priority Inversion](../../../01-Knowledge-Base/RTOS/05-Priority-Inversion.md)
+- [Lab — RTOS Scheduler Timeline](../../../03-Interactive-Labs/RTOS-Scheduler-Timeline/)
+- [Boss — RTOS Refactor](../../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
+
 ## Scene
 
 High-priority Task 必须在 5 ms 内响应，但它偶尔等待几十毫秒。
