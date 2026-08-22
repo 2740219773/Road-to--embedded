@@ -30,3 +30,11 @@ Stacked PC 指向该写操作附近。
 ## Lesson
 
 从 Stacked PC 回到故障指令，再解释该指令访问的地址。不要把解决方案写成“HardFault 时重启”。
+
+## Learning Links
+
+- [Stage 04 — Debug Hunter](../../02-Learning-Path/Stage-04-Debug-Hunter/README.md)
+- [Mission — Fault Scene](../../04-Missions/Stage-04-Debug-Hunter/01-Fault-Scene/Mission.md)
+- [Cortex-M Fault Model](../../01-Knowledge-Base/Debugging/02-Cortex-M-Fault-Model.md)
+- [Evidence-Driven Debugging](../../01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md)
+- [Stage 04 Boss Project](../../05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md)
