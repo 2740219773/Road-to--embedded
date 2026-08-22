@@ -29,3 +29,10 @@ Debugger memory view shows values beyond `adc_buffer` changing during transfer.
 ## Lesson
 
 内存破坏的写入者不一定是 CPU 指令。调查“谁能写这个地址”时必须包含 DMA 和其他 bus master。
+
+## Learning Links
+
+- [Stage 03 — Peripheral Engineer](../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md)
+- [Mission — DMA No Transfer](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md)
+- [DMA Knowledge](../../01-Knowledge-Base/Protocols/05-DMA.md)
+- [DMA Transfer Simulator](../../03-Interactive-Labs/DMA-Transfer-Simulator/README.md)
