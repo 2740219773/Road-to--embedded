@@ -2,7 +2,22 @@
 
 这一部分用于补齐进入嵌入式开发前最关键的基础知识。
 
-## 学习范围
+## Phase 0：先建立系统地图
+
+正式进入 C、STM32 和 FPGA 之前，先理解整个系统是怎么组成和运行的。
+
+建议按顺序完成：
+
+1. [MCU、MPU、SoC、FPGA 到底是什么](./00-System-Map/01-MCU-MPU-SoC-FPGA.md)
+2. [CPU、RAM、Flash、寄存器到底是什么](./00-System-Map/02-CPU-RAM-Flash-Register.md)
+3. [裸机、RTOS、Linux 有什么区别](./00-System-Map/03-Baremetal-RTOS-Linux.md)
+4. [一段 C 代码是怎么跑到芯片上的](./00-System-Map/04-From-C-to-Chip.md)
+
+Phase 0 的目的不是记术语，而是形成一张完整的系统地图。以后学到任何新知识，都应该能回答：它在整套系统里的哪一层？解决什么问题？和上下层怎么连接？
+
+---
+
+## 后续基础学习范围
 
 ### C 语言
 
