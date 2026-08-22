@@ -1,5 +1,12 @@
 # Stage 02 Boss Project — GPIO Control Node
 
+## Navigation
+
+- [Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md)
+- [Mission — First LED](../../../04-Missions/Stage-02-MCU/01-First-LED/Mission.md)
+- [GPIO Knowledge](../../../01-Knowledge-Base/MCU/01-GPIO.md)
+- [Timer & PWM Knowledge](../../../01-Knowledge-Base/MCU/03-Timer-PWM.md)
+
 ## 项目目标
 
 做一个最小但完整的 MCU 控制节点：按钮作为输入，LED 作为输出，Timer 提供系统节拍；程序不能依赖长时间阻塞式 delay。
