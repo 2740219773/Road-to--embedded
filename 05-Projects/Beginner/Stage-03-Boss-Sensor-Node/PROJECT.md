@@ -1,5 +1,14 @@
 # Stage 03 Boss Project — Multi-Peripheral Sensor Node
 
+## Navigation
+
+- [Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md)
+- [UART Mission](../../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md)
+- [I²C Mission](../../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md)
+- [SPI Mission](../../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md)
+- [ADC Mission](../../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md)
+- [DMA Mission](../../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md)
+
 ## 项目目标
 
 构建一个小型数据采集节点，把 Stage 03 的多个外设真正串起来。
