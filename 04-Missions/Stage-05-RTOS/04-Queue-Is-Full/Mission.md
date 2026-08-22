@@ -1,5 +1,13 @@
 # Mission 04 — Queue Is Full：消息怎么越积越多？
 
+## Related
+
+- [Stage 05 — RTOS Engineer](../../../02-Learning-Path/Stage-05-RTOS-Engineer/README.md)
+- [Knowledge — Queue / Semaphore / Mutex](../../../01-Knowledge-Base/RTOS/02-Queue-Semaphore-Mutex.md)
+- [Knowledge — Queue Overflow](../../../01-Knowledge-Base/RTOS/07-Queue-Overflow.md)
+- [Knowledge — Task Stack & Deadline](../../../01-Knowledge-Base/RTOS/08-Task-Stack-and-Deadline.md)
+- [Boss — RTOS Refactor](../../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
+
 ## Scene
 
 SensorTask 每 10 ms 产生一条数据，LoggerTask 平均每 30 ms 才处理一条。系统开始运行时一切正常，过一会儿 Queue 满了。
