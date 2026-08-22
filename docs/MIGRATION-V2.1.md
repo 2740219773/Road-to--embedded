@@ -1,98 +1,87 @@
 # Migration Map — V2.1
 
-## 迁移原则
+## 迁移结果
 
-V2.1 采用“先建新结构、再迁移、最后清理旧目录”的方式。
+V2.1 已完成从旧章节式目录到新内容模型的结构迁移。
 
-旧目录在确认新路径可用之前不会直接删除。
+旧版本完整保存在：
+
+```text
+backup/pre-v2.1-restructure
+```
+
+当前 `refactor/v2.1-learning-system` 已退休 Legacy 顶层目录，不再采用双轨维护。
 
 ## 旧结构 → 新结构
 
 | 旧路径 | 新职责 | 新路径 |
 |---|---|---|
-| `00-Roadmap/` | 项目路线/学习路线 | `00-Project/` + `02-Learning-Path/` |
-| `01-Fundamentals/00-System-Map/` | 系统知识底稿 | `01-Knowledge-Base/System-Map/` |
+| `00-Roadmap/` | 项目治理 + 学习路线 | 根目录治理文档 + `02-Learning-Path/` |
+| `01-Fundamentals/00-System-Map/` | 系统知识底稿 | `01-Knowledge-Base/System/` |
 | `01-Fundamentals/C/` | Embedded C 知识底稿 | `01-Knowledge-Base/C/` |
-| `02-MCU/` | MCU 知识底稿 | `01-Knowledge-Base/MCU/` |
-| `03-RTOS/` | RTOS 知识底稿 | `01-Knowledge-Base/RTOS/` |
-| `04-Embedded-Linux/` | Linux 知识底稿 | `01-Knowledge-Base/Embedded-Linux/` |
-| `05-FPGA/` | FPGA 知识底稿 | `01-Knowledge-Base/FPGA/` |
-| `06-Protocols/` | 协议知识底稿 | `01-Knowledge-Base/Protocols/` |
+| `02-MCU/` | MCU 知识 | `01-Knowledge-Base/MCU/` |
+| `03-RTOS/` | RTOS 知识 | `01-Knowledge-Base/RTOS/` |
+| `04-Embedded-Linux/` | Linux 知识 | `01-Knowledge-Base/Embedded-Linux/` |
+| `05-FPGA/` | FPGA 知识 | `01-Knowledge-Base/FPGA/` |
+| `06-Protocols/` | 协议知识 | `01-Knowledge-Base/Protocols/` |
 | `07-Projects/` | 综合工程 | `05-Projects/` |
-| `08-Debugging/` | 调试方法/案例 | `06-Debugging-Cases/` |
+| `08-Debugging/` | 调试方法与案例 | `01-Knowledge-Base/Debugging/` + `06-Debugging-Cases/` |
 | `09-Resources/` | 外部资源 | `08-Resources/` |
-| `10-Interactive-Labs/` | Mission + Lab + OpenMAIC 混合 | 拆分到 `03/04/07` |
+| `10-Interactive-Labs/` | Mission / Lab / OpenMAIC 混合内容 | 拆分到 `03-Interactive-Labs/`、`04-Missions/`、`07-OpenMAIC/` |
 
-## 已有第一关拆分
+## Mission 命名规范
 
-旧：
+迁移过程中一度同时存在 `Mission-001-*`、`Phase-1-C/*` 和 `Stage-*/*` 三种方式。V2.1 收口后统一为：
 
 ```text
-10-Interactive-Labs/Phase-1-C/01-Memory-Detective/
-├─ Mission.md
-└─ openmaic-prompt.md
+04-Missions/
+  Stage-01-C-and-Memory/
+    01-Memory-Detective/
+    02-Bit-Hacker/
+  Stage-02-MCU/
+  Stage-03-Peripherals/
+  Stage-04-Debug-Hunter/
+  Stage-05-RTOS/
+  Stage-06-Embedded-Linux/
+  Stage-07-FPGA/
 ```
 
-新：
+OpenMAIC 课程源按相同 Stage 逻辑组织。
+
+## Memory Detective 拆分结果
+
+旧目录曾把 Mission 与 OpenMAIC prompt 混在一起。现在职责拆分为：
 
 ```text
-04-Missions/Mission-001-Memory-Detective/Mission.md
-07-OpenMAIC/Mission-001-Memory-Detective/prompt.md
-```
-
-未来交互实现：
-
-```text
+04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md
 03-Interactive-Labs/Memory-Visualizer/
+07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md
 ```
 
-这样 Mission、平台生成材料和真正可运行的互动组件不再混在一起。
-
-## Roadmap 拆分
-
-旧的 `Learning-Roadmap.md` 同时包含知识阶段和学习顺序。
-
-V2.1 后拆分为：
+技术事实则来自：
 
 ```text
-02-Learning-Path/README.md          总 Stage 地图
-02-Learning-Path/Stage-00-*/        具体学习体验
-02-Learning-Path/Stage-01-*/
-...
-
-01-Knowledge-Base/                  具体技术知识
+01-Knowledge-Base/C/
 ```
 
-## 清理条件
+## 清理已完成
 
-一个旧目录只有满足以下条件才允许删除：
+- Legacy 顶层技术目录已退休；
+- 旧 Roadmap / Progress 文件已退休；
+- 旧 Memory Detective 混合目录已退休；
+- GitHub Projects 资源索引已迁到 `08-Resources/`；
+- Stage 00 已改为直接引用正式 System Knowledge Base；
+- Stage 01 Mission 与 OpenMAIC 命名已统一；
+- Stage 02 / 03 已补正式导航入口。
 
-1. 内容已经迁移或确认废弃；
-2. README 和 Stage 不再引用旧路径；
-3. OpenMAIC / Mission 链接已经更新；
-4. GitHub 搜索确认没有关键引用；
-5. backup branch 中仍保留完整旧版本。
+## 迁移后仍需验证的内容
 
-## V2.1 迁移批次
+V2.1 的“搬家”已经完成，但合并 `main` 前还必须执行：
 
-### Batch 1
+1. Stage 00～08 导航逐页检查；
+2. Mission → Knowledge / Lab / Debug Case / Boss 的互链检查；
+3. README / docs 的陈旧路径扫描；
+4. Beginner Readability Checklist；
+5. PR 最终一致性检查。
 
-- 项目治理文档；
-- 新顶层目录；
-- Stage 00 / 01；
-- Phase 0 / 1 Knowledge Base；
-- Memory Detective。
-
-### Batch 2
-
-- Projects；
-- Debugging；
-- Resources；
-- Progress。
-
-### Batch 3
-
-- 更新 README；
-- 全仓链接检查；
-- 旧目录清理；
-- PR Review / Merge。
+因此本文件现在是迁移历史记录，不再作为“待迁移计划”。
