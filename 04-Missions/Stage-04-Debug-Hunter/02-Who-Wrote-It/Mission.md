@@ -1,5 +1,12 @@
 # Mission — Who Wrote It：是谁改坏了状态？
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-04-Debug-Hunter/`
+- Knowledge：`01-Knowledge-Base/Debugging/04-Debugger-Watchpoint.md`
+- Memory Corruption：`01-Knowledge-Base/Debugging/03-Stack-and-Memory-Corruption.md`
+- Boss Project：`05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md`
+
 ## Scene
 
 `system_state` 正常应该只出现 `IDLE/RUN/ERROR`，但运行几分钟后偶尔变成 `0x7F`。
