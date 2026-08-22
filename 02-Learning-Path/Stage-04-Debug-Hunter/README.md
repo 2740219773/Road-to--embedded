@@ -2,29 +2,41 @@
 
 这一阶段不以新增外设为主，而是系统训练定位能力。
 
-## 工具
+## 核心方法
 
-Debugger / SWD / JTAG、串口日志、逻辑分析仪、示波器、万用表、Datasheet、Reference Manual。
-
-## 训练模式
+先建立 [Evidence-Driven Debugging](../../01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md)：
 
 ```text
-给出故障现场
-→ 不给答案
-→ 建立假设
-→ 选择工具
-→ 获取证据
-→ 缩小范围
-→ 找到根因
-→ 修复并回归
+Symptom
+→ Expected
+→ Hypotheses
+→ Measurement
+→ Evidence
+→ Root Cause
+→ Fix
+→ Regression
 ```
 
-## 典型案例
+## Mission Map
 
-UART 乱码、GPIO 不动作、I2C NACK、SPI 时序错误、HardFault、栈破坏、DMA 不触发、中断优先级问题。
+1. [Fault Scene：不要重启，先保护现场](../../04-Missions/Stage-04-Debug-Hunter/01-Fault-Scene/Mission.md)
+2. [Who Wrote It：是谁改坏了状态？](../../04-Missions/Stage-04-Debug-Hunter/02-Who-Wrote-It/Mission.md)
+3. [Choose the Instrument：这次该拿什么工具？](../../04-Missions/Stage-04-Debug-Hunter/03-Choose-The-Instrument/Mission.md)
 
-故障案例统一沉淀到 `06-Debugging-Cases/`。
+## 工具与知识入口
 
-## Boss
+- [Cortex-M Fault Model](../../01-Knowledge-Base/Debugging/02-Cortex-M-Fault-Model.md)
+- [Stack & Memory Corruption](../../01-Knowledge-Base/Debugging/03-Stack-and-Memory-Corruption.md)
+- [Debugger Watchpoint](../../01-Knowledge-Base/Debugging/04-Debugger-Watchpoint.md)
+- [Oscilloscope & Logic Analyzer](../../01-Knowledge-Base/Debugging/05-Oscilloscope-Logic-Analyzer.md)
+- [Debugging Cases](../../06-Debugging-Cases/README.md)
 
-给一个包含多个独立故障的 MCU 工程，只提供现象和有限日志，独立完成定位报告。
+## Boss Project
+
+- [Broken Firmware Investigation](../../05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md)
+
+## 完成标准
+
+面对陌生故障时，能够先描述现象、选择高信息量测量、保护现场、建立证据链，而不是反复随机改代码。
+
+完成后进入 [Stage 05 — RTOS Engineer](../Stage-05-RTOS-Engineer/README.md)。
