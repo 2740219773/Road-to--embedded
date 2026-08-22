@@ -1,18 +1,7 @@
 # Embedded C Knowledge Base
 
-这里保存面向嵌入式的 C 语言知识底稿。
+这里不是要求顺序读完的 C 教科书，而是 Road to Embedded 的底层 C 查询手册。
 
-范围：
+推荐通过 `02-Learning-Path/Stage-01-C-and-Memory/` 学习，需要解释时再进入对应文档。
 
-- Data / Address / Memory；
-- Pointers；
-- Bitwise Operations；
-- Arrays / Structs；
-- const / volatile / static；
-- Function Pointers；
-- Multi-file Project；
-- Compile / Link / Memory Layout。
-
-当前 V2.1 迁移期间，原始内容仍位于 `01-Fundamentals/C/`。
-
-迁移完成后，Mission 和 OpenMAIC 将统一引用这里，不再引用旧目录。
+当前主题：数据与地址、指针、位运算、volatile/const/static、结构体、函数指针、内存生命周期、编译链接。
