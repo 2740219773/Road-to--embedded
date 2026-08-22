@@ -1,5 +1,13 @@
 # Mission — Fault Scene：不要重启，先保护现场
 
+## 导航
+
+- Stage：`02-Learning-Path/Stage-04-Debug-Hunter/`
+- Knowledge：`01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md`
+- Fault Model：`01-Knowledge-Base/Debugging/02-Cortex-M-Fault-Model.md`
+- Debug Case：`06-Debugging-Cases/HardFault-Bad-Pointer/CASE.md`
+- Boss Project：`05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md`
+
 ## Scene
 
 程序突然进入 HardFault_Handler。你只有 Debugger，没有日志，也不知道是哪一层出错。
@@ -27,7 +35,7 @@ HardFault → 加延时 → 不行 → 改优化等级 → 不行 → 加 Reset
 
 ## Boss
 
-从 `06-Debugging-Cases/HardFault-Bad-Pointer/` 开始，只依据 Evidence Pack 写一份 10 行以内的调查记录：现象、关键证据、根因、验证方法。
+从 `06-Debugging-Cases/HardFault-Bad-Pointer/CASE.md` 开始，只依据 Evidence Pack 写一份 10 行以内的调查记录：现象、关键证据、根因、验证方法。
 
 ## Achievement
 
