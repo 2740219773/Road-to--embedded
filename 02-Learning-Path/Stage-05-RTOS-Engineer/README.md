@@ -4,19 +4,37 @@
 
 当一个 MCU 同时要采样、通信、控制、记录状态时，程序如何组织？
 
-从裸机 super loop 的局限进入任务、调度、队列、信号量、互斥锁、事件和软件定时器。
+这一阶段从 Super Loop 的局限进入 Task、Scheduler、Queue、Semaphore、Mutex、事件和并发故障。
 
-## 互动重点
+## Knowledge Route
 
-RTOS 很适合 Timeline 可视化：让学习者看到多个任务什么时候 Ready、Running、Blocked，以及优先级和资源竞争如何改变执行结果。
+- [Task & Scheduler](../../01-Knowledge-Base/RTOS/01-Task-Scheduler.md)
+- [Queue / Semaphore / Mutex](../../01-Knowledge-Base/RTOS/02-Queue-Semaphore-Mutex.md)
 
-## Mission 示例
+## Mission Map
 
-- 为什么高优先级任务反而让系统卡死？
-- 两个任务同时改一个资源会发生什么？
-- Queue 和共享全局变量有什么区别？
-- Mutex 为什么会出现优先级反转？
+1. [Race Condition：两个任务都 +1，为什么只加了一次？](../../04-Missions/Stage-05-RTOS/01-Race-Condition/Mission.md)
+2. [Priority Inversion：高优先级任务为什么反而等低优先级？](../../04-Missions/Stage-05-RTOS/02-Priority-Inversion/Mission.md)
+3. [Deadlock：CPU 很闲，系统为什么完全不动？](../../04-Missions/Stage-05-RTOS/03-Deadlock/Mission.md)
+4. [Queue Is Full：消息怎么越积越多？](../../04-Missions/Stage-05-RTOS/04-Queue-Is-Full/Mission.md)
 
-## Boss
+## Interactive Labs
 
-把 Stage 03 的多传感器裸机系统重构为 FreeRTOS，并通过故障注入验证任务、通信和同步设计。
+- [RTOS Scheduler Timeline](../../03-Interactive-Labs/RTOS-Scheduler-Timeline/)
+- [Race Interleaving Visualizer](../../03-Interactive-Labs/Race-Interleaving-Visualizer/)
+
+## Debugging Cases
+
+优先从 RTOS Race、Deadlock、Stack Overflow 等案例开始，入口见 [Debugging Cases](../../06-Debugging-Cases/README.md)。
+
+## Boss Project
+
+- [RTOS Refactor](../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md)
+
+把 Stage 03 的多外设采集节点从 Super Loop 重构成 RTOS 系统，并通过故障注入验证任务、通信、同步和 Stack 设计。
+
+## 完成标准
+
+不仅会调用 FreeRTOS API，还能看着 Timeline 解释任务为什么处于 Ready / Running / Blocked，并能够定位 Race、Queue Overflow、Deadlock 和 Stack 类问题。
+
+完成后进入 [Stage 06 — Embedded Linux](../Stage-06-Embedded-Linux/README.md)。
