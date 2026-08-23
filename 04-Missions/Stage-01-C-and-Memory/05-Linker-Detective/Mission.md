@@ -24,6 +24,16 @@ undefined reference to `motor_start`
 
 ## 0. Before You Start
 
+第一次看到这些词，先建立最小概念：
+
+- IDE：Integrated Development Environment，可以先理解成写代码、构建、调试工程的一体化软件；
+- Build：把 Source Code 变成最终可执行程序/固件的整个构建过程；
+- Compiler：把单个 Source File 翻译成 Object File；
+- Object File：已经部分变成机器代码、但还不是完整程序的中间产物；
+- Linker：把多个 Object File 和 Library 连接成最终程序；
+- Declaration：告诉 Compiler “有这个名字和接口”；
+- Definition：真正提供函数或对象实体。
+
 先读：[Compilation & Linking](../../../01-Knowledge-Base/C/08-Compilation-and-Linking.md)
 
 只需要先认识：
@@ -234,4 +244,4 @@ Memory
 → Compile/Link
 ```
 
-下一步进入 Stage 01 Debug Challenge 和 Boss Project，把这些知识放进同一个小工程里。
+下一步进入 [Stage 01 Debug Challenge](../../../06-Debugging-Cases/Stage-01-Mixed-Failures/CASE.md)，把这些知识混合起来调查。
