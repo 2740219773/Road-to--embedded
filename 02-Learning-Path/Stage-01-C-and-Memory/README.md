@@ -12,7 +12,7 @@ C Code
 → Pointer
 → Bit / Register
 → volatile / Hardware State
-→ Struct / Module
+→ Struct / Layout
 → Compile / Link
 → Hardware
 ```
@@ -23,13 +23,23 @@ C Code
 
 只需要知道变量、if/for、函数这些最基本概念。遇到不认识的术语，可以先查 `01-Knowledge-Base/Glossary.md`。
 
-## 当前 Mission Map
+## Mission Map
 
 1. [Mission 01 — Memory Detective](../../04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
 2. [Mission 02 — Bit Hacker](../../04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
 3. [Mission 03 — Volatile Mystery](../../04-Missions/Stage-01-C-and-Memory/03-Volatile-Mystery/Mission.md)
-4. Struct Explorer — V2.2 next
-5. Linker Detective — V2.2 next
+4. [Mission 04 — Struct Explorer](../../04-Missions/Stage-01-C-and-Memory/04-Struct-Explorer/Mission.md)
+5. [Mission 05 — Linker Detective](../../04-Missions/Stage-01-C-and-Memory/05-Linker-Detective/Mission.md)
+
+五关不是五个孤立知识点，而是一条连续调查链：
+
+```text
+数据到底放哪？
+→ 一个整数里的 bit 怎么控制硬件状态？
+→ 硬件/ISR 能不能在程序之外改变数据？
+→ 一组数据在内存里怎样形成真实布局？
+→ 多个源文件最后怎样变成一个程序？
+```
 
 ## 当前 Interactive Labs
 
@@ -58,6 +68,22 @@ Predict
 ```
 
 也就是先预测，再观察，再解释，然后故意把系统弄坏，通过证据修复，最后连接到下一层硬件场景。
+
+## 五关完成后还没有结束
+
+接下来不是马上进入 MCU，而是完成两次综合训练：
+
+```text
+5 Core Missions
+↓
+Stage 01 Debug Challenge
+↓
+Virtual GPIO Controller Boss
+↓
+Exit Check
+↓
+Stage 02 — MCU Rookie
+```
 
 ## Boss Project — Virtual GPIO Controller
 
