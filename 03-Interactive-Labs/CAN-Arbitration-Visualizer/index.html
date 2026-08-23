@@ -1,1 +1,73 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CAN Arbitration Visualizer</title><style>body{font-family:system-ui,sans-serif;max-width:900px;margin:36px auto;padding:0 18px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:14px 0}input,button{font:inherit;padding:8px}.bits{font-family:ui-monospace,monospace;font-size:22px;letter-spacing:5px}.win{border-left:5px solid #15803d}.lose{border-left:5px solid #b91c1c}</style></head><body><h1>CAN Arbitration Visualizer</h1><div class="card">Node A ID 0x<input id="a" value="120" size="4"> Node B ID 0x<input id="b" value="080" size="4"> <button onclick="draw()">Arbitrate</button></div><div id="A" class="card"></div><div id="B" class="card"></div><div id="result" class="card"></div><script>function id(x){let v=parseInt(x,16);return Number.isFinite(v)?Math.max(0,Math.min(0x7ff,v)):0}function draw(){let av=id(a.value),bv=id(b.value),ab=av.toString(2).padStart(11,'0'),bb=bv.toString(2).padStart(11,'0'),winner=av===bv?'tie':av<bv?'A':'B',diff=-1;for(let i=0;i<11;i++)if(ab[i]!==bb[i]){diff=i;break}A.className='card '+(winner==='A'?'win':winner==='B'?'lose':'');B.className='card '+(winner==='B'?'win':winner==='A'?'lose':'');A.innerHTML='<b>Node A</b><div class="bits">'+ab+'</div>';B.innerHTML='<b>Node B</b><div class="bits">'+bb+'</div>';result.textContent=winner==='tie'?'IDs are equal; arbitration continues into following frame fields.':'Node '+winner+' wins. At first differing identifier bit '+diff+', dominant 0 overwrites recessive 1, so the node sending 1 detects the bus is 0 and stops transmitting.'}draw();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAN Arbitration Visualizer</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1150px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,button{font:inherit;padding:8px 10px;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}button{cursor:pointer;background:#293246}.nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.node{background:#111722;padding:13px;border-radius:8px}.active{border-left:4px solid #62b47a}.lost{opacity:.65;border-left:4px solid #d76868}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:8px 9px;border-bottom:1px solid #30394d;text-align:center}th{background:#202737}.dom{font-weight:700}.losebit{color:#ff9e9e;font-weight:700}.winner{border-left:4px solid #62b47a}.small{color:#b9c2d0;font-size:.92rem}.flow{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>CAN Arbitration Visualizer</h1>
+<p>三个标准 11-bit Identifier 同时开始发送。CAN 总线每一位都由当前仍在竞争的节点共同决定：Dominant 0 会覆盖 Recessive 1；发送 1 却读到 0 的节点立即退出仲裁。</p>
+
+<div class="card controls">
+  <label class="control">Node A ID (hex)<input id="idA" value="120" maxlength="3"></label>
+  <label class="control">Node B ID (hex)<input id="idB" value="080" maxlength="3"></label>
+  <label class="control">Node C ID (hex)<input id="idC" value="100" maxlength="3"></label>
+  <button id="runBtn">Arbitrate</button>
+</div>
+
+<div id="nodes" class="nodes"></div>
+
+<div class="card table-wrap">
+  <h2>Bit-by-bit arbitration</h2>
+  <table>
+    <thead><tr><th>Identifier bit</th><th>Active A</th><th>Active B</th><th>Active C</th><th>Bus</th><th>Who loses here?</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</div>
+
+<div id="result" class="card"></div>
+<div id="explain" class="card mono flow"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function parseId(el){let v=parseInt(el.value,16);if(!Number.isFinite(v))v=0;v=Math.max(0,Math.min(0x7ff,v));el.value=v.toString(16).toUpperCase().padStart(3,'0');return v;}
+function bits(v){return v.toString(2).padStart(11,'0');}
+function draw(){
+  const data=[
+    {name:'A',v:parseId($('idA'))},
+    {name:'B',v:parseId($('idB'))},
+    {name:'C',v:parseId($('idC'))}
+  ].map(n=>({...n,b:bits(n.v),active:true,lostAt:null}));
+  let html='',finishedAt=null;
+  for(let i=0;i<11;i++){
+    const active=data.filter(n=>n.active);
+    if(active.length<=1){finishedAt=i;break;}
+    const bus=active.some(n=>n.b[i]==='0')?'0':'1';
+    const losers=[];
+    for(const n of active){
+      if(n.b[i]==='1'&&bus==='0'){n.active=false;n.lostAt=i;losers.push(n.name);}
+    }
+    html+=`<tr><td>${i} (ID bit ${10-i})</td>`+
+      data.map(n=>`<td class="${n.lostAt===i?'losebit':''}">${n.lostAt!==null&&n.lostAt<i?'—':n.b[i]}</td>`).join('')+
+      `<td class="${bus==='0'?'dom':''}">${bus} (${bus==='0'?'Dominant':'Recessive'})</td><td>${losers.length?losers.join(', '):'—'}</td></tr>`;
+  }
+  if(!html)html='<tr><td colspan="6">No differing arbitration bit was needed before only one unique contender remained.</td></tr>';
+  $('rows').innerHTML=html;
+  const still=data.filter(n=>n.active);
+  $('nodes').innerHTML=data.map(n=>`<div class="node ${n.active?'active':'lost'}"><b>Node ${n.name}</b><div class="mono">ID 0x${n.v.toString(16).toUpperCase().padStart(3,'0')}<br>${n.b}</div><div>${n.active?'still competing / winner candidate':'lost at identifier table row '+n.lostAt}</div></div>`).join('');
+  const uniqueIds=new Set(data.map(n=>n.v));
+  const min=Math.min(...data.map(n=>n.v));
+  const winners=data.filter(n=>n.v===min);
+  $('result').className='card winner';
+  $('result').innerHTML=winners.length===1?`<b>Node ${winners[0].name} wins identifier arbitration.</b> Its standard ID 0x${min.toString(16).toUpperCase().padStart(3,'0')} survives every earlier Dominant/Recessive comparison.`:`<b>${winners.length} nodes have the same lowest ID.</b> They cannot be distinguished by the 11 identifier bits alone; arbitration/bit monitoring continues into later frame fields and identical frames may coexist bit-for-bit.`;
+  $('explain').textContent=`Key rule:\nEach active node sends one bit and simultaneously reads the physical bus.\nIf it sends Recessive 1 but reads Dominant 0, it knows another frame has higher priority and stops transmitting.\n\nThis is nondestructive arbitration: the winning frame continues without restarting.\n\nFor standard identifiers, the first differing bit dominates the decision, which is why a numerically smaller ID usually has higher arbitration priority. This priority is produced by the bus bit rule, not by a software sort function.`;
+}
+$('runBtn').addEventListener('click',draw);draw();
+</script>
+</body>
+</html>
