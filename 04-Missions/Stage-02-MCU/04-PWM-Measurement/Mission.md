@@ -120,7 +120,7 @@ CPU can do other work
 
 ### Fault A — Frequency 正确，Duty 错误
 
-说明 Period 链可能正确，但 Compare/CCR 相关设置需要调查。
+说明 Period 链可能正确，但 Compare value 相关设置需要调查。
 
 ### Fault B — Duty 看起来正确，Frequency 错误
 
@@ -135,10 +135,12 @@ Timer
 → PWM channel enabled?
 → Pin Alternate Function?
 → Correct physical pin?
-→ Probe ground/reference?
+→ Oscilloscope probe ground/reference correct?
 ```
 
-第一次认识 Alternate Function：很多 MCU Pin 不只可以当普通 GPIO，还可以切换给 Timer/UART/SPI 等外设控制。
+第一次认识 Alternate Function（复用功能）：很多 MCU Pin 不只可以当普通 GPIO，还可以切换给 Timer/UART/SPI 等外设控制。
+
+示波器的 probe ground/reference 可以先理解成“测量时的电压参考地”；如果参考地没有正确连接，即使被测 Pin 有波形，也可能得到错误或无意义的结果。
 
 ---
 
@@ -187,6 +189,8 @@ PWM 后面会连接到：
 - Power electronics；
 - DAC-like filtering；
 - FPGA Counter/Compare logic。
+
+这些应用现在只需要知道“PWM 会在后面反复出现”，不要求在 Stage 02 展开学习。
 
 因此这里真正建立的是：
 
