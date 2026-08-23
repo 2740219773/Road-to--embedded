@@ -4,7 +4,7 @@
 
 V2.3 — MCU / STM32 Learning Path
 
-当前阶段：**Phase B — Stage 03 Peripheral Engineer quality gate**。
+当前阶段：**Phase B — Stage 03 Peripheral Engineer ready for merge**。
 
 ## Completed Baselines
 
@@ -27,7 +27,7 @@ UART ✅
 → Mixed Peripheral Debug Challenge ✅
 → Multi-Peripheral Sensor Node Boss ✅
 → Stage 03 Exit Check ✅
-→ Quality Gate ← current
+→ Quality Gate ✅
 ```
 
 ## Completed Formal Loops
@@ -109,24 +109,38 @@ RS-485 works
 - [x] Stage 03 Exit Check；
 - [x] Debugging Cases Index 更新。
 
-## Current Quality Gate
+## Phase B Quality Gate ✅
 
-合并 Phase B 前只做质量收口，不新增新 Stage 03 技术主题：
-
-- [ ] 按零基础学习者视角走查 Stage 02 Exit → Stage 03 Mission 01～08 → Mixed Challenge → Boss → Exit；
-- [ ] 检查 Knowledge / Mission / Lab / Debug Case 双向导航；
-- [ ] 检查旧 `Stage-03-Peripheral-Explorer` 和旧 `07-Modbus-Wrong-Register` 路径；
-- [ ] 检查首次术语是否满足 beginner-readability；
-- [ ] 检查 Stage 03 README / Boss / Exit 是否一致；
-- [ ] 检查 PR #4 diff 只包含 Phase B；
-- [ ] Mergeability / CI / review thread final check；
-- [ ] Phase B 合并 `main` 后再进入 Stage 04 正式建设。
+- [x] 按零基础学习者视角走查 Stage 02 Exit → Stage 03 Mission 01～08 → Mixed Challenge → Boss → Exit；
+- [x] 检查 Knowledge / Mission / Lab / Debug Case 导航与 Stage 总入口；
+- [x] 反查旧 `Stage-03-Peripheral-Explorer` 路径，无剩余搜索结果；
+- [x] 反查旧 `07-Modbus-Wrong-Register` 路径，无剩余搜索结果；
+- [x] 新增 CAN / RS-485 / Modbus 首次术语均先建立最小概念；
+- [x] Stage 03 README / Boss / Exit Check 已对齐 01～08 Mission；
+- [x] Interactive Labs 总索引已把 PWM 归回 Stage 02，并加入 RS-485 Lab；
+- [x] README / ROADMAP / DEVELOPMENT-PLAN / Missions Index 已从旧 Phase A/P0 状态同步到 Phase B；
+- [x] PR #4 diff 检查：只包含 Stage 03 Phase B 资产与必要治理同步；
+- [x] 分支相对 `main` behind = 0；
+- [x] 最新检查时无 GitHub CI/status checks 或 workflow runs；
+- [x] PR #4 无未处理 inline review thread。
 
 ## Scope Guardrail
 
-Phase B 只建设 Stage 03。Stage 04 Debug Hunter 虽然已有 vertical-slice prototype，但系统化调试课程不在本 PR 抢跑。
+Phase B 只建设 Stage 03。没有在尾部临时追加 Watchdog、Flash、Ethernet 或新的协议主题。
+
+Stage 04 Debug Hunter 虽已有 vertical-slice prototype，但系统化调试课程留到 V2.4 正式建设。
 
 PWM 基础属于 Stage 02；Stage 03 只复用，不重新作为独立主题。
+
+## Next
+
+PR #4 Ready for Review 并合并后：
+
+```text
+V2.4 / Stage 04 Debug Hunter
+```
+
+重点不再增加外设，而是把 Stage 01～03 已积累的排错经验抽象成系统方法。
 
 ## Current Rule
 
