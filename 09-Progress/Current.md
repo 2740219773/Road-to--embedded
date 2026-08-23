@@ -26,7 +26,7 @@ V2.2 — Stage 01 Interactive Pilot
 
 ### 当前开发
 
-- [ ] Mission 03 — Volatile Mystery;
+- [x] Mission 03 — Volatile Mystery；
 - [ ] Mission 04 — Struct Explorer;
 - [ ] Mission 05 — Linker Detective;
 - [ ] 统一 Stage 01 Mission 的 Predict → Observe → Explain → Break → Debug → Transfer 体验；
