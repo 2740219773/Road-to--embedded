@@ -1,6 +1,6 @@
 # Mission 02 — Button Interrupt：按下按键，CPU 怎么知道？
 
-> 学习路径：[Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md) · 知识支撑：[GPIO](../../../01-Knowledge-Base/MCU/01-GPIO.md) · [Interrupt](../../../01-Knowledge-Base/MCU/02-Interrupt.md) · [Debugger Basics](../../../01-Knowledge-Base/Debugging/00-Debugger-Basics.md)
+> 学习路径：[Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md) · 知识支撑：[GPIO](../../../01-Knowledge-Base/MCU/01-GPIO.md) · [Interrupt](../../../01-Knowledge-Base/MCU/02-Interrupt.md) · [Debugger Basics](../../../01-Knowledge-Base/MCU/06-Debugger-Basics.md)
 
 ## Before You Start
 
@@ -121,7 +121,7 @@ CPU: 暂停当前工作 → ISR → 返回
 
 ## Build the Interrupt Chain
 
-不要只看一个 `HAL_GPIO_EXTI...` 调用是否存在。
+不要只看一个平台库里的外部中断 API 是否存在。
 
 把真实链路拆开：
 
