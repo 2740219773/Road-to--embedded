@@ -1,1 +1,131 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SPI Timing Playground</title><style>body{font-family:system-ui,sans-serif;max-width:1000px;margin:36px auto;padding:0 18px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:14px 0}select{font:inherit;padding:8px}.timeline{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}.b{padding:15px 4px;text-align:center;border-radius:6px;background:#293246}.sample{outline:3px solid #d97706}.mono{font-family:ui-monospace,monospace}</style></head><body><h1>SPI Timing Playground</h1><div class="card">SPI Mode: <select id="mode"><option value="0">Mode 0 (CPOL0 CPHA0)</option><option value="1">Mode 1 (CPOL0 CPHA1)</option><option value="2">Mode 2 (CPOL1 CPHA0)</option><option value="3">Mode 3 (CPOL1 CPHA1)</option></select> Data: <select id="data"><option value="165">0xA5</option><option value="60">0x3C</option></select></div><div class="card"><div id="bits" class="timeline"></div></div><div class="card mono" id="info"></div><div class="card">橙色框表示本演示中的采样边沿对应数据位。重点不是背 Mode 0～3，而是理解 CPOL 决定空闲电平，CPHA 决定第几个有效边沿采样。</div><script>function draw(){let m=+mode.value,v=+data.value,cpol=m>>1,cpha=m&1;bits.innerHTML='';for(let i=7;i>=0;i--){let x=document.createElement('div');x.className='b sample';x.innerHTML='D'+i+'<br><b>'+((v>>i)&1)+'</b>';bits.appendChild(x)}let leading=cpol?'falling':'rising',trailing=cpol?'rising':'falling',sample=cpha?trailing:leading,shift=cpha?leading:trailing;info.textContent='CPOL='+cpol+' → clock idle '+(cpol?'HIGH':'LOW')+' | CPHA='+cpha+' → sample on '+sample+' edge, change on '+shift+' edge | MSB first'}mode.onchange=data.onchange=draw;draw();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPI Timing Playground</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}select,input{font:inherit;padding:8px 10px;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}.bits{display:grid;grid-template-columns:repeat(8,minmax(70px,1fr));gap:5px;overflow:auto}.bit{padding:14px 5px;text-align:center;border-radius:7px;background:#25466a}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.kv{background:#111722;padding:12px;border-radius:8px}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.small{color:#b9c2d0;font-size:.92rem}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#293246;margin:2px}.flow{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>SPI Timing Playground</h1>
+<p>不要死背 Mode 0～3。把 Controller 实际配置和 Device Datasheet 期望放在一起比较：Clock idle、sample edge、change edge、bit order、CS 是否一致。</p>
+
+<div class="card controls">
+  <label class="control">Controller SPI Mode
+    <select id="controllerMode"><option value="0">Mode 0</option><option value="1">Mode 1</option><option value="2">Mode 2</option><option value="3">Mode 3</option></select>
+  </label>
+  <label class="control">Device expects Mode
+    <select id="deviceMode"><option value="0">Mode 0</option><option value="1">Mode 1</option><option value="2">Mode 2</option><option value="3">Mode 3</option></select>
+  </label>
+  <label class="control">Controller bit order
+    <select id="controllerOrder"><option value="msb">MSB first</option><option value="lsb">LSB first</option></select>
+  </label>
+  <label class="control">Device expects order
+    <select id="deviceOrder"><option value="msb">MSB first</option><option value="lsb">LSB first</option></select>
+  </label>
+  <label class="control">Data
+    <select id="data"><option value="165">0xA5</option><option value="60">0x3C</option><option value="150">0x96</option></select>
+  </label>
+  <label><input id="csActive" type="checkbox" checked> CS asserted for frame</label>
+</div>
+
+<div class="card">
+  <h2>1. Actual transmitted bit order</h2>
+  <div id="bits" class="bits"></div>
+  <p id="dataInfo" class="mono"></p>
+</div>
+
+<div class="card">
+  <h2>2. Mode comparison</h2>
+  <div class="grid">
+    <div class="kv"><b>Controller generates</b><div id="controllerInfo" class="mono"></div></div>
+    <div class="kv"><b>Device expects</b><div id="deviceInfo" class="mono"></div></div>
+    <div class="kv"><b>CS condition</b><div id="csInfo" class="mono"></div></div>
+  </div>
+</div>
+
+<div id="summary" class="card"></div>
+
+<div class="card">
+  <h2>3. Debug interpretation</h2>
+  <div id="explain" class="flow"></div>
+</div>
+
+<script>
+const controllerMode=document.getElementById('controllerMode');
+const deviceMode=document.getElementById('deviceMode');
+const controllerOrder=document.getElementById('controllerOrder');
+const deviceOrder=document.getElementById('deviceOrder');
+const data=document.getElementById('data');
+const csActive=document.getElementById('csActive');
+const bits=document.getElementById('bits');
+const dataInfo=document.getElementById('dataInfo');
+const controllerInfo=document.getElementById('controllerInfo');
+const deviceInfo=document.getElementById('deviceInfo');
+const csInfo=document.getElementById('csInfo');
+const summary=document.getElementById('summary');
+const explain=document.getElementById('explain');
+
+function modeInfo(mode){
+  const m=Number(mode),cpol=(m>>1)&1,cpha=m&1;
+  const leading=cpol?'falling':'rising';
+  const trailing=cpol?'rising':'falling';
+  return {mode:m,cpol,cpha,idle:cpol?'HIGH':'LOW',sample:cpha?trailing:leading,change:cpha?leading:trailing};
+}
+function hex(v){return '0x'+v.toString(16).toUpperCase().padStart(2,'0');}
+function bitSequence(v,order){
+  const seq=[];
+  if(order==='msb'){for(let i=7;i>=0;i--)seq.push({label:'D'+i,value:(v>>i)&1});}
+  else{for(let i=0;i<8;i++)seq.push({label:'D'+i,value:(v>>i)&1});}
+  return seq;
+}
+function describe(m){return `CPOL=${m.cpol}, CPHA=${m.cpha}\nIdle ${m.idle}\nSample on ${m.sample}\nChange on ${m.change}`;}
+
+function draw(){
+  const cm=modeInfo(controllerMode.value),dm=modeInfo(deviceMode.value);
+  const value=Number(data.value);
+  const co=controllerOrder.value,do_=deviceOrder.value;
+  const seq=bitSequence(value,co);
+  bits.innerHTML=seq.map(x=>`<div class="bit"><b>${x.label}</b><br>${x.value}</div>`).join('');
+  dataInfo.textContent=`${hex(value)} | controller sends ${co==='msb'?'MSB first':'LSB first'}`;
+  controllerInfo.textContent=describe(cm);
+  deviceInfo.textContent=describe(dm);
+  csInfo.textContent=csActive.checked?'CS active: device is selected':'CS inactive: device may ignore clock/data';
+
+  const cpolMatch=cm.cpol===dm.cpol;
+  const cphaMatch=cm.cpha===dm.cpha;
+  const sampleMatch=cm.sample===dm.sample;
+  const orderMatch=co===do_;
+  const csMatch=csActive.checked;
+  const all=cpolMatch&&cphaMatch&&orderMatch&&csMatch;
+  const mismatches=[];
+  if(!cpolMatch)mismatches.push('CPOL / clock idle level');
+  if(!cphaMatch||!sampleMatch)mismatches.push('CPHA / sampling edge');
+  if(!orderMatch)mismatches.push('bit order');
+  if(!csMatch)mismatches.push('CS selection');
+
+  summary.className='card '+(all?'ok':mismatches.length===1?'warn':'bad');
+  summary.innerHTML=all?
+    '<b>Timing contract matches.</b> Controller and device agree on Mode, bit order and CS condition. Real hardware still needs Clock frequency, voltage and command framing verification.':
+    `<b>Mismatch:</b> ${mismatches.join(', ')}. Having SCLK/MOSI/MISO waveforms does not mean the device samples the intended bits.`;
+
+  explain.textContent=
+`SPI investigation order:\n\n`+
+`1. Is CS active for the entire transaction?\n`+
+`2. Does SCLK idle at the level required by the device?\n`+
+`3. Which edge changes data, and which edge samples data?\n`+
+`4. Do controller and device agree on MSB/LSB first?\n`+
+`5. Is Clock frequency within the Datasheet limit?\n`+
+`6. Does the command/address/data sequence match the device protocol?\n\n`+
+`Current controller sample edge: ${cm.sample}. Device expects: ${dm.sample}.\n`+
+`Current controller order: ${co.toUpperCase()} first. Device expects: ${do_.toUpperCase()} first.`;
+}
+
+[controllerMode,deviceMode,controllerOrder,deviceOrder,data,csActive].forEach(x=>x.addEventListener('change',draw));
+draw();
+</script>
+</body>
+</html>

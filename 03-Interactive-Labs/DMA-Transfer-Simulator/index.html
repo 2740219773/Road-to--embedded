@@ -1,1 +1,119 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DMA Transfer Simulator</title><style>body{font-family:system-ui,sans-serif;max-width:980px;margin:36px auto;padding:0 18px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:14px 0}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:10px}.box{padding:20px;text-align:center;background:#253047;border-radius:9px}.arrow{font-size:28px}.bar{height:18px;background:#293246;border-radius:10px;overflow:hidden}.fill{height:100%;background:#d97706;width:0}button,select{font:inherit;padding:9px;margin:4px}@media(max-width:650px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}}</style></head><body><h1>DMA Transfer Simulator</h1><div class="card">Mode <select id="mode"><option value="poll">CPU Polling</option><option value="irq">Interrupt per byte</option><option value="dma" selected>DMA block transfer</option></select> <button onclick="run()">Run Transfer</button> <button onclick="resetAll()">Reset</button></div><div class="flow"><div class="box">Peripheral<br><b>16 bytes</b></div><div class="arrow">→</div><div class="box">DMA / CPU<br><b id="worker">DMA</b></div><div class="arrow">→</div><div class="box">Memory<br><b id="count">0 / 16</b></div></div><div class="card"><p>Transfer</p><div class="bar"><div id="transfer" class="fill"></div></div><p>Approx. CPU busy time</p><div class="bar"><div id="cpu" class="fill"></div></div><p id="explain"></p></div><script>let timer;function resetAll(){clearInterval(timer);transfer.style.width=cpu.style.width='0';count.textContent='0 / 16';explain.textContent='';worker.textContent=mode.value==='dma'?'DMA':'CPU'}function run(){resetAll();let i=0,m=mode.value;worker.textContent=m==='dma'?'DMA':'CPU';let busy=m==='poll'?100:m==='irq'?55:12;cpu.style.width=busy+'%';explain.textContent=m==='dma'?'CPU configures the transfer, then DMA moves the block; CPU can do other work until events such as half/complete.':m==='irq'?'CPU does not poll continuously, but frequent interrupts still consume execution time.':'CPU repeatedly participates in checking and moving data.';timer=setInterval(()=>{i++;transfer.style.width=(i/16*100)+'%';count.textContent=i+' / 16';if(i>=16)clearInterval(timer)},80)}mode.onchange=resetAll;resetAll();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DMA Transfer Simulator</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.control{display:flex;flex-direction:column;gap:5px}select,input,button{font:inherit;padding:8px 10px;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}button{cursor:pointer;background:#293246}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:10px}.box{padding:18px;text-align:center;background:#253047;border-radius:9px}.arrow{font-size:28px}.bar{height:18px;background:#293246;border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:#76839d}.memory{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}.slot{padding:9px 2px;text-align:center;background:#222a3a;border-radius:5px;font-size:.8rem}.written{background:#315c45}.overflow{background:#72383e}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.s{background:#111722;padding:12px;border-radius:8px}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.small{color:#b9c2d0;font-size:.92rem}.flowtext{white-space:pre-wrap}@media(max-width:700px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}}
+</style>
+</head>
+<body>
+<h1>DMA Transfer Simulator</h1>
+<p>DMA 不是“打开一个开关就自动搬数据”。它至少需要有效 Request、Enable、Direction、Source/Destination 和正确 Transfer Count。</p>
+
+<div class="card controls">
+  <label class="control">Transfer method
+    <select id="method"><option value="poll">CPU Polling</option><option value="irq">Interrupt per item</option><option value="dma" selected>DMA block transfer</option></select>
+  </label>
+  <label class="control">Transfer count
+    <input id="countInput" type="number" min="0" max="24" value="12">
+  </label>
+  <label class="control">Destination capacity
+    <input id="capacityInput" type="number" min="1" max="16" value="12">
+  </label>
+  <label class="control">Direction
+    <select id="direction"><option value="correct">Peripheral → Memory</option><option value="wrong">Memory → Peripheral (wrong for this task)</option></select>
+  </label>
+  <label><input id="requestValid" type="checkbox" checked> Peripheral generates mapped DMA request</label>
+  <label><input id="dmaEnabled" type="checkbox" checked> DMA enabled</label>
+</div>
+
+<div class="card">
+  <button id="runBtn">Run Transfer</button>
+  <button id="resetBtn">Reset</button>
+</div>
+
+<div class="flow">
+  <div class="box">Peripheral<br><b>data source</b><br><span class="small">request + data register</span></div>
+  <div class="arrow">→</div>
+  <div class="box"><b id="worker">DMA</b><br><span id="workerState" class="small">waiting</span></div>
+  <div class="arrow">→</div>
+  <div class="box">RAM Buffer<br><b id="writtenCount">0 items</b></div>
+</div>
+
+<div class="card">
+  <p>Transfer progress</p><div class="bar"><div id="transferFill" class="fill"></div></div>
+  <p>Approx. CPU busy time</p><div class="bar"><div id="cpuFill" class="fill"></div></div>
+</div>
+
+<div class="card">
+  <h2>Destination memory view</h2>
+  <div id="memory" class="memory"></div>
+  <p class="small">绿色 = 写入目标 Buffer；红色 = Transfer Count 已超过 Buffer Capacity，开始覆盖 Buffer 后面的内存。</p>
+</div>
+
+<div class="stats">
+  <div class="s">Requested count<br><b id="requested"></b></div>
+  <div class="s">Buffer capacity<br><b id="capacity"></b></div>
+  <div class="s">Actual moved<br><b id="moved"></b></div>
+  <div class="s">Completion event<br><b id="complete"></b></div>
+</div>
+
+<div id="summary" class="card"></div>
+<div id="explain" class="card mono flowtext"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let timer=null;
+function setupMemory(cap){
+  const total=16;
+  $('memory').innerHTML='';
+  for(let i=0;i<total;i++){
+    const s=document.createElement('div');s.className='slot';s.id='slot'+i;s.textContent=i<cap?`B${i}`:`M${i}`;$('memory').appendChild(s);
+  }
+}
+function reset(){
+  clearInterval(timer);timer=null;
+  const cap=Math.max(1,Math.min(16,+$('capacityInput').value||1));
+  setupMemory(cap);$('transferFill').style.width='0';$('cpuFill').style.width='0';$('writtenCount').textContent='0 items';$('workerState').textContent='waiting';$('moved').textContent='0';$('complete').textContent='No';$('summary').className='card';$('summary').textContent='Press Run Transfer to observe the configured path.';
+}
+function run(){
+  reset();
+  const method=$('method').value;
+  const req=Math.max(0,Math.min(24,+$('countInput').value||0));
+  const cap=Math.max(1,Math.min(16,+$('capacityInput').value||1));
+  const requestOk=$('requestValid').checked;
+  const enabled=$('dmaEnabled').checked;
+  const directionOk=$('direction').value==='correct';
+  $('requested').textContent=req;$('capacity').textContent=cap;
+  $('worker').textContent=method==='dma'?'DMA':'CPU';
+  $('cpuFill').style.width=(method==='poll'?100:method==='irq'?55:12)+'%';
+
+  if(method==='dma'&&(!requestOk||!enabled||!directionOk||req===0)){
+    let why=!requestOk?'No valid peripheral DMA request':!enabled?'DMA disabled':!directionOk?'Direction is wrong':'Transfer count is zero';
+    $('workerState').textContent=why;$('summary').className='card bad';$('summary').innerHTML=`<b>No transfer.</b> ${why}.`;$('explain').textContent='DMA chain stopped before memory changed. Check Request → Mapping → Direction → Count → Enable before investigating the completion callback.';return;
+  }
+
+  let i=0;
+  const moveTotal=req;
+  $('workerState').textContent=method==='dma'?'hardware moving block':method==='irq'?'CPU handles each interrupt':'CPU polling and moving';
+  if(moveTotal===0){$('complete').textContent='Yes';return;}
+  timer=setInterval(()=>{
+    if(i>=moveTotal){clearInterval(timer);timer=null;$('complete').textContent='Yes';$('workerState').textContent='complete';finish(req,cap,method);return;}
+    if(i<16){const slot=$('slot'+i);if(slot)slot.classList.add(i<cap?'written':'overflow');}
+    i++;$('moved').textContent=i;$('writtenCount').textContent=i+' items';$('transferFill').style.width=(Math.min(i,moveTotal)/moveTotal*100)+'%';
+  },90);
+}
+function finish(req,cap,method){
+  const overflow=Math.max(0,req-cap);
+  const summary=$('summary');
+  if(overflow>0){summary.className='card bad';summary.innerHTML=`<b>DMA completed, but memory is corrupted.</b> Requested ${req} items into a ${cap}-item buffer → ${overflow} item(s) beyond the buffer boundary.`;}
+  else{summary.className='card ok';summary.innerHTML=`<b>Transfer completed within buffer.</b> ${req} item(s) moved into capacity ${cap}.`;}
+  $('explain').textContent=(method==='dma'?`CPU configured the block, then DMA performed the repeated moves. Completion only means the requested count finished; it does NOT prove the destination buffer was large enough.`:`This mode keeps CPU more involved in data movement.`)+'\n\nDebug DMA by separating:\nPeripheral event → DMA request → mapping → direction → source/destination → transfer count/data width → enable → memory result → half/complete/error event.';
+}
+$('runBtn').addEventListener('click',run);$('resetBtn').addEventListener('click',reset);['capacityInput','method'].forEach(id=>$(id).addEventListener('change',reset));reset();
+</script>
+</body>
+</html>

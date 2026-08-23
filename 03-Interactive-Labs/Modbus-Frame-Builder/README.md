@@ -1,10 +1,34 @@
 # Modbus RTU Frame Builder
 
-用于观察 Modbus RTU FC03 请求中的站号、功能码、协议地址、数量和 CRC。
+用于观察 Modbus RTU FC03 请求中的站号、功能码、协议地址、数量和 CRC，并重点比较“手册显示编号”和“真正 PDU 地址字段”。
 
 - 运行：浏览器直接打开 `index.html`。
 - Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
-- Mission：`04-Missions/Stage-03-Peripherals/07-Modbus-Wrong-Register/Mission.md`
+- Mission：`04-Missions/Stage-03-Peripherals/08-Modbus-Wrong-Register/Mission.md`
 - Knowledge：`01-Knowledge-Base/Protocols/05-RS485-Modbus.md`
+- Debug Case：`06-Debugging-Cases/Modbus-Wrong-Register/CASE.md`
 
-学习重点是区分“文档寄存器编号、软件输入值、PDU 地址字段”，并把 Modbus、UART、RS-485 分层理解。
+当前工具支持两种输入视角：
+
+```text
+Protocol/PDU address
+```
+
+以及常见的：
+
+```text
+Manual 4xxxx display number
+```
+
+它会把最终真正发送的 Address Hi / Address Lo 字节直接展示出来。
+
+学习重点是区分：
+
+```text
+Manual display number
+≠ Software/API input value
+≠ Modbus PDU address
+≠ Actual frame bytes
+```
+
+`40001 → 0` 只是常见 Holding Register 编号约定的示例，不应被理解为所有设备/软件都固定如此；最终必须以当前设备手册、软件 API 约定和抓到的实际 Frame 为证据。

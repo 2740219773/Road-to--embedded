@@ -4,19 +4,33 @@
 
 ## 当前状态
 
-V2.1 架构重构和 V2.2 Stage 01 Interactive Pilot 已经完成并合并到 `main`。
-
-当前正在推进 **V2.3 — MCU / STM32 Learning Path**。V2.3 采用两段式推进：
+已完成并合并：
 
 ```text
-Phase A — Stage 02 MCU Foundation
-真实开发板 / Debugger / GPIO / Interrupt / Timer / PWM / 仪器证据
-
-Phase B — Stage 03 Peripheral Engineer
-UART / I2C / SPI / ADC / DMA / CAN / RS-485 / Modbus
+V2.1 — Architecture Refactor
+V2.2 — Stage 01 Interactive Pilot
+V2.3 Phase A — Stage 02 MCU Foundation
 ```
 
-当前开发重点是 Phase A，暂不横向扩张 Stage 03 外设。
+当前正在推进 **V2.3 Phase B — Stage 03 Peripheral Engineer**。
+
+Stage 03 已建立：
+
+```text
+UART
+→ I2C
+→ SPI
+→ ADC
+→ DMA
+→ CAN
+→ RS-485
+→ Modbus RTU
+→ Mixed Peripheral Debug Challenge
+→ Multi-Peripheral Sensor Node Boss
+→ Exit Check
+```
+
+目前处于最终质量验收：零基础路径、导航、首次术语、PR 范围和合并状态检查。Phase B 合并后才进入 Stage 04 正式建设。
 
 ## 为什么做这个项目
 
@@ -103,10 +117,21 @@ Debug with Evidence
 ↓
 Transfer
 ↓
-Mission Report / Boss / Review
+Mission Report
 ```
 
-Stage 01 已完成完整闭环。当前 Stage 02 正把虚拟寄存器接到真实开发板、物理 Pin 和仪器测量。
+一个 Stage 的正式闭环继续向后包含：
+
+```text
+Single-topic Missions
+→ Debug Cases
+→ Mixed Challenge
+→ Boss Project
+→ Exit Check
+→ Quality Gate
+```
+
+Stage 01 已建立 C/Memory 闭环；Stage 02 已把虚拟模型接到真实 MCU；Stage 03 正把同一证据方法扩展到通信、采样和数据搬运。
 
 ## 五级能力模型
 

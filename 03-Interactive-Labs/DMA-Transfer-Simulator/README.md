@@ -1,11 +1,70 @@
 # DMA Transfer Simulator
 
-用于比较 CPU Polling、频繁 Interrupt 和 DMA Block Transfer 的数据搬运方式。
+浏览器直接打开 `index.html`。
 
-- 运行：浏览器直接打开 `index.html`。
-- Stage：`02-Learning-Path/Stage-03-Peripheral-Engineer/`
-- Mission：`04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md`
-- Knowledge：`01-Knowledge-Base/MCU/04-DMA.md`
-- Debug Case：`06-Debugging-Cases/DMA-Wrong-Length/CASE.md`
+## 它解决什么问题
 
-重点是理解 DMA 仍然需要 Request、方向、地址、长度和完成条件，并不是“自动魔法”。
+DMA 的关键不是“比 CPU 快”这一句话，而是先看一条完整搬运链是否成立：
+
+```text
+Peripheral Event
+→ DMA Request / Mapping
+→ Direction
+→ Source / Destination
+→ Transfer Count
+→ Enable
+→ Memory Result
+→ Complete / Error Event
+```
+
+Simulator 支持：
+
+- CPU Polling / Interrupt-per-item / DMA block transfer 对比；
+- Peripheral DMA Request 是否有效；
+- DMA Enable；
+- 正确/错误 Direction；
+- Transfer Count；
+- Destination Buffer Capacity；
+- 正常完成与越界覆盖。
+
+## 两类最重要的实验
+
+### A — DMA 一个字节都没搬
+
+分别关闭：
+
+```text
+DMA Request
+DMA Enable
+Direction
+Transfer Count
+```
+
+观察 Memory 不变化时，链路究竟停在哪一层。
+
+### B — DMA 正常完成但程序随后崩溃
+
+设置：
+
+```text
+Transfer Count = 16
+Buffer Capacity = 8
+```
+
+观察 DMA 可以“成功完成”，但已经写出 Buffer 边界。
+
+这正是为什么：
+
+```text
+DMA Complete
+≠ DMA configuration is correct
+```
+
+## Navigation
+
+- Stage：[Stage 03 — Peripheral Engineer](../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md)
+- Mission：[DMA No Transfer](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md)
+- Knowledge：[DMA](../../01-Knowledge-Base/MCU/04-DMA.md)
+- Debug Case：[DMA Wrong Length](../../06-Debugging-Cases/DMA-Wrong-Length/CASE.md)
+
+核心目标：把“触发、搬运规则、内存结果、完成事件”分开验证。

@@ -2,14 +2,20 @@
 
 ## 当前说明
 
-V2.1 架构重构与 V2.2 Stage 01 Interactive Pilot 已完成并合并到 `main`。
+已完成并合并：
 
-项目当前进入 **V2.3 — MCU / STM32 Learning Path**。
+```text
+V2.1 — Architecture Refactor
+V2.2 — Stage 01 Interactive Pilot
+V2.3 Phase A — Stage 02 MCU Foundation
+```
 
-需要长期区分两件事：
+当前正在完成 **V2.3 Phase B — Stage 03 Peripheral Engineer** 的最终质量验收。
 
-1. **版本里程碑是否完成**；
-2. **后续 Stage 是否已经提前存在纵向样板**。
+需要长期区分：
+
+1. 版本里程碑是否真正完成；
+2. 后续 Stage 是否只是提前存在 vertical-slice prototype。
 
 Debugging、RTOS、Embedded Linux、FPGA 已经存在部分 Knowledge / Mission / Lab 样板，它们用于验证架构，不代表对应正式版本已经完成。
 
@@ -46,9 +52,9 @@ Knowledge
 
 ## V2.3 — MCU / STM32 Learning Path ← 当前版本
 
-V2.3 保留原来的 MCU / STM32 大目标，但拆成两个连续 Phase，避免新手第一次接触开发板时同时吞下所有通信外设。
+V2.3 保留 MCU / STM32 大目标，但拆成两个连续 Phase，避免新手第一次接触开发板时同时吞下所有通信外设。
 
-### Phase A — Stage 02 MCU Foundation / MCU Rookie
+### Phase A — Stage 02 MCU Foundation ✅
 
 目标：第一次把 Stage 01 的虚拟模型接到真实硬件。
 
@@ -63,7 +69,7 @@ C Code
 → Instrument Evidence
 ```
 
-核心主题：
+正式完成：
 
 - Development Board / MCU / Debug Probe；
 - Build / Flash / Reset / Run / Breakpoint；
@@ -74,53 +80,96 @@ C Code
 - PWM 基础；
 - Debugger；
 - Multimeter / Oscilloscope 初步取证；
-- Datasheet / Schematic 基础阅读。
+- Datasheet / Schematic 基础阅读；
+- Mission 00～04；
+- Mixed Hardware Debug Challenge；
+- GPIO Control Node Boss；
+- Stage 02 Exit Check。
 
-核心 Mission：First Contact、First LED、Button Interrupt、Timer Tick、PWM Measurement。
+状态：已完成并合并到 `main`。
 
-阶段综合：Stage 02 Mixed Hardware Debug Challenge + GPIO Control Node Boss + Exit Check。
+### Phase B — Stage 03 Peripheral Engineer ← Quality Gate
 
-### Phase B — Stage 03 Peripheral Engineer
+目标：在 Stage 02 的真实硬件底座上扩展外设、总线和数据链复杂度，同时保持统一调查模型。
 
-Phase A 稳定后继续同一个 V2.3 版本，而不是回头把所有外设塞进 Stage 02。
+正式主线：
 
-核心主题：
+```text
+UART
+→ I²C
+→ SPI
+→ ADC
+→ DMA
+→ CAN
+→ RS-485
+→ Modbus RTU
+```
 
-- UART；
-- I²C；
-- SPI；
-- ADC；
-- DMA；
-- CAN；
-- RS-485 / Modbus；
-- Watchdog / Flash 等 MCU 工程基础按需要补入。
+每个主题均要求：
 
-PWM 的基础概念和真机测量已放在 Stage 02；Stage 03 只在综合项目需要时复用，不再把 PWM 当成新的主线知识重复教授。
+```text
+Beginner Knowledge
+→ Mission
+→ Interactive / Visual Aid
+→ Real Measurement
+→ Failure Injection
+→ Debug Case
+```
 
-阶段 Boss：Multi-Peripheral Sensor Node。
+阶段综合：
+
+```text
+Stage 03 Mixed Peripheral Debug Challenge
+→ Multi-Peripheral Sensor Node Boss
+→ Stage 03 Exit Check
+```
+
+关键边界：
+
+- PWM 基础属于 Stage 02，Stage 03 只复用；
+- RS-485 先处理 Physical / Differential / Half-Duplex；
+- Modbus 再处理 Frame / Address / Function / Register Meaning；
+- 不在 Phase B 尾部临时追加 Watchdog、Flash、Ethernet 或更多协议；
+- 新主题只有在后续版本存在明确学习目标和完整闭环时加入。
+
+当前状态：内容闭环已建立，正在做零基础走查、导航/术语/治理一致性和 PR 最终验收。
 
 ### V2.3 总验收标准
 
 完成 V2.3 后，学习者应能面对一个新的 MCU 外设问题，从：
 
 ```text
-Clock
-→ Peripheral
-→ Register
+Application / Data
+→ Clock / Timing
+→ Peripheral / Register
 → Pin / Bus
 → Electrical Signal
 → External Device
+→ Protocol / Data Meaning
 ```
 
-建立证据链，并完成一个多外设 MCU 节点。
+建立证据链，并完成一个可观察、可故障注入、可回归验证的多外设 MCU 节点。
 
 ---
 
-## V2.4 — Debugging Track
+## V2.4 — Debugging Track / Stage 04
 
-目标：把“会调试”提升为独立核心能力，而不是只在每关顺带排错。
+目标：把 Stage 01～03 已经反复使用的“会排错”提升为独立、可迁移的方法体系，而不是继续通过增加外设制造内容量。
 
-重点：Evidence-driven Debugging、Build/Link Error、Watchpoint、GPIO/UART/SPI/I²C/Interrupt/DMA 故障、HardFault、Stack/Memory、示波器/逻辑分析仪，以及 Timing/Wiring/Power/Ground 问题。
+重点：
+
+```text
+Symptom
+→ System Layer
+→ Hypotheses
+→ High-value Measurement
+→ Evidence
+→ Root Cause
+→ Minimal Fix
+→ Regression
+```
+
+主题包括：Evidence-driven Debugging、Build/Link Error、Watchpoint、HardFault、Stack/Memory、Interrupt、Timing、Wiring、Power/Ground，以及 Debugger / Oscilloscope / Logic Analyzer 的工具选择。
 
 Boss：Broken Firmware Investigation。
 
@@ -192,4 +241,4 @@ Bootloader
 → 最后做跨层系统集成
 ```
 
-任何阶段如果开始大量增加“会调用 API”的内容，却没有 Mission、真实证据、故障和 Boss，应暂停扩张并先补闭环。
+任何阶段如果开始大量增加“会调用 API”的内容，却没有 Mission、真实证据、故障、Mixed Challenge 和 Boss，应暂停扩张并先补闭环。
