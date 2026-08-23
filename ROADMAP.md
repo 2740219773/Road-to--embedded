@@ -2,14 +2,16 @@
 
 ## 当前说明
 
-V2.1 架构重构已经完成并合并到 `main`。项目现在进入 **V2.2 — Stage 01 Interactive Pilot**。
+V2.1 架构重构与 V2.2 Stage 01 Interactive Pilot 已完成并合并到 `main`。
 
-需要继续区分两件事：
+项目当前进入 **V2.3 — MCU / STM32 Learning Path**。
+
+需要长期区分两件事：
 
 1. **版本里程碑是否完成**；
-2. **某个后续阶段是否已经提前做了样板内容**。
+2. **后续 Stage 是否已经提前存在纵向样板**。
 
-MCU、Debugging、RTOS、Embedded Linux、FPGA 已存在部分 Knowledge / Mission / Lab 样板，它们仍属于 vertical-slice prototype（纵向样板），用于验证架构，不代表 V2.3～V2.7 已经完成。
+Debugging、RTOS、Embedded Linux、FPGA 已经存在部分 Knowledge / Mission / Lab 样板，它们用于验证架构，不代表对应正式版本已经完成。
 
 ---
 
@@ -19,68 +21,108 @@ MCU、Debugging、RTOS、Embedded Linux、FPGA 已存在部分 Knowledge / Missi
 
 状态：已完成并合并到 `main`。
 
-完成内容包括：Project Charter、Architecture、Knowledge Base / Learning Path 分离、Mission / Lab / Debug Case / OpenMAIC 模型、Stage 00～08 技能地图、Beginner Readability、Glossary、Legacy 迁移与清理、内部导航 P0 验证以及多份 Interactive Lab 原型。
+主要成果：Project Charter、Architecture、Knowledge / Learning Path 分离、Mission / Lab / Debug Case / OpenMAIC 模型、Stage 00～08 技能地图、新手可读性规范、Glossary、Legacy 清理和 P0 导航验证。
 
 ---
 
-## V2.2 — Stage 01 Interactive Pilot ← 当前阶段
+## V2.2 — Stage 01 Interactive Pilot ✅
 
-目标：完整验证“知识底稿 + Mission + Interactive Lab + Debug Challenge + Boss”的教学闭环。
-
-核心内容：
-
-- Memory Detective；
-- Bit Hacker；
-- Volatile Mystery；
-- Struct Explorer；
-- Linker Detective；
-- Stage 01 Debug Challenge；
-- Stage 01 Boss：Virtual GPIO Controller；
-- Stage 01 Review / Exit Check。
-
-核心互动：
-
-- Memory Visualizer；
-- Register Playground。
-
-前两关和两个核心互动已经形成原型。V2.2 不追求继续增加互动工具数量，而优先验证：学习者是否能从问题进入知识、通过操作建立直觉、故意制造错误、用证据定位问题，再把能力迁移到下一关。
-
-### V2.2 验收标准
-
-一个只掌握变量、if/for、函数基础的新手，从 Stage 01 README 进入后能够：
+目标：完整验证：
 
 ```text
-Mission 01 Memory
-→ Mission 02 Bit/Register
-→ Mission 03 volatile
-→ Mission 04 struct
-→ Mission 05 compile/link
+Knowledge
+→ Mission
+→ Interactive Lab
 → Debug Challenge
-→ Virtual GPIO Boss
+→ Boss Project
 → Exit Check
 ```
 
-过程中不要求顺序阅读完整 Knowledge Base；术语第一次出现有直觉解释；每关都能回答“我为什么需要这个知识，它以后和硬件有什么关系”。
+正式完成：Memory Detective、Bit Hacker、Volatile Mystery、Struct Explorer、Linker Detective、Mixed Debug Challenge、Virtual GPIO Controller Boss、Stage 01 Exit Check。
+
+状态：已完成并合并到 `main`。
 
 ---
 
-## V2.3 — MCU / STM32 Learning Path
+## V2.3 — MCU / STM32 Learning Path ← 当前版本
 
-目标：进入真实 MCU 硬件，并把“代码 → 寄存器 → 引脚 → 仪器 → 真实设备”打通。
+V2.3 保留原来的 MCU / STM32 大目标，但拆成两个连续 Phase，避免新手第一次接触开发板时同时吞下所有通信外设。
 
-计划主题：开发环境与烧录调试、GPIO、External Interrupt、Clock Tree、Timer/PWM、UART、ADC、SPI、I2C、DMA、Watchdog、Flash。
+### Phase A — Stage 02 MCU Foundation / MCU Rookie
 
-每个核心主题最终应拥有：Beginner Concept、Knowledge Source、Mission、Interactive/Visual Aid、Real Lab、Failure Injection、Debug Challenge、Review。
+目标：第一次把 Stage 01 的虚拟模型接到真实硬件。
 
-阶段 Boss：多外设数据采集节点。
+```text
+C Code
+→ Firmware
+→ CPU
+→ Peripheral Register
+→ GPIO / Timer
+→ Physical Pin
+→ Voltage / Waveform
+→ Instrument Evidence
+```
+
+核心主题：
+
+- Development Board / MCU / Debug Probe；
+- Build / Flash / Reset / Run / Breakpoint；
+- GPIO Input / Output；
+- Clock Tree 基础；
+- External Interrupt；
+- Timer；
+- PWM 基础；
+- Debugger；
+- Multimeter / Oscilloscope 初步取证；
+- Datasheet / Schematic 基础阅读。
+
+核心 Mission：First Contact、First LED、Button Interrupt、Timer Tick、PWM Measurement。
+
+阶段综合：Stage 02 Mixed Hardware Debug Challenge + GPIO Control Node Boss + Exit Check。
+
+### Phase B — Stage 03 Peripheral Engineer
+
+Phase A 稳定后继续同一个 V2.3 版本，而不是回头把所有外设塞进 Stage 02。
+
+核心主题：
+
+- UART；
+- I²C；
+- SPI；
+- ADC；
+- DMA；
+- CAN；
+- RS-485 / Modbus；
+- Watchdog / Flash 等 MCU 工程基础按需要补入。
+
+PWM 的基础概念和真机测量已放在 Stage 02；Stage 03 只在综合项目需要时复用，不再把 PWM 当成新的主线知识重复教授。
+
+阶段 Boss：Multi-Peripheral Sensor Node。
+
+### V2.3 总验收标准
+
+完成 V2.3 后，学习者应能面对一个新的 MCU 外设问题，从：
+
+```text
+Clock
+→ Peripheral
+→ Register
+→ Pin / Bus
+→ Electrical Signal
+→ External Device
+```
+
+建立证据链，并完成一个多外设 MCU 节点。
 
 ---
 
 ## V2.4 — Debugging Track
 
-目标：把“会调试”提升为独立核心能力。
+目标：把“会调试”提升为独立核心能力，而不是只在每关顺带排错。
 
-重点包括 Evidence-driven debugging、Build/Link Error、Watchpoint、GPIO、UART、SPI、I2C、Interrupt、DMA、HardFault、Stack/Memory、示波器/逻辑分析仪，以及 Timing/Wiring/Power/Ground 问题。
+重点：Evidence-driven Debugging、Build/Link Error、Watchpoint、GPIO/UART/SPI/I²C/Interrupt/DMA 故障、HardFault、Stack/Memory、示波器/逻辑分析仪，以及 Timing/Wiring/Power/Ground 问题。
+
+Boss：Broken Firmware Investigation。
 
 ---
 
@@ -90,7 +132,7 @@ Mission 01 Memory
 
 重点：Task/Scheduler、Queue、Semaphore/Mutex、ISR→Task、Race Condition、Priority Inversion、Deadlock、Queue Overflow、Task Stack、Deadline/Timing。
 
-Boss：把裸机采集系统改造成多任务系统。
+Boss：把裸机多外设采集系统改造成多任务系统。
 
 ---
 
@@ -134,3 +176,20 @@ Bootloader
 可能包含静态课程站点、Stage 技能地图、Interactive Labs、OpenMAIC、学习进度、Challenge/Boss、故障案例搜索和项目作品集。
 
 独立 Web 前端仍放在 V2.x 内容体系和真实学习流程验证成熟后决定，避免过早投入 UI。
+
+---
+
+## 路线守门原则
+
+后续版本必须持续满足：
+
+```text
+先建立底层模型
+→ 再增加外设数量
+→ 再系统训练调试
+→ 再进入并发 RTOS
+→ 再进入 Linux / FPGA
+→ 最后做跨层系统集成
+```
+
+任何阶段如果开始大量增加“会调用 API”的内容，却没有 Mission、真实证据、故障和 Boss，应暂停扩张并先补闭环。
