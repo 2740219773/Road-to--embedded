@@ -9,9 +9,9 @@ Stage 03 不再重复这些基础，而是让 MCU 真正开始和更多外部设
 主线：
 
 ```text
-UART
-→ I²C
-→ SPI
+UART ✅
+→ I²C ✅
+→ SPI ← current
 → ADC
 → DMA
 → CAN
@@ -51,9 +51,9 @@ Application / Data
 
 ## Mission Map
 
-1. [UART Garbled — 乱码到底从哪一层开始？](../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md) ✅ Phase B formalized
-2. [I²C No ACK — 地址明明对，为什么设备不回答？](../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md) — next
-3. [SPI 有波形，但数据为什么是错的？](../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md)
+1. [UART Garbled — 乱码到底从哪一层开始？](../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md) ✅
+2. [I²C No ACK — 地址明明对，为什么设备不回答？](../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md) ✅
+3. [SPI 有波形，但数据为什么是错的？](../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md) — current
 4. [ADC 为什么一直抖？](../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md)
 5. [DMA 配好了，为什么一个字节都没搬？](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md)
 6. [两个 CAN 节点同时说话，为什么没有撞车？](../../04-Missions/Stage-03-Peripherals/06-CAN-Arbitration/Mission.md)
@@ -61,32 +61,40 @@ Application / Data
 
 现有后续 Mission 仍有一部分是 V2.1 的 vertical-slice prototype。Phase B 会按上面顺序逐个正式化，而不是同时重写全部页面。
 
-## Mission 01 — UART Learning Loop
+## Completed Formal Loops
 
-UART 现在已经形成第一条正式闭环：
+### UART
 
 ```text
 UART Knowledge
-↓
-UART Frame Visualizer
-↓
-Mission 01 — UART Garbled
-↓
-Real 0x55 TX waveform measurement
-↓
-Baud / Clock / Frame / Wiring failure injection
-↓
-UART Garbled Debug Case
-↓
-Mission Report
+→ UART Frame Visualizer
+→ UART Garbled Mission
+→ Real 0x55 TX waveform measurement
+→ Baud / Clock / Frame / Wiring failure injection
+→ UART Garbled Debug Case
+→ Mission Report
 ```
 
-核心能力不是“串口能打印 Hello”，而是：**能测真实 bit time，并区分软件配置与 TX Pin 的物理事实。**
+核心能力：能测真实 bit time，并区分软件配置与 TX Pin 的物理事实。
+
+### I²C
+
+```text
+I²C Knowledge
+→ I²C Bus Visualizer
+→ I²C No ACK Mission
+→ SDA/SCL idle + Address/ACK measurement
+→ Pull-up / Power / Address / timing failure injection
+→ I²C No ACK Debug Case
+→ Mission Report
+```
+
+核心能力：能区分 7-bit Address、on-wire Address Byte、ACK/NACK 和物理总线条件；看到 NACK 时不会默认等同于“地址错”。
 
 ## Interactive Labs
 
 - [UART Frame Visualizer](../../03-Interactive-Labs/UART-Frame-Visualizer/) — TX/RX Baud 与采样漂移
-- [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/)
+- [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/) — 7-bit Address / R/W / ACK / Pull-up / Power
 - [SPI Timing Playground](../../03-Interactive-Labs/SPI-Timing-Playground/)
 - [ADC Sampling Simulator](../../03-Interactive-Labs/ADC-Sampling-Simulator/)
 - [DMA Transfer Simulator](../../03-Interactive-Labs/DMA-Transfer-Simulator/)
