@@ -13,24 +13,6 @@ V2.3 — MCU / STM32 Learning Path
 - [x] V2.3 Phase A — Stage 02 MCU Foundation merged to `main`;
 - [x] Stage 02 已形成 First Contact → LED → Interrupt → Timer → PWM → Debug Challenge → Boss → Exit Check。
 
-## V2.3 Phase B — Stage 03
-
-目标：在 Stage 02 的真实硬件证据链上，系统扩展 MCU 与外部设备通信、采样和数据搬运能力。
-
-统一底座：
-
-```text
-Clock
-→ Peripheral
-→ Register / Driver State
-→ Pin / Bus
-→ Electrical Signal
-→ External Device
-→ Data / Protocol Meaning
-```
-
-Stage 03 不重新教授 GPIO、Timer/PWM、Debugger 基础，而是在每个新外设里复用这些能力。
-
 ## Build Order
 
 ```text
@@ -38,66 +20,57 @@ UART ✅
 → I²C ✅
 → SPI ✅
 → ADC ✅
-→ DMA ← current
-→ CAN
+→ DMA ✅
+→ CAN ← current
 → RS-485 / Modbus
 → Stage 03 Mixed Peripheral Debug Challenge
 → Multi-Peripheral Sensor Node Boss
 → Stage 03 Exit Check
 ```
 
-## Workstream A — UART ✅
+## Completed Formal Loops
 
-- [x] UART Knowledge / Frame Visualizer / Mission / Debug Case 正式闭环；
-- [x] 能从 `0x55` 真实 TX bit time 反推 Baud；
-- [x] 能区分配置值、Clock 和物理 TX 波形。
+### UART ✅
+Knowledge / Frame Visualizer / Garbled Mission / real bit-time evidence / Debug Case 已闭环。
 
-## Workstream B — I²C ✅
+### I²C ✅
+Knowledge / Bus Visualizer / No ACK Mission / physical-bus + address evidence / Debug Case 已闭环。
 
-- [x] I²C Knowledge / Bus Visualizer / Mission / Debug Case 正式闭环；
-- [x] 能区分 7-bit Address、on-wire Address Byte、R/W、ACK/NACK；
-- [x] 能先验证 Open-Drain / Pull-up / Power 等物理总线条件。
+### SPI ✅
+Knowledge / Timing Playground / Wrong Data Mission / Datasheet-vs-waveform evidence / Wrong Mode Debug Case 已闭环。
 
-## Workstream C — SPI ✅
+### ADC ✅
+Knowledge / Sampling Simulator / Jitter Mission / Vin+Vref+raw-code evidence / Unstable Reference Debug Case 已闭环。
 
-- [x] SPI Knowledge / Timing Playground / Mission / Debug Case 正式闭环；
-- [x] Playground 支持 Controller vs Device Mode、CPOL/CPHA、bit order、CS；
-- [x] 能用 Datasheet timing diagram 与 raw waveform 判断 sampling edge，而不是只信自动 Decoder。
+### DMA ✅
+- [x] DMA Knowledge 正式化；
+- [x] DMA Transfer Simulator 升级：Request、Enable、Direction、Transfer Count、Buffer Capacity、CPU mode、overflow；
+- [x] DMA No Transfer Mission 重构；
+- [x] 建立 Peripheral Event → Request → Transfer Contract → Memory Result → Completion 证据链；
+- [x] 区分“DMA 没搬”“DMA 搬错”“DMA 越界”“DMA 搬了但通知没来”；
+- [x] DMA Wrong Length Debug Case 正式化；
+- [x] DMA 路线按零基础入口复查完成。
 
-## Workstream D — ADC ✅
-
-- [x] ADC Knowledge 正式化：Analog Voltage → Vref → Sampling → Quantization → Raw Code；
-- [x] ADC Sampling Simulator 升级：Vin / Vref / Resolution / Input Noise / Vref Noise + 64-sample statistics；
-- [x] ADC Jitter Mission 重构为 Predict → Visualize → Real Measurement → Break It → Debug → Transfer → Report；
-- [x] 明确 Quantization、LSB、Vref、Source Impedance、Sampling Time；
-- [x] 新增 ADC Unstable Reference Debug Case；
-- [x] Debugging Cases 索引加入 ADC；
-- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
-- [x] ADC 路线按零基础入口复查完成。
-
-ADC 核心能力标准：
+DMA 核心能力标准：
 
 ```text
-ADC code moves
+DMA Complete
 ≠
-ADC is inaccurate
+DMA configuration is correct / memory is safe
 ```
 
-先区分 Vin、Vref、Sampling、Quantization 和 Software Conversion，再决定是否需要过滤。
+## Workstream F — CAN ← Current
 
-## Workstream E — DMA ← Current
+- [ ] 审计 CAN Knowledge / Mission / Arbitration Visualizer；
+- [ ] 建立 CAN Controller → Transceiver → Differential Bus → Nodes 的物理链；
+- [ ] 建立 ID / Arbitration / Dominant / Recessive 的直觉；
+- [ ] 检查 Visualizer 是否真正表现逐 bit Arbitration；
+- [ ] 建立 bitrate / termination / ACK / bus-state 故障视角；
+- [ ] 新增 CAN 独立 Debug Case；
+- [ ] 完成 CAN 零基础走查。
 
-- [ ] 审计 DMA Knowledge / Mission / Transfer Simulator / Existing Debug Case；
-- [ ] 建立 Peripheral Request → Source/Destination → Length → Transfer → Completion 的最小模型；
-- [ ] 区分“DMA 没启动”“DMA 搬错地址”“长度错误”“Buffer 被覆盖”；
-- [ ] 检查 Transfer Simulator 是否能表现 address / length / direction / completion；
-- [ ] 重构 DMA Mission；
-- [ ] 正式化 DMA Wrong Length Debug Case；
-- [ ] 完成 DMA 零基础走查。
+## Workstream G — RS-485 / Modbus
 
-## Workstream F — CAN / RS-485 / Modbus
-
-- [ ] CAN：从 Shared Bus → ID / Arbitration → Transceiver → Termination → Frame；
 - [ ] RS-485：先处理 Differential Physical Layer；
 - [ ] Modbus：再处理 Frame / Address / Function / Register Meaning；
 - [ ] 不把 RS-485 和 Modbus 混成同一层。
