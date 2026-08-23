@@ -2,161 +2,138 @@
 
 ## Project Version
 
-V2.3 — MCU / STM32 Learning Path
-
-当前阶段：**Phase B — Stage 03 Peripheral Engineer ready for merge**。
+V2.4 — Debugging Track / Stage 04 Debug Hunter
 
 ## Completed Baselines
 
 - [x] V2.1 — Architecture Refactor merged to `main`;
 - [x] V2.2 — Stage 01 Interactive Pilot merged to `main`;
 - [x] V2.3 Phase A — Stage 02 MCU Foundation merged to `main`;
-- [x] Stage 02 已形成 First Contact → LED → Interrupt → Timer → PWM → Debug Challenge → Boss → Exit Check。
+- [x] V2.3 Phase B — Stage 03 Peripheral Engineer merged to `main`;
+- [x] Stage 01～03 已经积累 C/Memory、真实 MCU、通信/采样/DMA 以及大量 evidence-driven fault practice。
 
-## V2.3 Phase B Build Order
+## Current Goal
 
-```text
-UART ✅
-→ I²C ✅
-→ SPI ✅
-→ ADC ✅
-→ DMA ✅
-→ CAN ✅
-→ RS-485 ✅
-→ Modbus RTU ✅
-→ Mixed Peripheral Debug Challenge ✅
-→ Multi-Peripheral Sensor Node Boss ✅
-→ Stage 03 Exit Check ✅
-→ Quality Gate ✅
-```
-
-## Completed Formal Loops
-
-### UART ✅
-Knowledge / Frame Visualizer / Garbled Mission / real bit-time evidence / Debug Case 已闭环。
-
-### I²C ✅
-Knowledge / Bus Visualizer / No ACK Mission / physical-bus + address evidence / Debug Case 已闭环。
-
-### SPI ✅
-Knowledge / Timing Playground / Wrong Data Mission / Datasheet-vs-waveform evidence / Wrong Mode Debug Case 已闭环。
-
-### ADC ✅
-Knowledge / Sampling Simulator / Jitter Mission / Vin + Vref + raw-code evidence / Unstable Reference Debug Case 已闭环。
-
-### DMA ✅
-Knowledge / Transfer Simulator / No Transfer Mission / Request + Memory evidence / Wrong Length Debug Case 已闭环。
-
-核心：
+Stage 04 不再继续增加外设数量，而是把 Stage 01～03 已经反复使用的排错经验抽象成一套可迁移方法：
 
 ```text
-DMA Complete
-≠ configuration correct
-≠ memory safe
+Symptom
+→ Expected
+→ Preserve / Reproduce
+→ System Layer
+→ Hypothesis Tree
+→ High-value Measurement
+→ Evidence
+→ Eliminate / Confirm
+→ Root Cause
+→ Minimal Fix
+→ Regression
 ```
 
-### CAN ✅
-- [x] CAN Knowledge 明确 Controller / Transceiver / CAN_H-L / Peer / ACK；
-- [x] Arbitration Visualizer 支持 3 节点逐 bit 仲裁；
-- [x] Mission 06 重构：Arbitration + real bus evidence；
-- [x] 区分 normal Arbitration Lost 与 communication failure；
-- [x] CAN No-ACK Debug Case；
-- [x] Bit Timing / Peer / ACK / Error Counter 进入故障链。
+最终目标：面对一个没见过的故障，也知道应该怎样开始，而不是只能识别已经做过的 UART/I2C/SPI 等案例。
 
-核心：
+## Existing Vertical-Slice Assets
+
+### Knowledge
+
+- [x] Evidence-Driven Debugging 原型；
+- [x] Cortex-M Fault Model 原型；
+- [x] Stack & Memory Corruption 原型；
+- [x] Debugger Watchpoint 原型；
+- [x] Oscilloscope & Logic Analyzer 原型。
+
+### Missions
+
+- [x] 01 Fault Scene 原型；
+- [x] 02 Who Wrote It 原型；
+- [x] 03 Choose the Instrument 原型。
+
+### Cases / Boss
+
+- [x] HardFault Bad Pointer；
+- [x] Interrupt Storm；
+- [x] Stack Overflow；
+- [x] Broken Firmware Investigation Boss 原型。
+
+这些资产证明方向可行，但目前仍不足以视为正式 Stage 04 完成。
+
+## Formal Stage 04 Capability Chain
+
+当前审计后确定的正式能力链：
 
 ```text
-wins arbitration
-≠ frame acknowledged
-≠ communication succeeded
+01 Preserve & Reproduce the Fault Scene
+↓
+02 Build Layer Map & Hypothesis Tree
+↓
+03 Choose the Highest-Value Measurement
+↓
+04 Catch the First Bad Write / Data Flow
+↓
+05 Reconstruct Crash / Fault Context
+↓
+06 Minimal Fix & Regression
+↓
+Mixed Unknown-Failure Challenge
+↓
+Broken Firmware Investigation Boss
+↓
+Stage 04 Exit Check
 ```
 
-### RS-485 ✅
-- [x] 从原 Modbus 混合主题中拆出独立 Physical-Layer Mission；
-- [x] 新增 RS-485 Half-Duplex Visualizer；
-- [x] 建立 UART → Transceiver → DE/RE → A/B → Peer 链；
-- [x] 建立 Direction Turnaround 证据；
-- [x] RS-485 Direction Stuck Debug Case。
+现有 Mission 会尽量升级复用；不为了编号整齐重复创建相同主题。
 
-核心：
+## Workstream A — Core Method ← Current
 
-```text
-UART bytes correct
-≠ RS-485 physical bus correct
-```
+- [ ] 把 Evidence-Driven Debugging 从纲要升级成 Stage 04 Source of Truth；
+- [ ] 明确 Symptom / Expected / Fact / Hypothesis / Evidence / Root Cause 的区别；
+- [ ] 建立 Layer Map 与 Hypothesis Tree；
+- [ ] 建立“最高信息量测量”选择原则；
+- [ ] 建立 Reproduction / Scene Preservation / Change One Variable；
+- [ ] 建立 Minimal Fix / Regression / Boundary Check。
 
-### Modbus RTU ✅
-- [x] Modbus 作为 RS-485 之后的独立协议语义 Mission 08；
-- [x] Modbus Frame Builder 支持 PDU Address 与 4xxxx Manual Display 对照；
-- [x] 明确 Manual display / API value / PDU address / actual bytes；
-- [x] 区分 Timeout 与 Exception Response；
-- [x] Modbus Wrong Register Debug Case。
+## Workstream B — Missions
 
-核心：
+- [ ] Mission 01 Fault Scene：从 HardFault 专题扩展为保护现场 + 可复现性；
+- [ ] Mission 02 Who Wrote It：升级为 Data-flow / first bad write investigation；
+- [ ] Mission 03 Choose the Instrument：升级为 measurement selection，而不是工具竞猜；
+- [ ] 新增 Layer / Hypothesis Tree Mission；
+- [ ] 新增 Crash Context / HardFault Mission，避免所有 crash 方法塞进 Fault Scene；
+- [ ] 新增 Minimal Fix / Regression Mission。
 
-```text
-RS-485 works
-≠ Modbus frame correct
-≠ register mapping correct
-≠ returned data meaning correct
-```
+## Workstream C — Evidence Tools / Knowledge
 
-## Integration ✅
+- [ ] Debugger / Breakpoint / Watchpoint / Memory / Call Stack 的职责边界；
+- [ ] Oscilloscope vs Logic Analyzer 的测量问题选择；
+- [ ] Stack / Memory Corruption 的 first-cause 思维；
+- [ ] Cortex-M Fault evidence：Stacked PC / LR / xPSR / Fault Status / Fault Address；
+- [ ] 必要时建立一个 Debug Decision / Evidence Board Interactive Lab，前提是它能提供真实教学价值，而不是 UI 装饰。
 
-- [x] Stage 03 Mixed Peripheral Debug Challenge；
-- [x] Multi-Peripheral Sensor Node Boss 重构；
-- [x] Boss 不要求堆满全部外设，而要求合理组合与不同系统层故障；
-- [x] Stage 03 Exit Check；
-- [x] Debugging Cases Index 更新。
+## Workstream D — Integration
 
-## Phase B Quality Gate ✅
-
-- [x] 按零基础学习者视角走查 Stage 02 Exit → Stage 03 Mission 01～08 → Mixed Challenge → Boss → Exit；
-- [x] 检查 Knowledge / Mission / Lab / Debug Case 导航与 Stage 总入口；
-- [x] 反查旧 `Stage-03-Peripheral-Explorer` 路径，无剩余搜索结果；
-- [x] 反查旧 `07-Modbus-Wrong-Register` 路径，无剩余搜索结果；
-- [x] 新增 CAN / RS-485 / Modbus 首次术语均先建立最小概念；
-- [x] Stage 03 README / Boss / Exit Check 已对齐 01～08 Mission；
-- [x] Interactive Labs 总索引已把 PWM 归回 Stage 02，并加入 RS-485 Lab；
-- [x] README / ROADMAP / DEVELOPMENT-PLAN / Missions Index 已从旧 Phase A/P0 状态同步到 Phase B；
-- [x] PR #4 diff 检查：只包含 Stage 03 Phase B 资产与必要治理同步；
-- [x] 分支相对 `main` behind = 0；
-- [x] 最新检查时无 GitHub CI/status checks 或 workflow runs；
-- [x] PR #4 无未处理 inline review thread。
+- [ ] 重构 Broken Firmware Investigation Boss；
+- [ ] 建立 Stage 04 Mixed Unknown-Failure Challenge；
+- [ ] 建立 Stage 04 Exit Check；
+- [ ] Stage 04 README 完整 Entry → Mission → Case → Boss → Exit 导航；
+- [ ] 零基础完整走查；
+- [ ] 导航 / 术语 / PR 范围质量门。
 
 ## Scope Guardrail
 
-Phase B 只建设 Stage 03。没有在尾部临时追加 Watchdog、Flash、Ethernet 或新的协议主题。
+V2.4 不新增新的 MCU 外设课程，不扩 RTOS 并发主题，不把 Stage 04 变成“更多错误案例合集”。
 
-Stage 04 Debug Hunter 虽已有 vertical-slice prototype，但系统化调试课程留到 V2.4 正式建设。
-
-PWM 基础属于 Stage 02；Stage 03 只复用，不重新作为独立主题。
-
-## Next
-
-PR #4 Ready for Review 并合并后：
+允许复用 Stage 01～03 的 UART/I²C/SPI/ADC/DMA/CAN/RS-485/Modbus 故障作为训练素材，但教学重点必须是：
 
 ```text
-V2.4 / Stage 04 Debug Hunter
+为什么选择这个证据？
+这个结果排除了什么？
+下一步为什么这样走？
 ```
 
-重点不再增加外设，而是把 Stage 01～03 已积累的排错经验抽象成系统方法。
+而不是再次教授外设本身。
 
 ## Current Rule
 
-每个 Stage 的正式完成标准继续保持：
+Stage 04 的完成标准不是“会解决几个已知 Fault”，而是：
 
-```text
-Beginner Knowledge
-→ Mission
-→ Interactive / Visual Aid
-→ Real Measurement
-→ Failure Injection
-→ Debug Case / Evidence
-→ Mixed Challenge
-→ Boss
-→ Exit Check
-→ Quality Gate
-```
-
-不以“文件数量”和“API 调通数量”作为完成标准。
+> 给学习者一个没有标签、没有答案的新故障，他仍能构造调查计划、选择高信息量证据并用回归证明根因。
