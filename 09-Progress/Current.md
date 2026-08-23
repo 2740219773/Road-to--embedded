@@ -37,8 +37,8 @@ Stage 03 不重新教授 GPIO、Timer/PWM、Debugger 基础，而是在每个新
 UART ✅
 → I²C ✅
 → SPI ✅
-→ ADC ← current
-→ DMA
+→ ADC ✅
+→ DMA ← current
 → CAN
 → RS-485 / Modbus
 → Stage 03 Mixed Peripheral Debug Challenge
@@ -48,61 +48,52 @@ UART ✅
 
 ## Workstream A — UART ✅
 
-- [x] UART beginner Knowledge 正式化；
-- [x] UART Frame Visualizer 升级：TX/RX Baud 分离、RX sample drift、decoded byte / stop validation；
-- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
-- [x] UART Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
-- [x] 明确 TX/RX/GND、电平标准、8N1、Baud、Clock、真实 bit-time 测量；
-- [x] UART Garbled Debug Case 升级为 Evidence / Layer / Calculation / Regression；
-- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
-- [x] UART 路线按零基础入口复查完成。
+- [x] UART Knowledge / Frame Visualizer / Mission / Debug Case 正式闭环；
+- [x] 能从 `0x55` 真实 TX bit time 反推 Baud；
+- [x] 能区分配置值、Clock 和物理 TX 波形。
 
 ## Workstream B — I²C ✅
 
-- [x] I²C Knowledge 正式化；
-- [x] I²C Visualizer 升级：Device/Master 7-bit Address、R/W、on-wire Address Byte、ACK/NACK、Power、Pull-up；
-- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
-- [x] 建立 Address / ACK / Pull-up / Open-Drain / waveform 证据链；
-- [x] 明确 7-bit Address 与 `(address << 1) | R/W` 的区别；
-- [x] I²C Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
-- [x] I²C No ACK Debug Case 升级为 Physical Bus → Protocol 的分层取证；
-- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
-- [x] I²C 路线按零基础入口复查完成。
+- [x] I²C Knowledge / Bus Visualizer / Mission / Debug Case 正式闭环；
+- [x] 能区分 7-bit Address、on-wire Address Byte、R/W、ACK/NACK；
+- [x] 能先验证 Open-Drain / Pull-up / Power 等物理总线条件。
 
 ## Workstream C — SPI ✅
 
-- [x] SPI Knowledge 正式化；
-- [x] SPI Timing Playground 升级：Controller Mode vs Device expected Mode、CPOL/CPHA、sample edge、bit order、CS；
-- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
-- [x] SPI Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
-- [x] 建立 Clock / CPOL / CPHA / CS / bit order / waveform 证据链；
-- [x] 强化 Datasheet timing diagram vs raw waveform，而不是只信逻辑分析仪自动 Decoder；
-- [x] 新增 SPI Wrong Mode Debug Case；
-- [x] Debugging Cases 索引加入 SPI；
-- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
-- [x] SPI 路线按零基础入口复查完成。
+- [x] SPI Knowledge / Timing Playground / Mission / Debug Case 正式闭环；
+- [x] Playground 支持 Controller vs Device Mode、CPOL/CPHA、bit order、CS；
+- [x] 能用 Datasheet timing diagram 与 raw waveform 判断 sampling edge，而不是只信自动 Decoder。
 
-SPI 核心能力标准：
+## Workstream D — ADC ✅
+
+- [x] ADC Knowledge 正式化：Analog Voltage → Vref → Sampling → Quantization → Raw Code；
+- [x] ADC Sampling Simulator 升级：Vin / Vref / Resolution / Input Noise / Vref Noise + 64-sample statistics；
+- [x] ADC Jitter Mission 重构为 Predict → Visualize → Real Measurement → Break It → Debug → Transfer → Report；
+- [x] 明确 Quantization、LSB、Vref、Source Impedance、Sampling Time；
+- [x] 新增 ADC Unstable Reference Debug Case；
+- [x] Debugging Cases 索引加入 ADC；
+- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
+- [x] ADC 路线按零基础入口复查完成。
+
+ADC 核心能力标准：
 
 ```text
-SCLK / MOSI / MISO / CS all toggle
+ADC code moves
 ≠
-SPI timing contract is correct
+ADC is inaccurate
 ```
 
-## Workstream D — ADC ← Current
+先区分 Vin、Vref、Sampling、Quantization 和 Software Conversion，再决定是否需要过滤。
 
-- [ ] 审计 ADC Knowledge / Mission / Sampling Simulator；
-- [ ] 建立 Analog Voltage → Reference → Sampling → Quantization → Digital Code 的最小模型；
-- [ ] 区分真实输入噪声、参考电压、采样时间、源阻抗与软件显示抖动；
-- [ ] 检查 ADC Sampling Simulator 是否真正能表现分辨率、Vref、噪声和采样；
-- [ ] 建立 ADC Jitter 独立 Debug Case；
-- [ ] 完成 ADC 零基础走查。
+## Workstream E — DMA ← Current
 
-## Workstream E — DMA
-
-- [ ] DMA：从 Peripheral Request → Transfer → Buffer → Length / Address / Completion；
-- [ ] 保持 ADC 与 DMA 独立理解，再在综合项目中组合。
+- [ ] 审计 DMA Knowledge / Mission / Transfer Simulator / Existing Debug Case；
+- [ ] 建立 Peripheral Request → Source/Destination → Length → Transfer → Completion 的最小模型；
+- [ ] 区分“DMA 没启动”“DMA 搬错地址”“长度错误”“Buffer 被覆盖”；
+- [ ] 检查 Transfer Simulator 是否能表现 address / length / direction / completion；
+- [ ] 重构 DMA Mission；
+- [ ] 正式化 DMA Wrong Length Debug Case；
+- [ ] 完成 DMA 零基础走查。
 
 ## Workstream F — CAN / RS-485 / Modbus
 
