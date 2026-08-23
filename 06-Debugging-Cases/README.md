@@ -19,7 +19,8 @@ Symptom
 ### Stage 03 / 外设与通信
 
 - [UART Garbled](UART-Garbled/CASE.md) — 从 bit time 反推真实 Baud Rate。
-- [I²C No ACK](I2C-No-ACK/CASE.md) — 先判断电气层是否具备合法总线条件。
+- [I²C No ACK](I2C-No-ACK/CASE.md) — 先判断电气层是否具备合法总线条件，再解释 Address / ACK。
+- [SPI Wrong Mode](SPI-Wrong-Mode/CASE.md) — 波形存在但 Sample Edge 与 Datasheet 不一致。
 - [DMA Wrong Length](DMA-Wrong-Length/CASE.md) — DMA 正常完成但越界覆盖内存。
 
 ### Stage 04 / Debug Hunter
@@ -39,4 +40,4 @@ Symptom
 
 案例应尽量提供日志、波形、寄存器快照、任务状态或代码片段，让学习者依据证据判断，而不是猜答案。
 
-后续新增案例必须明确连接到对应 Stage / Mission / Knowledge Base；尚未实现的 SPI、GPIO、FPGA 等案例不在这里伪装成“已完成”。
+后续新增案例必须明确连接到对应 Stage / Mission / Knowledge Base；尚未实现的案例不在这里伪装成“已完成”。
