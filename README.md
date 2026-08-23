@@ -2,62 +2,104 @@
 
 > 面向工程实践的交互式嵌入式学习系统：从 C、MCU、RTOS、Embedded Linux 到 FPGA，在“观察、操作、故障、调试、项目”中建立真正的工程能力。
 
-## 为什么做这个项目？
+## 当前状态
 
-互联网上并不缺嵌入式教程、书籍和视频。
+项目目前处于 **V2.1 架构重构分支** `refactor/v2.1-learning-system`，尚未正式合并到 `main`。重构前状态保存在 `backup/pre-v2.1-restructure`。
 
-真正的问题往往不是“没有资料”，而是：
+V2.1 的结构迁移已经完成，旧的课程目录已经退休。当前 P0 工作只剩：导航与内部链接验证、命名一致性、新手可读性复查、PR 最终检查。
 
-- 内容太多，不知道先学什么；
-- 大段理论很难长期坚持；
-- 看懂了，却不会动手；
-- 跟着教程能运行，出现异常就不知道怎么办；
-- 学了很多知识，却不知道它在真实工程中的位置。
+## 为什么做这个项目
 
-因此 Road to Embedded 不希望成为另一本电子教材。
+互联网上不缺嵌入式教程。更常见的问题是：不知道先学什么、理论太枯燥、跟着教程能跑但不会排错、学了很多概念却不知道它们在真实系统中的位置。
 
-我们更希望把学习变成：
+Road to Embedded 希望把学习变成：
 
-**看到一个现象 → 产生疑问 → 做出预测 → 动手验证 → 故意弄坏 → 使用工具排查 → 找到根因 → 完成工程任务。**
+**看到现象 → 产生疑问 → 做出预测 → 互动验证 → 动手实验 → 故意弄坏 → 使用证据排查 → 找到根因 → 完成工程任务。**
 
-## 项目定位
+## 学习者从哪里开始
 
-Road to Embedded 是一套可以长期迭代的 **Interactive Embedded Learning System**。
+从 [`02-Learning-Path/README.md`](02-Learning-Path/README.md) 进入，不要从仓库第一个文件开始顺序阅读。
 
-它由三层组成：
+```text
+Stage 00  System Explorer
+Stage 01  C & Memory
+Stage 02  MCU Rookie
+Stage 03  Peripheral Engineer
+Stage 04  Debug Hunter
+Stage 05  RTOS Engineer
+Stage 06  Embedded Linux
+Stage 07  FPGA Builder
+Stage 08  System Integrator
+```
+
+第一次看到 MCU、UART、DMA、ISR、Mutex、FPGA 等术语时，可以先查 [`01-Knowledge-Base/Glossary.md`](01-Knowledge-Base/Glossary.md)。核心内容遵循 [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)：先解释“它是什么、在哪儿、为什么需要”，再进入正式术语和参数。
+
+## 内容模型
 
 ```text
 Knowledge Base
-知识底稿 / 查询手册
+准确知识 / 查询 / 复习
         ↓
-Interactive Lesson
-Slides / Quiz / HTML Simulation / AI 多角色课堂
+Learning Path + Missions
+问题 / 情境 / 任务 / 预测
         ↓
-Engineering Lab
-代码 / 开发板 / 仪器 / 故障注入 / 综合项目
+Interactive Labs + OpenMAIC
+动画 / Quiz / Simulation / AI 课堂
+        ↓
+Engineering Practice
+代码 / 开发板 / 仪器 / 故障 / 项目
 ```
 
-Markdown 仍然重要，但它不再要求学习者从头硬啃到尾。它主要负责保证知识准确、提供查询入口，并作为互动课程的可靠内容源。
+Markdown 是课程源和知识底稿，不是唯一学习界面。
 
-## 学习方式
+## 正式目录
 
-传统课程可能叫：
+```text
+Road-to--embedded/
+├─ PROJECT.md
+├─ ROADMAP.md
+├─ CONTRIBUTING.md
+├─ docs/
+├─ 00-Project/
+├─ 01-Knowledge-Base/
+├─ 02-Learning-Path/
+├─ 03-Interactive-Labs/
+├─ 04-Missions/
+├─ 05-Projects/
+├─ 06-Debugging-Cases/
+├─ 07-OpenMAIC/
+├─ 08-Resources/
+└─ 09-Progress/
+```
 
-> 第 3 章：位运算
+旧结构与迁移历史记录在 [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)，但旧目录已不再存在于当前重构分支。
 
-在这里，它更可能叫：
+## 一节课的理想体验
 
-> **Mission：只想打开一个 LED，为什么其他灯全灭了？**
+```text
+Hook        一个值得追究的现象
+↓
+Predict     操作前先猜
+↓
+Visualize   图、动画或交互建立直觉
+↓
+Action      自己操作
+↓
+Break It    故意制造错误
+↓
+Debug       用证据定位原因
+↓
+Boss        独立解决新问题
+↓
+Review      短复盘
+```
 
-传统课程可能叫：
+Stage 01 当前入口：
 
-> 指针基础
-
-在这里，它会变成：
-
-> **Mission：内存侦探——CPU 到底去哪里找数据？**
-
-知识仍然严谨，但学习入口从“定义”变成“问题”。
+- [`Memory Detective`](04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
+- [`Bit Hacker`](04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
+- [`Memory Visualizer`](03-Interactive-Labs/Memory-Visualizer/)
+- [`Register Playground`](03-Interactive-Labs/Register-Playground/)
 
 ## 五级能力模型
 
@@ -69,103 +111,46 @@ L4 排错     出现异常能够定位
 L5 迁移     换芯片、换项目仍能使用
 ```
 
-项目最终追求的是 L4～L5，而不是“课程看完了”。
+目标不是“课程看完”，而是逐步达到 L4～L5。
 
-## 总体路线
+## 维护者入口
 
-`C → 计算机与电子基础 → MCU → STM32 → 外设 → 中断/DMA → 通信协议 → FreeRTOS → 调试 → Embedded Linux → FPGA → 系统级联调`
+继续维护前优先阅读：
 
-FPGA 会从早期保留数字逻辑入口，但前期主线仍优先建立 MCU 与嵌入式系统的完整工程认知。
+1. [`PROJECT.md`](PROJECT.md)
+2. [`ROADMAP.md`](ROADMAP.md)
+3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+4. [`docs/CONTENT-DESIGN.md`](docs/CONTENT-DESIGN.md)
+5. [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)
+6. [`docs/DEVELOPMENT-PLAN.md`](docs/DEVELOPMENT-PLAN.md)
+7. [`09-Progress/V2.1-Migration-Status.md`](09-Progress/V2.1-Migration-Status.md)
+8. [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
-## 仓库结构
+新增内容前先判断最合适的媒介，不要默认创建新的长篇 Markdown。
 
-```text
-Road-to--embedded/
-├─ 00-Roadmap/          路线、进度、教学系统设计
-├─ 01-Fundamentals/     C、计算机组成、数字电路、Linux 基础
-├─ 02-MCU/              MCU 原理、STM32、外设与调试
-├─ 03-RTOS/             RTOS 与 FreeRTOS
-├─ 04-Embedded-Linux/   Linux 系统、驱动与构建系统
-├─ 05-FPGA/             数字逻辑、Verilog、Vivado 与 FPGA 项目
-├─ 06-Protocols/        UART、SPI、I2C、CAN、Ethernet、Modbus 等
-├─ 07-Projects/         分阶段工程项目
-├─ 08-Debugging/        调试工具、故障案例与定位方法
-├─ 09-Resources/        书籍、课程、开源项目与工具
-└─ 10-Interactive-Labs/ 互动课程、挑战与 OpenMAIC 材料
-```
+## OpenMAIC
 
-## 互动课堂
+OpenMAIC 是互动课堂载体之一，不是唯一内容源。技术事实保存在 Knowledge Base，教学任务保存在 Mission。
 
-互动内容可结合 OpenMAIC 等平台实现：
+Stage 01 第一份 OpenMAIC 源：
 
-- Slides；
-- Quiz；
-- HTML Simulation；
-- AI Teacher / Rookie Engineer / Debug Mentor；
-- PBL 项目课堂。
-
-平台只是载体，核心教学设计和课程源材料保存在本仓库，因此未来可以迁移到其他技术方案。
-
-详细设计见：[`00-Roadmap/Interactive-Learning-System.md`](00-Roadmap/Interactive-Learning-System.md)
-
-## 每一课的理想体验
-
-```text
-Hook        一个值得追究的现象
-  ↓
-Predict     先猜会发生什么
-  ↓
-Visualize   图、动画或交互建立直觉
-  ↓
-Play        自己操作
-  ↓
-Break It    故意制造错误
-  ↓
-Debug       用证据定位原因
-  ↓
-Boss        独立完成一个小挑战
-  ↓
-Review      一页核心知识复盘
-```
-
-## 工程化学习原则
-
-1. 先建立系统地图，再深入细节。
-2. 能用图和实验说明的内容，不优先使用长篇文字。
-3. 操作前先预测，操作后解释现象。
-4. 每个重要知识点尽可能设计故障场景。
-5. 调试能力与开发能力同等重要。
-6. 每个阶段最终用项目串联，而不是用考试结束。
-7. 游戏化服务于工程能力，不追求无意义的积分和签到。
-8. 从 PC 模拟逐渐进入 MCU、仪器、FPGA 和真实系统。
-
-## 当前阶段
-
-当前进入 **Phase 1：C 与底层基础**，并开始把已有知识底稿改造成互动课程。
-
-第一关：[`Memory Detective — 内存侦探`](10-Interactive-Labs/Phase-1-C/01-Memory-Detective/Mission.md)
-
-详细学习路线：[`00-Roadmap/Learning-Roadmap.md`](00-Roadmap/Learning-Roadmap.md)
-
-学习进度：[`00-Roadmap/Progress.md`](00-Roadmap/Progress.md)
+[`07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md`](07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md)
 
 ## 最终目标
-
-最终把能力连接成一条完整链路：
 
 ```text
 PC / 上位机
     ↕
-网络 / 串口 / 总线
+Network / Serial / Bus
     ↕
 MCU / Embedded Linux
     ↕
 FPGA
     ↕
-传感器 / 执行器 / 真实设备
+Sensor / Actuator / Real Device
 ```
 
-面对系统异常时，不只是说“软件可能有问题”或“硬件可能有问题”，而是能够跨层观察证据、缩小范围并逐步找到根因。
+面对异常时，不只是猜“软件还是硬件”，而是能够跨层观察证据、缩小范围并找到根因。
 
 ---
 
