@@ -41,7 +41,8 @@ printf("%zu\n", sizeof(Sample));
 - Address：数据在内存里的位置；
 - `sizeof`：询问一个类型/对象占多少字节；
 - Alignment：数据在内存中常需要按照某些地址边界摆放；
-- Padding：编译器为了满足布局规则插入的空字节。
+- Padding：编译器为了满足布局规则插入的空字节；
+- ABI：Application Binary Interface，可以先理解成“编译后的程序在数据布局、调用方式等方面遵守的一组二进制约定”。不同平台/工具链的 ABI 可能不同。
 
 先读：[Struct / Enum / Typedef](../../../01-Knowledge-Base/C/05-Struct-Enum-Typedef.md)
 
@@ -247,4 +248,4 @@ Struct
 → Hardware Register Block
 ```
 
-下一关：**Mission 05 — Linker Detective**。
+下一关：[Mission 05 — Linker Detective](../05-Linker-Detective/Mission.md)。
