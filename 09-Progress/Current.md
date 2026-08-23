@@ -36,8 +36,8 @@ Stage 03 不重新教授 GPIO、Timer/PWM、Debugger 基础，而是在每个新
 ```text
 UART ✅
 → I²C ✅
-→ SPI ← current
-→ ADC
+→ SPI ✅
+→ ADC ← current
 → DMA
 → CAN
 → RS-485 / Modbus
@@ -57,16 +57,6 @@ UART ✅
 - [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
 - [x] UART 路线按零基础入口复查完成。
 
-UART 核心能力标准：
-
-```text
-software says 115200
-≠
-physical TX really is 115200
-```
-
-学习者必须能使用 `0x55` + 示波器测 bit time，并根据物理波形反推真实 Baud。
-
 ## Workstream B — I²C ✅
 
 - [x] I²C Knowledge 正式化；
@@ -79,32 +69,42 @@ physical TX really is 115200
 - [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
 - [x] I²C 路线按零基础入口复查完成。
 
-I²C 核心能力标准：
+## Workstream C — SPI ✅
+
+- [x] SPI Knowledge 正式化；
+- [x] SPI Timing Playground 升级：Controller Mode vs Device expected Mode、CPOL/CPHA、sample edge、bit order、CS；
+- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
+- [x] SPI Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
+- [x] 建立 Clock / CPOL / CPHA / CS / bit order / waveform 证据链；
+- [x] 强化 Datasheet timing diagram vs raw waveform，而不是只信逻辑分析仪自动 Decoder；
+- [x] 新增 SPI Wrong Mode Debug Case；
+- [x] Debugging Cases 索引加入 SPI；
+- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
+- [x] SPI 路线按零基础入口复查完成。
+
+SPI 核心能力标准：
 
 ```text
-NACK
+SCLK / MOSI / MISO / CS all toggle
 ≠
-always wrong address
+SPI timing contract is correct
 ```
 
-学习者必须先证明 SDA/SCL 物理总线有效，再解释 Address Byte 和 ACK。
+## Workstream D — ADC ← Current
 
-## Workstream C — SPI ← Current
+- [ ] 审计 ADC Knowledge / Mission / Sampling Simulator；
+- [ ] 建立 Analog Voltage → Reference → Sampling → Quantization → Digital Code 的最小模型；
+- [ ] 区分真实输入噪声、参考电压、采样时间、源阻抗与软件显示抖动；
+- [ ] 检查 ADC Sampling Simulator 是否真正能表现分辨率、Vref、噪声和采样；
+- [ ] 建立 ADC Jitter 独立 Debug Case；
+- [ ] 完成 ADC 零基础走查。
 
-- [ ] 正式审计现有 Knowledge / Mission / Lab；
-- [ ] 建立 Clock / CPOL / CPHA / CS / bit order / waveform 证据链；
-- [ ] 检查“有波形但数据错”与 Mode / sampling edge 的关系；
-- [ ] 检查 SPI Timing Playground 是否真的能支撑 CPOL/CPHA 互动；
-- [ ] 完成 SPI 故障注入和零基础走查；
-- [ ] 完成 SPI 闭环。
+## Workstream E — DMA
 
-## Workstream D — ADC / DMA
-
-- [ ] ADC：从 Analog Voltage → Sample → Code → Noise / Reference / Sampling；
 - [ ] DMA：从 Peripheral Request → Transfer → Buffer → Length / Address / Completion；
 - [ ] 保持 ADC 与 DMA 独立理解，再在综合项目中组合。
 
-## Workstream E — CAN / RS-485 / Modbus
+## Workstream F — CAN / RS-485 / Modbus
 
 - [ ] CAN：从 Shared Bus → ID / Arbitration → Transceiver → Termination → Frame；
 - [ ] RS-485：先处理 Differential Physical Layer；
