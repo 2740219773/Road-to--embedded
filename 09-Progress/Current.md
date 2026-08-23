@@ -4,7 +4,9 @@
 
 V2.3 — MCU / STM32 Learning Path
 
-当前 Phase：**Phase A — Stage 02 MCU Foundation**。
+当前里程碑：**Phase A — Stage 02 MCU Foundation 内容与质量验收已完成**。
+
+下一开发阶段：**Phase B — Stage 03 Peripheral Engineer**。
 
 ## Completed Baselines
 
@@ -56,6 +58,17 @@ Virtual Register
 - [x] Stage 02 Exit Check；
 - [x] Stage 02 README 形成完整 Entry → Mission → Debug → Boss → Exit 导航。
 
+### Phase A Quality Gate
+
+- [x] 按零基础学习者视角走查 Stage 01 Exit → Mission 00～04 → Debug Challenge → Boss → Exit；
+- [x] 检查新增内部链接并修复 Button Interrupt 的 Debugger Basics 死链；
+- [x] 检查首次术语解释，补充 HAL、Callback、ARR/CCR、示波器参考地等容易形成断层的词；
+- [x] 清理 Clock Tree 页残留的 V2.1 状态和 Stage 02/03 PWM 边界旧表述；
+- [x] PR diff 范围确认：仅 Stage 02 Phase A、Stage 03 边界说明和路线治理修订；
+- [x] 分支相对 `main` behind = 0；
+- [x] 当前提交没有 GitHub CI/status checks 或 workflow runs；
+- [x] PR 没有未处理的 inline review thread。
+
 ## Whole-Project Route Audit
 
 本轮在 Stage 02 完成后重新检查 PROJECT / README / ROADMAP / ARCHITECTURE / DEVELOPMENT-PLAN / Stage 00～08 职责。
@@ -98,14 +111,23 @@ System View
 
 本轮发现的问题主要是“治理文档落后”和“Stage 02/03 边界表达重复”，不是技术路线本身错误。
 
-## Remaining Before Phase A Merge
+## Next — V2.3 Phase B
 
-- [ ] 按真正零基础学习者视角完整走查 Stage 01 Exit → Mission 00～04 → Debug Challenge → Boss → Exit；
-- [ ] 检查 Stage 02 新增内部链接和首次术语解释；
-- [ ] 检查 PR #3 diff 是否只包含 V2.3 Phase A + 路线治理修订；
-- [ ] Mergeability / CI / final review；
-- [ ] 合并 Phase A 到 `main` 后，再开始 V2.3 Phase B — Stage 03 正式建设。
+Phase B 正式建设 Stage 03 — Peripheral Engineer。优先顺序：
+
+```text
+UART
+→ I²C
+→ SPI
+→ ADC
+→ DMA
+→ CAN
+→ RS-485 / Modbus
+→ Multi-Peripheral Sensor Node Boss
+```
+
+PWM 基础不在 Stage 03 重教，只在需要时复用 Stage 02 的 Timer/PWM 与仪器测量能力。
 
 ## Current Rule
 
-Phase A 合并前，不新增 UART / ADC / SPI / I2C / DMA 课程。后续 Stage 04～08 的现有内容继续视为 vertical-slice prototype。
+Phase A 完成后，Stage 03 继续使用同一个小闭环：Knowledge → Mission → Interactive/Visual → Real Evidence → Break It → Debug → Boss/Exit。后续 Stage 04～08 的现有内容继续视为 vertical-slice prototype，直到各自正式版本开始。
