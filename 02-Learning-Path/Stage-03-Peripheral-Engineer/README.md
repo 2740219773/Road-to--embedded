@@ -11,8 +11,8 @@ Stage 03 不再重复这些基础，而是让 MCU 真正开始和更多外部设
 ```text
 UART ✅
 → I²C ✅
-→ SPI ← current
-→ ADC
+→ SPI ✅
+→ ADC ← current
 → DMA
 → CAN
 → RS-485 / Modbus
@@ -53,8 +53,8 @@ Application / Data
 
 1. [UART Garbled — 乱码到底从哪一层开始？](../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md) ✅
 2. [I²C No ACK — 地址明明对，为什么设备不回答？](../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md) ✅
-3. [SPI 有波形，但数据为什么是错的？](../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md) — current
-4. [ADC 为什么一直抖？](../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md)
+3. [SPI Wrong Data — 四根线都有波形，为什么数据还是错的？](../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md) ✅
+4. [ADC 为什么一直抖？](../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md) — current
 5. [DMA 配好了，为什么一个字节都没搬？](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md)
 6. [两个 CAN 节点同时说话，为什么没有撞车？](../../04-Missions/Stage-03-Peripherals/06-CAN-Arbitration/Mission.md)
 7. [Modbus 通了，为什么读到的寄存器不对？](../../04-Missions/Stage-03-Peripherals/07-Modbus-Wrong-Register/Mission.md)
@@ -91,11 +91,25 @@ I²C Knowledge
 
 核心能力：能区分 7-bit Address、on-wire Address Byte、ACK/NACK 和物理总线条件；看到 NACK 时不会默认等同于“地址错”。
 
+### SPI
+
+```text
+SPI Knowledge
+→ SPI Timing Playground
+→ SPI Wrong Data Mission
+→ Datasheet timing vs raw SCLK/MOSI/MISO/CS
+→ CPOL / CPHA / bit-order / CS / speed failure injection
+→ SPI Wrong Mode Debug Case
+→ Mission Report
+```
+
+核心能力：能把 Mode 展开为 Clock idle + sampling edge，并用 Datasheet 时序图与原始波形判断问题，而不是看到“有波形”就认定通信正常。
+
 ## Interactive Labs
 
 - [UART Frame Visualizer](../../03-Interactive-Labs/UART-Frame-Visualizer/) — TX/RX Baud 与采样漂移
 - [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/) — 7-bit Address / R/W / ACK / Pull-up / Power
-- [SPI Timing Playground](../../03-Interactive-Labs/SPI-Timing-Playground/)
+- [SPI Timing Playground](../../03-Interactive-Labs/SPI-Timing-Playground/) — Controller vs Device Mode / edge / bit order / CS
 - [ADC Sampling Simulator](../../03-Interactive-Labs/ADC-Sampling-Simulator/)
 - [DMA Transfer Simulator](../../03-Interactive-Labs/DMA-Transfer-Simulator/)
 - [CAN Arbitration Visualizer](../../03-Interactive-Labs/CAN-Arbitration-Visualizer/)
