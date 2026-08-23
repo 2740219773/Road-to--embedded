@@ -1,1 +1,127 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UART Frame Visualizer</title><style>body{font-family:system-ui,sans-serif;max-width:1000px;margin:40px auto;padding:0 20px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:15px 0}.frame{display:flex;gap:4px;align-items:stretch;overflow:auto}.bit{min-width:64px;padding:16px 5px;text-align:center;border-radius:6px;background:#293246}.start{background:#7f1d1d}.stop{background:#14532d}.data{background:#1e3a5f}input,select{padding:8px;font:inherit}.mono{font-family:ui-monospace,monospace}</style></head><body><h1>UART Frame Visualizer</h1><div class="card">Byte (0-255): <input id="byte" type="number" min="0" max="255" value="65"> Baud: <select id="baud"><option>9600</option><option selected>115200</option><option>921600</option></select></div><div id="frame" class="frame"></div><div class="card mono" id="info"></div><div class="card">UART 常见 8N1 帧：Idle=1 → Start=0 → 8 Data Bits（通常 LSB first）→ Stop=1。改变 Baud Rate 后，bit 内容不变，但每一 bit 持续时间会变化。</div><script>function draw(){let v=Math.max(0,Math.min(255,+byte.value||0)),b=+baud.value;let arr=[['Start',0,'start']];for(let i=0;i<8;i++)arr.push(['D'+i,(v>>i)&1,'data']);arr.push(['Stop',1,'stop']);frame.innerHTML=arr.map(x=>'<div class="bit '+x[2]+'"><b>'+x[0]+'</b><br>'+x[1]+'</div>').join('');let us=1e6/b;info.textContent='0x'+v.toString(16).toUpperCase().padStart(2,'0')+' | '+v.toString(2).padStart(8,'0')+' | bit time ≈ '+us.toFixed(3)+' µs | 8N1 frame ≈ '+(us*10).toFixed(3)+' µs'}byte.oninput=baud.onchange=draw;draw();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UART Frame Visualizer</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,select{padding:8px 10px;font:inherit;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}.frame{display:flex;gap:4px;align-items:stretch;overflow:auto;padding-bottom:4px}.bit{min-width:76px;padding:14px 5px;text-align:center;border-radius:7px;background:#293246}.start{background:#6b2530}.stop{background:#1f5c3a}.data{background:#25466a}.idle{background:#394050}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.result{font-size:1.05rem}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #30394d}th{background:#202737}.match{color:#8ed6a1}.mismatch{color:#ff9e9e;font-weight:700}.small{color:#b9c2d0;font-size:.92rem}.flow{white-space:pre-wrap}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#293246;margin-right:4px}
+</style>
+</head>
+<body>
+<h1>UART Frame Visualizer</h1>
+<p>先看“发送端实际发了什么”，再看“接收端按自己的 Baud Rate 在哪里采样”。固定使用最常见的 8N1，重点建立 bit time、LSB first 和 Baud mismatch 的直觉。</p>
+
+<div class="card controls">
+  <label class="control">Byte (0–255)
+    <input id="byteInput" type="number" min="0" max="255" value="85">
+  </label>
+  <label class="control">TX Baud（发送端）
+    <select id="txBaud">
+      <option>9600</option><option>57600</option><option selected>115200</option><option>230400</option><option>921600</option>
+    </select>
+  </label>
+  <label class="control">RX Baud（接收端）
+    <select id="rxBaud">
+      <option>9600</option><option>57600</option><option selected>115200</option><option>230400</option><option>921600</option>
+    </select>
+  </label>
+</div>
+
+<div class="card">
+  <h2>1. TX 发送帧</h2>
+  <div id="frame" class="frame"></div>
+  <p id="txInfo" class="mono"></p>
+  <p class="small">8N1：Idle=1 → Start=0 → 8 Data Bits（LSB first，最低有效位先发）→ Stop=1。</p>
+</div>
+
+<div id="summary" class="card result"></div>
+
+<div class="card">
+  <h2>2. RX 采样调查</h2>
+  <p>接收端检测到 Start 后，会按照自己的 bit time 去数据位中间附近采样。TX / RX Baud 不一致时，采样点会逐位漂移。</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>RX 位</th><th>期望</th><th>实际采到</th><th>采样时间</th><th>当时落在 TX 哪一位</th><th>结果</th></tr></thead>
+      <tbody id="sampleRows"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <h2>3. 工程解释</h2>
+  <div id="explain" class="flow"></div>
+</div>
+
+<script>
+const byteInput=document.getElementById('byteInput');
+const txBaud=document.getElementById('txBaud');
+const rxBaud=document.getElementById('rxBaud');
+const frame=document.getElementById('frame');
+const txInfo=document.getElementById('txInfo');
+const summary=document.getElementById('summary');
+const sampleRows=document.getElementById('sampleRows');
+const explain=document.getElementById('explain');
+
+function clampByte(v){return Math.max(0,Math.min(255,Number(v)||0));}
+function frameBits(v){
+  const bits=[{label:'Start',value:0,cls:'start'}];
+  for(let i=0;i<8;i++)bits.push({label:'D'+i,value:(v>>i)&1,cls:'data'});
+  bits.push({label:'Stop',value:1,cls:'stop'});
+  return bits;
+}
+function txBitAt(timeUs,bits,txBitUs){
+  const index=Math.floor(timeUs/txBitUs);
+  if(index<0)return {label:'Idle',value:1,index:-1};
+  if(index>=bits.length)return {label:'Idle',value:1,index:bits.length};
+  return {...bits[index],index};
+}
+function hex(v){return '0x'+v.toString(16).toUpperCase().padStart(2,'0');}
+function bin(v){return v.toString(2).padStart(8,'0');}
+
+function draw(){
+  const v=clampByte(byteInput.value);
+  byteInput.value=v;
+  const tx=Number(txBaud.value),rx=Number(rxBaud.value);
+  const txBitUs=1e6/tx,rxBitUs=1e6/rx;
+  const bits=frameBits(v);
+  frame.innerHTML=bits.map(x=>`<div class="bit ${x.cls}"><b>${x.label}</b><br>${x.value}</div>`).join('');
+  txInfo.textContent=`${hex(v)} | binary ${bin(v)} | TX bit time ≈ ${txBitUs.toFixed(3)} µs | 8N1 frame ≈ ${(txBitUs*10).toFixed(3)} µs`;
+
+  let decoded=0,allDataMatch=true;
+  let rows='';
+  for(let i=0;i<8;i++){
+    const sampleTime=(1.5+i)*rxBitUs;
+    const actual=txBitAt(sampleTime,bits,txBitUs);
+    const expected=(v>>i)&1;
+    if(actual.value)decoded|=(1<<i);
+    const match=actual.value===expected;
+    allDataMatch=allDataMatch&&match;
+    rows+=`<tr><td>D${i}</td><td>${expected}</td><td>${actual.value}</td><td>${sampleTime.toFixed(3)} µs</td><td>${actual.label}</td><td class="${match?'match':'mismatch'}">${match?'MATCH':'MISMATCH'}</td></tr>`;
+  }
+  const stopSampleTime=9.5*rxBitUs;
+  const stopActual=txBitAt(stopSampleTime,bits,txBitUs);
+  const stopOk=stopActual.value===1;
+  rows+=`<tr><td>Stop</td><td>1</td><td>${stopActual.value}</td><td>${stopSampleTime.toFixed(3)} µs</td><td>${stopActual.label}</td><td class="${stopOk?'match':'mismatch'}">${stopOk?'VALID':'FRAME ERROR'}</td></tr>`;
+  sampleRows.innerHTML=rows;
+
+  const baudErrorPct=((rx-tx)/tx)*100;
+  const perfect=tx===rx;
+  const decodedMatches=decoded===v&&stopOk;
+  summary.className='card result '+(perfect?'ok':decodedMatches?'warn':'bad');
+  summary.innerHTML=`<b>RX decode:</b> ${hex(decoded)} (${bin(decoded)}) &nbsp; <span class="pill">TX ${tx}</span><span class="pill">RX ${rx}</span><br>`+
+    `<b>Baud difference:</b> ${baudErrorPct.toFixed(2)}% &nbsp; <b>Stop sample:</b> ${stopOk?'valid':'invalid'}<br>`+
+    (perfect?'发送端和接收端 Baud 一致，采样点落在每个数据位的预期位置。':decodedMatches?'Baud 已不一致；这次字节仍碰巧被采对，但采样点已经漂移，继续发送不同数据/更长序列并不可靠。':'Baud 不一致已经让接收端采到错误 bit；这就是“配置看起来像串口问题，物理原因其实是采样时刻错了”的核心。');
+
+  explain.textContent=
+`发送端真实波形由 TX Baud 决定：\n  TX bit time ≈ 1 / ${tx} = ${txBitUs.toFixed(3)} µs\n\n接收端按照自己的 RX Baud 安排采样：\n  RX bit time ≈ 1 / ${rx} = ${rxBitUs.toFixed(3)} µs\n\n调试 UART 乱码时，把三件事分开：\n  1. 软件配置写了什么；\n  2. TX 引脚真实 bit time 是多少；\n  3. 接收端实际按什么 Baud / 帧格式解释。\n\n推荐实验：先用 0x55（01010101）观察交替边沿，再改变 RX Baud，查看采样点怎样逐位漂移。`;
+}
+
+byteInput.addEventListener('input',draw);
+txBaud.addEventListener('change',draw);
+rxBaud.addEventListener('change',draw);
+draw();
+</script>
+</body>
+</html>
