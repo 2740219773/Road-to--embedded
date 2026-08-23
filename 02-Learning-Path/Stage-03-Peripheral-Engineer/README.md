@@ -13,8 +13,8 @@ UART ✅
 → I²C ✅
 → SPI ✅
 → ADC ✅
-→ DMA ← current
-→ CAN
+→ DMA ✅
+→ CAN ← current
 → RS-485 / Modbus
 ```
 
@@ -55,8 +55,8 @@ Application / Data
 2. [I²C No ACK — 地址明明对，为什么设备不回答？](../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md) ✅
 3. [SPI Wrong Data — 四根线都有波形，为什么数据还是错的？](../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md) ✅
 4. [ADC Jitter — 读数一直抖，应该先滤波吗？](../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md) ✅
-5. [DMA 配好了，为什么一个字节都没搬？](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md) — current
-6. [两个 CAN 节点同时说话，为什么没有撞车？](../../04-Missions/Stage-03-Peripherals/06-CAN-Arbitration/Mission.md)
+5. [DMA No Transfer — 初始化成功，为什么 Buffer 一个字节都没变？](../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md) ✅
+6. [CAN Arbitration — 两个节点同时说话，为什么没有撞车？](../../04-Missions/Stage-03-Peripherals/06-CAN-Arbitration/Mission.md) — current
 7. [Modbus 通了，为什么读到的寄存器不对？](../../04-Missions/Stage-03-Peripherals/07-Modbus-Wrong-Register/Mission.md)
 
 现有后续 Mission 仍有一部分是 V2.1 的 vertical-slice prototype。Phase B 会按上面顺序逐个正式化，而不是同时重写全部页面。
@@ -75,8 +75,6 @@ UART Knowledge
 → Mission Report
 ```
 
-核心能力：能测真实 bit time，并区分软件配置与 TX Pin 的物理事实。
-
 ### I²C
 
 ```text
@@ -88,8 +86,6 @@ I²C Knowledge
 → I²C No ACK Debug Case
 → Mission Report
 ```
-
-核心能力：能区分 7-bit Address、on-wire Address Byte、ACK/NACK 和物理总线条件；看到 NACK 时不会默认等同于“地址错”。
 
 ### SPI
 
@@ -103,8 +99,6 @@ SPI Knowledge
 → Mission Report
 ```
 
-核心能力：能把 Mode 展开为 Clock idle + sampling edge，并用 Datasheet 时序图与原始波形判断问题，而不是看到“有波形”就认定通信正常。
-
 ### ADC
 
 ```text
@@ -117,15 +111,27 @@ ADC Knowledge
 → Mission Report
 ```
 
-核心能力：能把 ADC 抖动拆成 Analog Input、Reference、Sampling、Quantization 与 Software Meaning；不把平均滤波当成第一修复动作。
+### DMA
+
+```text
+DMA Knowledge
+→ DMA Transfer Simulator
+→ DMA No Transfer Mission
+→ Peripheral event + request + memory evidence
+→ Request / direction / count / increment / interrupt failure injection
+→ DMA Wrong Length Debug Case
+→ Mission Report
+```
+
+核心能力：能区分 DMA 没启动、搬运规则错误、越界写和“搬运正确但完成通知没来”；明确 `DMA Complete ≠ memory safe`。
 
 ## Interactive Labs
 
-- [UART Frame Visualizer](../../03-Interactive-Labs/UART-Frame-Visualizer/) — TX/RX Baud 与采样漂移
-- [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/) — 7-bit Address / R/W / ACK / Pull-up / Power
-- [SPI Timing Playground](../../03-Interactive-Labs/SPI-Timing-Playground/) — Controller vs Device Mode / edge / bit order / CS
-- [ADC Sampling Simulator](../../03-Interactive-Labs/ADC-Sampling-Simulator/) — Vin / Vref / Resolution / Noise / sample spread
-- [DMA Transfer Simulator](../../03-Interactive-Labs/DMA-Transfer-Simulator/)
+- [UART Frame Visualizer](../../03-Interactive-Labs/UART-Frame-Visualizer/)
+- [I²C Bus Visualizer](../../03-Interactive-Labs/I2C-Bus-Visualizer/)
+- [SPI Timing Playground](../../03-Interactive-Labs/SPI-Timing-Playground/)
+- [ADC Sampling Simulator](../../03-Interactive-Labs/ADC-Sampling-Simulator/)
+- [DMA Transfer Simulator](../../03-Interactive-Labs/DMA-Transfer-Simulator/) — request / direction / count / capacity / overflow
 - [CAN Arbitration Visualizer](../../03-Interactive-Labs/CAN-Arbitration-Visualizer/)
 - [Modbus Frame Builder](../../03-Interactive-Labs/Modbus-Frame-Builder/)
 
