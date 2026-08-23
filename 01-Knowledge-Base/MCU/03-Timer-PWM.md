@@ -40,14 +40,19 @@ Prescaler（先把时钟变慢）
 ↓
 Counter（计数）
 ↓
-ARR / Period（决定数到哪里）
+Period / Auto-Reload Value（决定数到哪里）
 ↓
-Compare / CCR（决定什么时候切换输出）
+Compare Value（决定什么时候切换输出）
 ↓
 PWM / Event / Interrupt
 ```
 
-不同 MCU 寄存器名称可能不同，但思想类似。
+在 STM32 等 MCU 里，你可能会看到：
+
+- ARR：Auto-Reload Register，常用来保存周期上限；
+- CCR：Capture/Compare Register，PWM 场景里常用来保存比较值。
+
+这些名字不是学习重点。换到别的 MCU，寄存器可能改名，但“Clock → 分频 → 计数 → 周期 → 比较”的模型不会变。
 
 ## 初学者先回答三个问题
 
@@ -59,10 +64,17 @@ PWM / Event / Interrupt
 
 ## 推荐互动
 
-先进入 `03-Interactive-Labs/PWM-Visualizer/`，只调整 Frequency 和 Duty Cycle；建立波形直觉后，再学习 Prescaler、ARR、CCR 等具体参数。
+先进入 `03-Interactive-Labs/PWM-Visualizer/`，只调整 Frequency 和 Duty Cycle；建立波形直觉后，再学习 Prescaler、Period、Compare 等具体参数。
 
 ## 真机验证
 
 不要只通过“LED 看起来亮了一半”判断 PWM。用示波器真正测 Frequency、Period、High Time 和 Duty Cycle，再和程序配置比较。
 
 频率不对时，再进入 Clock Tree、分频和计数模式调查。
+
+## Stage 02 入口
+
+- Mission 03 — Timer Tick：从软件等待进入硬件计时；
+- Mission 04 — PWM Measurement：从配置值进入真实波形测量。
+
+这两关完成后，Timer/PWM 才算从“知道概念”进入“能测、能算、能排错”。
