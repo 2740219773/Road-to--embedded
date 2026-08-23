@@ -21,6 +21,7 @@ Symptom
 - [UART Garbled](UART-Garbled/CASE.md) — 从 bit time 反推真实 Baud Rate。
 - [I²C No ACK](I2C-No-ACK/CASE.md) — 先判断电气层是否具备合法总线条件，再解释 Address / ACK。
 - [SPI Wrong Mode](SPI-Wrong-Mode/CASE.md) — 波形存在但 Sample Edge 与 Datasheet 不一致。
+- [ADC Unstable Reference](ADC-Unstable-Reference/CASE.md) — Vin 稳定但 Vref 变化导致 ADC Code 整体漂移。
 - [DMA Wrong Length](DMA-Wrong-Length/CASE.md) — DMA 正常完成但越界覆盖内存。
 
 ### Stage 04 / Debug Hunter
