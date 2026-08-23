@@ -22,7 +22,11 @@ Symptom
 - [I²C No ACK](I2C-No-ACK/CASE.md) — 先判断电气层是否具备合法总线条件，再解释 Address / ACK。
 - [SPI Wrong Mode](SPI-Wrong-Mode/CASE.md) — 波形存在但 Sample Edge 与 Datasheet 不一致。
 - [ADC Unstable Reference](ADC-Unstable-Reference/CASE.md) — Vin 稳定但 Vref 变化导致 ADC Code 整体漂移。
-- [DMA Wrong Length](DMA-Wrong-Length/CASE.md) — DMA 正常完成但越界覆盖内存。
+- [DMA Wrong Length](DMA-Wrong-Length/CASE.md) — DMA 正常完成但 Transfer Count 超出 Buffer Capacity。
+- [CAN No ACK](CAN-No-ACK/CASE.md) — Frame 波形存在、没有失去仲裁，但没有 Peer ACK。
+- [RS-485 Direction Stuck](RS485-Direction-Stuck/CASE.md) — 请求结束后 Driver 未释放，远端没有正常响应窗口。
+- [Modbus Wrong Register](Modbus-Wrong-Register/CASE.md) — 手册显示编号被错误地直接当成 PDU Address。
+- [Stage 03 Mixed Peripheral Failures](Stage-03-Mixed-Peripheral-Failures/CASE.md) — 不按外设名，而按 Clock / Physical / Protocol / Memory / Data Meaning 层综合分类。
 
 ### Stage 04 / Debug Hunter
 
@@ -40,5 +44,7 @@ Symptom
 建议顺序是：先完成对应 Stage 的 Mission，再进入 Case。Case 中不要先看 Diagnosis；先写自己的调查顺序和下一步测量，再与案例结论比较。
 
 案例应尽量提供日志、波形、寄存器快照、任务状态或代码片段，让学习者依据证据判断，而不是猜答案。
+
+Stage 03 完成单主题 Cases 后，还要进入 Mixed Peripheral Challenge，因为真实工程故障通常不会提前告诉你“这是 UART 问题”还是“这是 DMA 问题”。
 
 后续新增案例必须明确连接到对应 Stage / Mission / Knowledge Base；尚未实现的案例不在这里伪装成“已完成”。
