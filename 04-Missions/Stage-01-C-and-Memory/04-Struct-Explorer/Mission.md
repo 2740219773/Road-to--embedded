@@ -1,4 +1,4 @@
-# Mission 04 — Struct Explorer：为什么 5 字节的数据占了 6 字节？
+# Mission 04 — Struct Explorer：明明只有 6 字节，为什么 sizeof 可能更大？
 
 ## Mission Brief
 
