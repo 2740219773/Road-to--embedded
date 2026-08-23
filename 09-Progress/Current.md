@@ -2,60 +2,110 @@
 
 ## Project Version
 
-V2.3 — Stage 02 MCU Rookie
+V2.3 — MCU / STM32 Learning Path
+
+当前 Phase：**Phase A — Stage 02 MCU Foundation**。
 
 ## Completed Baselines
 
 - [x] V2.1 — Architecture Refactor merged to `main`;
 - [x] V2.2 — Stage 01 Interactive Pilot merged to `main`;
-- [x] Stage 01 now has Mission 01～05, Debug Challenge, Boss Project and Exit Check.
+- [x] Stage 01 已形成 Mission 01～05 → Debug Challenge → Boss → Exit Check。
 
-## Current Work — V2.3
+## V2.3 Phase A — Stage 02
 
 目标：第一次把 Stage 01 的虚拟模型接到真实 MCU。
 
 ```text
 Virtual Register
 → Real Peripheral Register
-→ GPIO Hardware
+→ GPIO / Timer Hardware
 → Physical Pin
-→ Voltage
-→ LED / Button / Instrument
+→ Voltage / Waveform
+→ Instrument Evidence
 ```
 
-### P0 — Real Hardware Entry
+### Real Hardware Entry
 
-- [ ] 建立开发板 / MCU / Debug Probe / Firmware 的最小系统认知；
-- [ ] 建立 Build → Flash → Reset → Run → Breakpoint 的完整链路；
-- [ ] 明确推荐参考平台与“可替代开发板”原则；
-- [ ] 完成 Stage 02 Mission 00 — Bring-up / First Contact；
+- [x] MCU / Development Board / Debug Probe / Firmware 新手认知；
+- [x] Build → Flash → Reset → Run → Breakpoint 链路；
+- [x] 可替代开发板原则；
+- [x] Mission 00 — First Contact。
 
-### P1 — GPIO / Clock / Debugger
+### GPIO / Clock / Debugger
 
-- [x] 已有 GPIO beginner knowledge 原型；
-- [x] 已有 Clock Tree beginner knowledge 原型；
-- [x] 已有 Mission — First LED 原型；
-- [ ] 将 First LED 按 V2.2 教学节奏重构；
-- [ ] 增加真实电压测量和 Schematic 证据要求；
-- [ ] 建立 Debugger 基础知识页；
+- [x] GPIO beginner knowledge；
+- [x] Clock Tree beginner knowledge；
+- [x] Debugger Basics；
+- [x] Mission 01 — First LED 按完整教学节奏重构；
+- [x] 加入 Pin Voltage 与 Schematic 证据要求。
 
-### P2 — Interrupt / Timer / PWM
+### Interrupt / Timer / PWM
 
-- [x] 已有 Interrupt beginner knowledge 原型；
-- [x] 已有 Timer/PWM beginner knowledge 原型；
-- [x] 已有 PWM Visualizer；
-- [ ] 建立 Button / Interrupt Mission；
-- [ ] 建立 Timer Mission；
-- [ ] 建立 PWM 真机测量 Mission；
+- [x] Interrupt beginner knowledge；
+- [x] Timer/PWM beginner knowledge；
+- [x] Mission 02 — Button Interrupt；
+- [x] Mission 03 — Timer Tick；
+- [x] Mission 04 — PWM Measurement；
+- [x] PWM Visualizer 继续作为辅助互动工具复用。
 
 ### Integration
 
-- [x] 已有 Stage 02 Boss — GPIO Control Node 原型；
-- [ ] 让 Boss 与新的 Mission 顺序一致；
-- [ ] 增加 Stage 02 Debug Challenge；
-- [ ] 增加 Stage 02 Exit Check；
-- [ ] 完整走查从 Stage 01 Exit → 开发板 Bring-up → Boss 的新人路径。
+- [x] Stage 02 Mixed Hardware Debug Challenge；
+- [x] GPIO Control Node Boss 与 Mission 顺序重新对齐；
+- [x] Stage 02 Exit Check；
+- [x] Stage 02 README 形成完整 Entry → Mission → Debug → Boss → Exit 导航。
+
+## Whole-Project Route Audit
+
+本轮在 Stage 02 完成后重新检查 PROJECT / README / ROADMAP / ARCHITECTURE / DEVELOPMENT-PLAN / Stage 00～08 职责。
+
+发现并已修复：
+
+- [x] README / PROJECT 仍停留在 V2.1 状态；
+- [x] DEVELOPMENT-PLAN 仍是历史迁移清单；
+- [x] ARCHITECTURE 仍把 V2.1 P0 当当前任务；
+- [x] ROADMAP 里的 V2.3 MCU 目标与 Stage 02/03 分工表达不清；
+- [x] Stage 02 与 Stage 03 都把 PWM 写成主线，职责重复；
+- [x] Stage 06/07/08 页面仍保留过期 V2.1/P0 状态。
+
+修订后的统一定义：
+
+```text
+V2.3 Phase A = Stage 02 MCU Foundation
+V2.3 Phase B = Stage 03 Peripheral Engineer
+```
+
+这样保留 V2.3 原定的 UART / ADC / SPI / I2C / DMA 等 MCU 外设目标，同时避免把所有内容塞给第一次接触开发板的新手。
+
+## Route Audit Conclusion
+
+当前路线没有发生方向性偏离。
+
+总主线仍然是：
+
+```text
+System View
+→ C / Memory
+→ Real MCU Foundation
+→ MCU Peripherals
+→ Systematic Debugging
+→ RTOS
+→ Embedded Linux
+→ FPGA
+→ System Integration
+```
+
+本轮发现的问题主要是“治理文档落后”和“Stage 02/03 边界表达重复”，不是技术路线本身错误。
+
+## Remaining Before Phase A Merge
+
+- [ ] 按真正零基础学习者视角完整走查 Stage 01 Exit → Mission 00～04 → Debug Challenge → Boss → Exit；
+- [ ] 检查 Stage 02 新增内部链接和首次术语解释；
+- [ ] 检查 PR #3 diff 是否只包含 V2.3 Phase A + 路线治理修订；
+- [ ] Mergeability / CI / final review；
+- [ ] 合并 Phase A 到 `main` 后，再开始 V2.3 Phase B — Stage 03 正式建设。
 
 ## Current Rule
 
-V2.3 优先建立“真实硬件第一闭环”。UART / ADC / SPI / I2C / DMA 等已有样板暂不扩展，等 GPIO / Clock / Interrupt / Timer / Debugger 路线稳定后再进入 Stage 03。
+Phase A 合并前，不新增 UART / ADC / SPI / I2C / DMA 课程。后续 Stage 04～08 的现有内容继续视为 vertical-slice prototype。
