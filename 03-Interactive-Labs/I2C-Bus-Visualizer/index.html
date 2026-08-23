@@ -1,1 +1,142 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>I2C Bus Visualizer</title><style>body{font-family:system-ui,sans-serif;max-width:1000px;margin:36px auto;padding:0 18px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:14px 0}.frame{display:flex;gap:5px;overflow:auto}.cell{min-width:78px;text-align:center;padding:14px 5px;border-radius:7px;background:#293246}.ack{background:#14532d}.nack{background:#7f1d1d}.start,.stop{background:#5b21b6}input{font:inherit;padding:7px}.bus{font-family:ui-monospace,monospace;font-size:18px;line-height:1.8}</style></head><body><h1>I²C Bus Visualizer</h1><div class="card">7-bit Address: 0x<input id="addr" value="50" size="3" maxlength="2"> <label><input id="powered" type="checkbox" checked> Device powered</label> <label><input id="pullup" type="checkbox" checked> Pull-up present</label></div><div id="frame" class="frame"></div><div class="card bus" id="bus"></div><div class="card" id="explain"></div><script>function draw(){let a=parseInt(addr.value,16);if(!Number.isFinite(a))a=0;a=Math.max(0,Math.min(127,a));let ok=powered.checked&&pullup.checked;let items=[['START','start'],['ADDR 0x'+a.toString(16).toUpperCase().padStart(2,'0'),''],['W=0',''],[ok?'ACK':'NACK',ok?'ack':'nack'],['DATA 0x2A',''],[ok?'ACK':'NACK',ok?'ack':'nack'],['STOP','stop']];frame.innerHTML=items.map(x=>'<div class="cell '+x[1]+'">'+x[0]+'</div>').join('');bus.textContent=pullup.checked?'SDA/SCL: released line can return HIGH':'SDA/SCL: no pull-up → released line cannot form a valid HIGH level';explain.textContent=!pullup.checked?'总线电气条件已经失败。先别分析地址和软件。':!powered.checked?'总线存在，但设备未工作，因此这里模拟 NACK。':'设备具备响应条件。注意：真实 NACK 还可能来自地址、时序、状态等多种原因。'}addr.oninput=powered.onchange=pullup.onchange=draw;draw();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>I²C Bus Visualizer</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,select{padding:8px 10px;font:inherit;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}.frame{display:flex;gap:5px;overflow:auto;padding-bottom:4px}.cell{min-width:90px;text-align:center;padding:13px 7px;border-radius:7px;background:#293246}.ack{background:#1f5c3a}.nack{background:#6b2530}.start,.stop{background:#4f3b78}.addr{background:#25466a}.rw{background:#59461f}.data{background:#315063}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.small{color:#b9c2d0;font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.kv{background:#111722;padding:12px;border-radius:8px}.flow{white-space:pre-wrap}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#293246;margin-right:4px}
+</style>
+</head>
+<body>
+<h1>I²C Bus Visualizer</h1>
+<p>先区分“设备的 7-bit Address”和“总线上实际发送的 Address Byte”，再观察 Pull-up、Device Power、Address Match 如何影响 ACK。</p>
+
+<div class="card controls">
+  <label class="control">Device 7-bit Address
+    <input id="deviceAddr" value="50" size="4" maxlength="2">
+  </label>
+  <label class="control">Master sends 7-bit Address
+    <input id="masterAddr" value="50" size="4" maxlength="2">
+  </label>
+  <label class="control">Direction
+    <select id="direction"><option value="0">Write (R/W=0)</option><option value="1">Read (R/W=1)</option></select>
+  </label>
+  <label class="control">Data Byte
+    <input id="dataByte" value="2A" size="4" maxlength="2">
+  </label>
+  <label><input id="powered" type="checkbox" checked> Device powered</label>
+  <label><input id="pullup" type="checkbox" checked> Pull-up present</label>
+</div>
+
+<div class="card">
+  <h2>1. Address Translation</h2>
+  <div class="grid">
+    <div class="kv"><b>Device identity</b><div id="identity" class="mono"></div></div>
+    <div class="kv"><b>Address byte on bus</b><div id="addressByte" class="mono"></div></div>
+    <div class="kv"><b>Bus idle condition</b><div id="idleState" class="mono"></div></div>
+  </div>
+  <p class="small">7-bit Address 不包含 R/W bit。总线上第一个 Address Byte 通常是 `(address &lt;&lt; 1) | R/W`。不同软件 API 对“传 7-bit 还是已左移地址”的要求可能不同，必须看 API contract。</p>
+</div>
+
+<div class="card">
+  <h2>2. Transaction</h2>
+  <div id="frame" class="frame"></div>
+</div>
+
+<div id="summary" class="card"></div>
+
+<div class="card">
+  <h2>3. Investigation View</h2>
+  <div id="explain" class="flow"></div>
+</div>
+
+<script>
+const deviceAddr=document.getElementById('deviceAddr');
+const masterAddr=document.getElementById('masterAddr');
+const direction=document.getElementById('direction');
+const dataByte=document.getElementById('dataByte');
+const powered=document.getElementById('powered');
+const pullup=document.getElementById('pullup');
+const identity=document.getElementById('identity');
+const addressByte=document.getElementById('addressByte');
+const idleState=document.getElementById('idleState');
+const frame=document.getElementById('frame');
+const summary=document.getElementById('summary');
+const explain=document.getElementById('explain');
+
+function parseHex(el,max){
+  let v=parseInt(el.value,16);
+  if(!Number.isFinite(v))v=0;
+  v=Math.max(0,Math.min(max,v));
+  el.value=v.toString(16).toUpperCase().padStart(2,'0');
+  return v;
+}
+function hex(v){return '0x'+v.toString(16).toUpperCase().padStart(2,'0');}
+function bin(v,bits){return v.toString(2).padStart(bits,'0');}
+function cell(label,cls=''){return `<div class="cell ${cls}">${label}</div>`;}
+
+function draw(){
+  const dev=parseHex(deviceAddr,0x7F);
+  const tx=parseHex(masterAddr,0x7F);
+  const data=parseHex(dataByte,0xFF);
+  const rw=Number(direction.value);
+  const addrByte=(tx<<1)|rw;
+  const hasPullup=pullup.checked;
+  const isPowered=powered.checked;
+  const addressMatch=dev===tx;
+  const busValid=hasPullup;
+  const addressAck=busValid&&isPowered&&addressMatch;
+
+  identity.textContent=`7-bit ${hex(dev)} = ${bin(dev,7)}`;
+  addressByte.textContent=`${hex(addrByte)} = ${bin(addrByte,8)}  (${hex(tx)} << 1 | ${rw})`;
+  idleState.textContent=hasPullup?'SDA/SCL can return HIGH when released':'No pull-up → released SDA/SCL cannot form a valid HIGH';
+
+  let items='';
+  items+=cell('START','start');
+  items+=cell(`ADDR ${hex(tx)}`,'addr');
+  items+=cell(rw?'R=1':'W=0','rw');
+  items+=cell(addressAck?'ACK':'NACK',addressAck?'ack':'nack');
+  if(addressAck){
+    items+=cell(`${rw?'READ':'DATA'} ${hex(data)}`,'data');
+    items+=cell(rw?'Master NACK / end':'ACK','ack');
+  }else{
+    items+=cell('No valid data phase','nack');
+  }
+  items+=cell('STOP','stop');
+  frame.innerHTML=items;
+
+  if(!hasPullup){
+    summary.className='card bad';
+    summary.innerHTML='<b>Physical bus invalid.</b> SDA/SCL cannot reliably return HIGH. Stop analyzing Address/ACK until the electrical condition is fixed.';
+  }else if(!isPowered){
+    summary.className='card warn';
+    summary.innerHTML='<b>Bus can idle HIGH, but the device is not powered.</b> The master may transmit an address, but no valid device response is expected.';
+  }else if(!addressMatch){
+    summary.className='card warn';
+    summary.innerHTML=`<b>Address NACK.</b> Device listens at ${hex(dev)}, while the master calls ${hex(tx)}. Check the 7-bit address and the API address format.`;
+  }else{
+    summary.className='card ok';
+    summary.innerHTML=`<b>Address ACK condition is valid.</b> Device ${hex(dev)} is powered, bus has pull-ups, and master sent the matching 7-bit address.`;
+  }
+
+  explain.textContent=
+`When debugging I²C No ACK, ask in this order:\n\n`+
+`1. Physical bus: are SDA/SCL able to idle HIGH?\n`+
+`2. Device state: is VCC/GND valid and is the device ready?\n`+
+`3. Address meaning: datasheet 7-bit address = ${hex(dev)}.\n`+
+`4. On-wire address byte for this ${rw?'read':'write'} = ${hex(addrByte)}.\n`+
+`5. Does the address phase actually receive ACK?\n`+
+`6. Only after address ACK, continue into register/data semantics.\n\n`+
+`Important: ${hex(dev)} is the 7-bit device address. ${hex(addrByte)} is the transmitted address byte including R/W=${rw}. They are related, but they are not the same number.`;
+}
+
+[deviceAddr,masterAddr,dataByte].forEach(x=>x.addEventListener('change',draw));
+direction.addEventListener('change',draw);
+powered.addEventListener('change',draw);
+pullup.addEventListener('change',draw);
+draw();
+</script>
+</body>
+</html>
