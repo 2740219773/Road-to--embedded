@@ -4,7 +4,15 @@
 
 这个文件描述当前项目如何继续建设，不再作为 V2.1 迁移清单。
 
-V2.1 已完成架构重构，V2.2 已完成 Stage 01 互动闭环。当前开发版本为 V2.3。
+已完成：
+
+```text
+V2.1 Architecture Refactor
+V2.2 Stage 01 Interactive Pilot
+V2.3 Phase A Stage 02 MCU Foundation
+```
+
+当前工作：**V2.3 Phase B — Stage 03 Peripheral Engineer 最终质量验收**。
 
 ## Stable Architecture
 
@@ -41,21 +49,23 @@ Stage 08 System Integrator
 每个正式建设 Stage 最终应具备：
 
 - Entry Requirements；
-- Beginner Concept；
+- Beginner Concept / Knowledge；
 - Mission Chain；
 - Interactive / Instrument Evidence；
 - Failure Injection；
-- Debug Challenge；
+- Topic Debug Cases；
+- Mixed Debug Challenge；
 - Boss Project；
-- Exit Check。
+- Exit Check；
+- Final Quality Gate。
 
 ## Current Work — V2.3
 
-V2.3 分两个 Phase。
+V2.3 拆为两个连续 Phase。
 
-### Phase A — Stage 02 MCU Foundation
+### Phase A — Stage 02 MCU Foundation ✅
 
-当前优先完成和验证：
+已完成并合并：
 
 ```text
 First Contact
@@ -68,13 +78,38 @@ First Contact
 → Exit Check
 ```
 
-核心能力：Build / Flash / Debugger、GPIO、Clock、Interrupt、Timer/PWM、Schematic、万用表/示波器、软件证据与物理证据联合定位。
+建立 Build / Flash / Debugger、GPIO、Clock、Interrupt、Timer/PWM、Schematic、Multimeter/Oscilloscope，以及软件证据和物理证据联合定位能力。
 
-### Phase B — Stage 03 Peripheral Engineer
+### Phase B — Stage 03 Peripheral Engineer ← Current
 
-Phase A 通过质量门后，再正式整理已有纵向样板：UART、I²C、SPI、ADC、DMA、CAN、RS-485 / Modbus，以及 Multi-Peripheral Sensor Node。
+已完成内容建设：
 
-当前不提前继续扩 Stage 03 新主题。
+```text
+UART
+→ I²C
+→ SPI
+→ ADC
+→ DMA
+→ CAN
+→ RS-485
+→ Modbus RTU
+→ Mixed Peripheral Debug Challenge
+→ Multi-Peripheral Sensor Node Boss
+→ Exit Check
+```
+
+当前只做最终质量门：
+
+```text
+zero-beginner walkthrough
+→ navigation / stale-path audit
+→ first-use terminology audit
+→ governance consistency
+→ PR scope / mergeability / CI / review check
+→ merge
+```
+
+Phase B 合并前不新增 Watchdog、Flash、Ethernet 或新的通信协议。它们只有在后续 Stage/版本存在明确学习目标和完整闭环时才加入。
 
 ## Development Unit
 
@@ -106,16 +141,17 @@ Phase A 通过质量门后，再正式整理已有纵向样板：UART、I²C、S
 → 参数 / API / 寄存器
 ```
 
-不要因为目标是“工程化”就默认读者已经知道 IDE、ISR、DMA、ABI、Pin Mux、Clock Tree 等术语。
+不要因为目标是“工程化”就默认读者已经知道 IDE、ISR、DMA、ABI、Pin Mux、Clock Tree、Transceiver、PDU 等术语。
 
 ## Scope Guardrails
 
 1. Stage 02 不扩张成外设百科；
 2. Stage 03 不重复教授 Stage 02 已完成的 GPIO/Timer/PWM 基础；
-3. Stage 04 专注系统性 Debug 方法，不靠继续增加外设制造内容量；
-4. Stage 05 必须建立在裸机多外设系统经验之上；
-5. Linux 和 FPGA 的纵向样板在对应版本到来前只维护明显错误，不继续横向扩张；
-6. V3.0 Web/平台化在真实学习路径成熟前不抢占主线。
+3. RS-485 与 Modbus 必须保持 Physical Layer / Protocol Meaning 分层；
+4. Stage 04 专注系统性 Debug 方法，不靠继续增加外设制造内容量；
+5. Stage 05 必须建立在裸机多外设系统经验之上；
+6. Linux 和 FPGA 的纵向样板在对应版本到来前只维护明显错误，不继续横向扩张；
+7. V3.0 Web/平台化在真实学习路径成熟前不抢占主线。
 
 ## Quality Gate for Each Version
 
@@ -123,8 +159,9 @@ Phase A 通过质量门后，再正式整理已有纵向样板：UART、I²C、S
 
 - Roadmap 与真实 Stage 职责一致；
 - README / PROJECT / Current Progress 不使用过期版本状态；
-- Mission 链能够从 Stage Entry 连续走到 Boss / Exit；
+- Mission 链能够从 Stage Entry 连续走到 Mixed Challenge / Boss / Exit；
 - Knowledge 没有被多个 Mission 大段复制；
+- Interactive Lab 描述的能力确实已经实现；
 - 新手关键术语第一次出现有解释；
 - 链接没有指向退役路径；
 - 已实现与 planned/prototype 明确区分；
@@ -148,3 +185,20 @@ System View
 ```
 
 最终竞争力来自跨层工程能力，而不是单独堆某一种 API 或框架。
+
+## Next After V2.3
+
+Phase B 合并后进入 V2.4 / Stage 04 — Debug Hunter 正式建设。
+
+第一原则不是继续制造更多外设故障，而是把 Stage 01～03 已经反复出现的方法提炼成可迁移的系统调试能力：
+
+```text
+Symptom
+→ System Layer
+→ Hypotheses
+→ High-value Measurement
+→ Evidence
+→ Root Cause
+→ Minimal Fix
+→ Regression
+```
