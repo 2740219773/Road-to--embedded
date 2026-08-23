@@ -34,8 +34,8 @@ Stage 03 不重新教授 GPIO、Timer/PWM、Debugger 基础，而是在每个新
 ## Build Order
 
 ```text
-UART
-→ I²C
+UART ✅
+→ I²C ← current
 → SPI
 → ADC
 → DMA
@@ -46,22 +46,35 @@ UART
 → Stage 03 Exit Check
 ```
 
-## Workstream A — UART
+## Workstream A — UART ✅
 
-- [x] 已有 UART beginner Knowledge 纵向样板；
-- [x] 已有 UART Frame Visualizer；
-- [x] 已有 UART Garbled Debug Case；
-- [ ] 修复旧 Mission 导航与 Stage 命名；
-- [ ] 将 UART Mission 重构为 Predict → Observe → Explain → Break It → Debug → Transfer → Report；
-- [ ] 明确 TX/RX/GND、电平标准、8N1、Baud、Clock、真实 bit-time 测量；
-- [ ] 让 Knowledge / Mission / Lab / Debug Case 形成双向导航；
-- [ ] 完成 UART 零基础走查。
+- [x] UART beginner Knowledge 正式化；
+- [x] UART Frame Visualizer 升级：TX/RX Baud 分离、RX sample drift、decoded byte / stop validation；
+- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
+- [x] UART Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
+- [x] 明确 TX/RX/GND、电平标准、8N1、Baud、Clock、真实 bit-time 测量；
+- [x] UART Garbled Debug Case 升级为 Evidence / Layer / Calculation / Regression；
+- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
+- [x] UART 路线按零基础入口复查完成。
 
-## Workstream B — I²C
+UART 核心能力标准：
+
+```text
+software says 115200
+≠
+physical TX really is 115200
+```
+
+学习者必须能使用 `0x55` + 示波器测 bit time，并根据物理波形反推真实 Baud。
+
+## Workstream B — I²C ← Current
 
 - [ ] 正式审计现有 Knowledge / Mission / Lab / Debug Case；
 - [ ] 建立 Address / ACK / Pull-up / Open-Drain / waveform 证据链；
-- [ ] 完成 I²C 闭环。
+- [ ] 检查 7-bit Address 与 read/write bit 的新手混淆；
+- [ ] 让 I²C Visualizer 支持课程真正需要观察的 Start / Address / ACK / Data / Stop；
+- [ ] 完成 I²C 故障注入与 No ACK Debug Case；
+- [ ] 完成 I²C 零基础走查。
 
 ## Workstream C — SPI
 
