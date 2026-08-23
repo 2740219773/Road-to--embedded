@@ -20,6 +20,7 @@ int *p = &value;
 
 第一次看到这些词时，先只建立最小概念：
 
+- CPU：Central Processing Unit，可以先理解成执行程序指令的处理核心；
 - Memory：保存程序数据的地方；
 - Address：Memory 位置的编号；
 - Variable：程序给一个数据对象使用的名字；
