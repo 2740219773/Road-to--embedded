@@ -34,7 +34,7 @@ C Code
 
 0. [First Contact — 先证明你真的控制住了 MCU](../../04-Missions/Stage-02-MCU/00-First-Contact/Mission.md)
 1. [First LED — 代码执行了，灯为什么没亮？](../../04-Missions/Stage-02-MCU/01-First-LED/Mission.md)
-2. Button / External Interrupt — V2.3 planned
+2. [Button Interrupt — 按下按键，CPU 怎么知道？](../../04-Missions/Stage-02-MCU/02-Button-Interrupt/Mission.md)
 3. Timer Tick — V2.3 planned
 4. PWM Measurement — V2.3 planned
 
