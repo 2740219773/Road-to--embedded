@@ -27,6 +27,9 @@ V2.2 — Stage 01 Interactive Pilot
 
 - [x] Memory Visualizer;
 - [x] Register Playground;
+- [x] Data / Address / Memory 新手重写；
+- [x] Pointer & Hardware 新手重写；
+- [x] Bitwise / Register 新手重写；
 - [x] volatile / const / static 新手重写；
 - [x] Struct / Enum / Typedef 新手重写；
 - [x] Compilation / Linking 新手重写；
@@ -36,10 +39,14 @@ V2.2 — Stage 01 Interactive Pilot
 - [x] Stage 01 Debug Challenge — mixed failures;
 - [x] Virtual GPIO Controller Boss Project;
 - [x] Stage 01 Exit Check;
-- [ ] 统一五个 Mission 的 Predict → Observe → Explain → Break It → Debug → Transfer 节奏；
-- [ ] 完整走查一个零基础学习者从 Stage 入口到 Boss 的路径；
-- [ ] 检查 Stage 01 所有内部链接与首次术语解释；
-- [ ] 更新 PR #2 最终范围与验收状态；
+- [x] 统一五个 Mission 的 Before You Start → Predict → Observe → Explain → Break It → Debug → Transfer → Report 教学节奏；
+- [x] 按零基础学习者视角走查 Stage Entry → Mission 01～05 → Debug Challenge → Boss → Exit Check；
+- [x] 检查 Stage 01 核心内部链接与首次术语解释；
+- [x] 修复走查中发现的旧 `Phase-1-C` 路径；
+- [x] 修复 Struct Explorer 标题字节数错误；
+- [ ] PR #2 final review / mergeability check；
+- [ ] PR #2 Ready for Review；
+- [ ] merge to `main`；
 
 ## Current Rule
 
@@ -57,4 +64,4 @@ Stage Entry
 → Stage 02
 ```
 
-当这条路径可以由零基础学习者连续走通，并且不需要维护者在中间解释仓库结构时，V2.2 才算完成。
+内容和学习路径验收已完成。V2.2 当前只剩 PR 最终检查与合并流程。
