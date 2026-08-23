@@ -1,1 +1,113 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ADC Sampling Simulator</title><style>body{font-family:system-ui,sans-serif;max-width:900px;margin:36px auto;padding:0 18px;background:#10131a;color:#eef2f7}.card{background:#171c27;padding:18px;border-radius:10px;margin:14px 0}input{width:100%}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.s{background:#222a3a;padding:14px;border-radius:8px}.mono{font-family:ui-monospace,monospace}</style></head><body><h1>ADC Sampling Simulator</h1><div class="card"><label>Input Voltage: <b id="vinv"></b> V</label><input id="vin" type="range" min="0" max="3300" value="1650"><label>Resolution: <b id="resv"></b> bit</label><input id="res" type="range" min="8" max="16" value="12"><label>Noise: ±<b id="noisev"></b> mV</label><input id="noise" type="range" min="0" max="100" value="0"></div><div class="stats"><div class="s">ADC Code<br><b id="code"></b></div><div class="s">LSB<br><b id="lsb"></b> mV</div><div class="s">Converted Voltage<br><b id="back"></b> V</div></div><div class="card mono" id="formula"></div><div class="card">拖动 Noise 后重复点击/拖动 Input，可以看到真实采样值为什么可能抖动。分辨率提高只会减小理想量化步长，并不会自动消除电源、参考源、布线或模拟噪声。</div><script>function draw(){let bits=+res.value,max=(2**bits)-1,ideal=+vin.value,ns=+noise.value,actual=Math.max(0,Math.min(3300,ideal+(Math.random()*2-1)*ns)),c=Math.round(actual/3300*max),bv=c/max*3.3;vinv.textContent=(ideal/1000).toFixed(3);resv.textContent=bits;noisev.textContent=ns;code.textContent=c+' / '+max;lsb.textContent=(3300/max).toFixed(4);back.textContent=bv.toFixed(4);formula.textContent='Code ≈ Vin / Vref × (2^N - 1), Vref = 3.300 V | sampled Vin ≈ '+(actual/1000).toFixed(4)+' V'}vin.oninput=res.oninput=noise.oninput=draw;draw();</script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADC Sampling Simulator</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
+h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.control{display:flex;flex-direction:column;gap:6px}.control input[type=range]{width:100%}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.s{background:#111722;padding:14px;border-radius:8px}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}button{padding:9px 14px;font:inherit;background:#293246;color:#eef2f7;border:1px solid #58657c;border-radius:8px;cursor:pointer}.samples{display:flex;align-items:end;gap:2px;height:180px;overflow:hidden;background:#111722;padding:12px;border-radius:8px}.bar{flex:1;min-width:3px;background:#73809b;border-radius:2px 2px 0 0}.small{color:#b9c2d0;font-size:.92rem}.flow{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>ADC Sampling Simulator</h1>
+<p>把“真实输入电压”“参考电压”“量化分辨率”“输入噪声”和“参考源噪声”分开观察。一次采样只是一个点，调试抖动更应该看一组样本的范围和分布。</p>
+
+<div class="card controls">
+  <label class="control">Input Voltage: <b><span id="vinLabel"></span> V</b>
+    <input id="vin" type="range" min="0" max="3300" value="1650" step="1">
+  </label>
+  <label class="control">Nominal Vref: <b><span id="vrefLabel"></span> V</b>
+    <input id="vref" type="range" min="1800" max="3600" value="3300" step="10">
+  </label>
+  <label class="control">Resolution: <b><span id="bitsLabel"></span> bit</b>
+    <input id="bits" type="range" min="8" max="16" value="12" step="1">
+  </label>
+  <label class="control">Input Noise: ±<b><span id="inputNoiseLabel"></span> mV</b>
+    <input id="inputNoise" type="range" min="0" max="100" value="5" step="1">
+  </label>
+  <label class="control">Vref Noise: ±<b><span id="vrefNoiseLabel"></span> mV</b>
+    <input id="vrefNoise" type="range" min="0" max="100" value="0" step="1">
+  </label>
+</div>
+
+<div class="card">
+  <button id="sampleBtn">Take 64 samples</button>
+  <span class="small">拖动参数会自动重新采样；按钮可在相同设置下重新观察随机波动。</span>
+</div>
+
+<div class="stats">
+  <div class="s">Ideal Code<br><b id="idealCode"></b></div>
+  <div class="s">LSB size<br><b id="lsb"></b> mV</div>
+  <div class="s">Mean Code<br><b id="meanCode"></b></div>
+  <div class="s">Min / Max<br><b id="minMax"></b></div>
+  <div class="s">Peak-to-Peak<br><b id="p2p"></b> codes</div>
+  <div class="s">Mean Converted Voltage<br><b id="meanVolt"></b> V</div>
+</div>
+
+<div class="card">
+  <h2>64 sampled codes</h2>
+  <div id="chart" class="samples"></div>
+</div>
+
+<div id="summary" class="card"></div>
+
+<div class="card mono flow" id="formula"></div>
+
+<div class="card">
+  <h2>如何解释这个模拟器</h2>
+  <p>Resolution 只决定理想量化格子有多细；它不会自动消除输入噪声、Vref 波动、供电/接地问题或采样建立时间问题。</p>
+  <p>如果 Input Noise = 0、Vref Noise = 0，固定 Vin 仍可能因为量化边界表现为一个固定整数 Code。这是量化，不是“ADC 自己随机抖”。</p>
+  <p>真实硬件里还要继续检查 Source Impedance、Sampling Time、PCB/ground coupling 等因素；这里不使用一个假想的通用 RC 参数去冒充所有 MCU 的真实 ADC 前端。</p>
+</div>
+
+<script>
+const els=id=>document.getElementById(id);
+const vin=els('vin'),vref=els('vref'),bits=els('bits'),inputNoise=els('inputNoise'),vrefNoise=els('vrefNoise');
+function randSym(max){return (Math.random()*2-1)*max;}
+function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+function take(){
+  const vinMv=+vin.value,nomVref=+vref.value,n=+bits.value,inNoise=+inputNoise.value,refNoise=+vrefNoise.value,maxCode=(2**n)-1;
+  els('vinLabel').textContent=(vinMv/1000).toFixed(3);
+  els('vrefLabel').textContent=(nomVref/1000).toFixed(3);
+  els('bitsLabel').textContent=n;
+  els('inputNoiseLabel').textContent=inNoise;
+  els('vrefNoiseLabel').textContent=refNoise;
+  const ideal=clamp(Math.round(vinMv/nomVref*maxCode),0,maxCode);
+  const lsbMv=nomVref/maxCode;
+  const samples=[];
+  const voltages=[];
+  for(let i=0;i<64;i++){
+    const actualVin=clamp(vinMv+randSym(inNoise),0,nomVref+100);
+    const actualVref=Math.max(1,nomVref+randSym(refNoise));
+    const code=clamp(Math.round(actualVin/actualVref*maxCode),0,maxCode);
+    samples.push(code);
+    voltages.push(code/maxCode*nomVref/1000);
+  }
+  const mean=samples.reduce((a,b)=>a+b,0)/samples.length;
+  const min=Math.min(...samples),max=Math.max(...samples),p2p=max-min;
+  const meanV=voltages.reduce((a,b)=>a+b,0)/voltages.length;
+  els('idealCode').textContent=`${ideal} / ${maxCode}`;
+  els('lsb').textContent=lsbMv.toFixed(4);
+  els('meanCode').textContent=mean.toFixed(2);
+  els('minMax').textContent=`${min} / ${max}`;
+  els('p2p').textContent=p2p;
+  els('meanVolt').textContent=meanV.toFixed(4);
+  const spread=Math.max(1,p2p);
+  els('chart').innerHTML=samples.map(c=>{
+    const h=30+140*(c-min)/spread;
+    return `<div class="bar" title="${c}" style="height:${h}px"></div>`;
+  }).join('');
+  const summary=els('summary');
+  summary.className='card '+(p2p<=1?'ok':p2p<=8?'warn':'bad');
+  summary.innerHTML=`<b>Observed spread: ${p2p} codes.</b> `+
+    (p2p<=1?'当前参数下样本很稳定。':p2p<=8?'已经出现可见抖动；先比较它与 1 LSB 对应电压，再决定是否属于合理噪声。':'抖动明显；不要第一步就用平均滤波隐藏它，应先区分 Vin、Vref 和真实硬件采样条件。');
+  els('formula').textContent=
+`Ideal model:\nCode ≈ Vin / Vref × (2^N - 1)\n\nCurrent nominal values:\nVin = ${(vinMv/1000).toFixed(3)} V\nVref = ${(nomVref/1000).toFixed(3)} V\nResolution = ${n} bit → max code ${maxCode}\n1 LSB ≈ ${lsbMv.toFixed(4)} mV\nIdeal code ≈ ${ideal}\n\nSimulation adds independent random Vin noise (±${inNoise} mV) and Vref noise (±${refNoise} mV) before quantization.`;
+}
+[vin,vref,bits,inputNoise,vrefNoise].forEach(x=>x.addEventListener('input',take));
+els('sampleBtn').addEventListener('click',take);
+take();
+</script>
+</body>
+</html>
