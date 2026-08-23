@@ -15,7 +15,7 @@ C Code
 → LED / Button / Instrument
 ```
 
-这一阶段不以背 HAL API 为目标，而是建立真实硬件第一闭环：你不仅知道代码写了什么，还能证明程序已经烧录、CPU 正在运行、寄存器发生变化、引脚真的输出了电压或波形。
+这一阶段不以背某个芯片厂商库的 API 为目标，例如 STM32 HAL（Hardware Abstraction Layer，硬件抽象层）里的函数名；真正目标是建立真实硬件第一闭环：你不仅知道代码写了什么，还能证明程序已经烧录、CPU 正在运行、寄存器发生变化、引脚真的输出了电压或波形。
 
 ## 开始前
 
@@ -63,7 +63,7 @@ Clock
 → External Device
 ```
 
-所以 V2.3 当前先把 GPIO / Clock / Debugger / Interrupt / Timer/PWM 做扎实。UART、ADC、SPI、I²C、DMA、CAN、Modbus 在 Stage 03 继续扩展。
+所以 V2.3 Phase A 先把 GPIO / Clock / Debugger / Interrupt / Timer/PWM 做扎实。UART、ADC、SPI、I²C、DMA、CAN、Modbus 在 Stage 03 / V2.3 Phase B 继续扩展。
 
 ## 推荐参考平台
 
