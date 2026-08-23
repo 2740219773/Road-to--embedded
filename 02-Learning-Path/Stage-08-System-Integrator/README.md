@@ -4,9 +4,9 @@ Stage 08 是整条路线的最终整合阶段：把 PC、网络、MCU、Embedded
 
 ## 当前状态
 
-V2.1 只保留 Stage 08 的能力边界与 Final Boss 方向，用于验证整个学习体系最终要走到哪里。
+Stage 08 目前只保留能力边界与 Final Boss 方向，用于定义整个 Road to Embedded 最终要走到哪里。
 
-当前还没有正式的 Stage 08 Mission、Interactive Lab 或独立 Boss Project 文件。它们属于后续版本内容，不在 P0 收口阶段为了“看起来完整”而补空壳。
+正式建设属于 ROADMAP 的 V2.8。当前 V2.3 不新增 Stage 08 Mission、Interactive Lab 或独立 Boss 空壳。
 
 ## 核心能力
 
@@ -47,4 +47,4 @@ Sensor / Actuator / Real or Simulated Device
 
 系统必须包含可观测性、故障注入和定位报告。目标不是代码量，而是证明学习者能够从系统现象跨层找到根因。
 
-> P0 阶段本页只用于定义终点，不新增 Stage 08 实现内容。
+在 V2.8 到来前，本页只定义终点能力，不为了“看起来完整”提前扩内容。
