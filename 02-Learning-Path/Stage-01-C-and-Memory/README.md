@@ -11,6 +11,9 @@ C Code
 → Address
 → Pointer
 → Bit / Register
+→ volatile / Hardware State
+→ Struct / Module
+→ Compile / Link
 → Hardware
 ```
 
@@ -24,26 +27,52 @@ C Code
 
 1. [Mission 01 — Memory Detective](../../04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
 2. [Mission 02 — Bit Hacker](../../04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
-3. Volatile Mystery — planned for V2.2
-4. Struct Explorer — planned for V2.2
-5. Linker Detective — planned for V2.2
+3. [Mission 03 — Volatile Mystery](../../04-Missions/Stage-01-C-and-Memory/03-Volatile-Mystery/Mission.md)
+4. Struct Explorer — V2.2 next
+5. Linker Detective — V2.2 next
 
 ## 当前 Interactive Labs
 
 - `03-Interactive-Labs/Memory-Visualizer/`
 - `03-Interactive-Labs/Register-Playground/`
 
+V2.2 暂时不以增加 Lab 数量为目标。优先把现有互动工具真正嵌入 Mission 流程，验证学习闭环。
+
 ## Knowledge Scope
 
-知识底稿已经迁入 `01-Knowledge-Base/C/`。学习过程中不要要求自己从头顺序读完；Mission 遇到概念时再进去查。
+知识底稿位于 `01-Knowledge-Base/C/`。不要从第一页开始顺序背完整目录；Mission 遇到问题时再进入对应 Knowledge。
 
-主要主题：数据/地址/内存、指针、位运算、结构体、`const/volatile/static`、函数指针、对象生命周期、编译与链接。
+主要主题：数据/地址/内存、指针、位运算、`volatile/const/static`、结构体、函数指针、对象生命周期、编译与链接。
+
+## V2.2 学习节奏
+
+每关尽量遵循：
+
+```text
+Predict
+→ Observe
+→ Explain
+→ Break It
+→ Debug
+→ Transfer
+```
+
+也就是先预测，再观察，再解释，然后故意把系统弄坏，通过证据修复，最后连接到下一层硬件场景。
 
 ## Boss Project — Virtual GPIO Controller
 
-不用真实 MCU，先用普通 C 模拟一个 GPIO 寄存器。
+不用真实 MCU，先用普通 C 模拟一个 GPIO 寄存器和设备状态。
 
-要求：使用位运算控制多个虚拟输出、拆分多文件工程、故意制造 `=` / `|=` 错误、制造并修复一次链接错误，最后逐层解释典型寄存器访问表达式。
+要求最终覆盖：
+
+- 位运算控制多个虚拟输出；
+- 指针/地址访问虚拟寄存器；
+- 使用 `volatile` 表达外部状态变化；
+- 使用 struct 组织设备状态；
+- 拆分多文件工程；
+- 故意制造 `=` / `|=` 错误；
+- 制造并修复一次编译/链接错误；
+- 留下一份证据驱动的 Debug 记录。
 
 ## Exit Criteria
 
