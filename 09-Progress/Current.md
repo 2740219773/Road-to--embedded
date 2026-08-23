@@ -35,8 +35,8 @@ Stage 03 不重新教授 GPIO、Timer/PWM、Debugger 基础，而是在每个新
 
 ```text
 UART ✅
-→ I²C ← current
-→ SPI
+→ I²C ✅
+→ SPI ← current
 → ADC
 → DMA
 → CAN
@@ -67,19 +67,35 @@ physical TX really is 115200
 
 学习者必须能使用 `0x55` + 示波器测 bit time，并根据物理波形反推真实 Baud。
 
-## Workstream B — I²C ← Current
+## Workstream B — I²C ✅
 
-- [ ] 正式审计现有 Knowledge / Mission / Lab / Debug Case；
-- [ ] 建立 Address / ACK / Pull-up / Open-Drain / waveform 证据链；
-- [ ] 检查 7-bit Address 与 read/write bit 的新手混淆；
-- [ ] 让 I²C Visualizer 支持课程真正需要观察的 Start / Address / ACK / Data / Stop；
-- [ ] 完成 I²C 故障注入与 No ACK Debug Case；
-- [ ] 完成 I²C 零基础走查。
+- [x] I²C Knowledge 正式化；
+- [x] I²C Visualizer 升级：Device/Master 7-bit Address、R/W、on-wire Address Byte、ACK/NACK、Power、Pull-up；
+- [x] 修复旧 Mission 的 `Stage-03-Peripheral-Explorer` 死路径；
+- [x] 建立 Address / ACK / Pull-up / Open-Drain / waveform 证据链；
+- [x] 明确 7-bit Address 与 `(address << 1) | R/W` 的区别；
+- [x] I²C Mission 重构为 Predict → Visualize → Observe → Explain → Break It → Debug → Transfer → Report；
+- [x] I²C No ACK Debug Case 升级为 Physical Bus → Protocol 的分层取证；
+- [x] Knowledge / Mission / Lab / Debug Case 双向导航完成；
+- [x] I²C 路线按零基础入口复查完成。
 
-## Workstream C — SPI
+I²C 核心能力标准：
+
+```text
+NACK
+≠
+always wrong address
+```
+
+学习者必须先证明 SDA/SCL 物理总线有效，再解释 Address Byte 和 ACK。
+
+## Workstream C — SPI ← Current
 
 - [ ] 正式审计现有 Knowledge / Mission / Lab；
 - [ ] 建立 Clock / CPOL / CPHA / CS / bit order / waveform 证据链；
+- [ ] 检查“有波形但数据错”与 Mode / sampling edge 的关系；
+- [ ] 检查 SPI Timing Playground 是否真的能支撑 CPOL/CPHA 互动；
+- [ ] 完成 SPI 故障注入和零基础走查；
 - [ ] 完成 SPI 闭环。
 
 ## Workstream D — ADC / DMA
