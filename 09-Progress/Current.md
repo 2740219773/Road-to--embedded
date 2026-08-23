@@ -2,39 +2,66 @@
 
 ## Project Version
 
-V2.1 — Architecture Refactor
+V2.2 — Stage 01 Interactive Pilot
 
-## Current Work
+## V2.1 Status
 
-- [x] 建立项目章程；
-- [x] 建立长期 Roadmap；
-- [x] 建立贡献与维护规范；
-- [x] 建立架构文档；
-- [x] 建立内容设计规范；
-- [x] 建立开发计划；
-- [x] 建立迁移映射；
-- [x] 建立新顶层目录骨架；
-- [x] 建立 Stage 总地图；
-- [x] 建立 Stage 00 / Stage 01；
-- [x] 将 Memory Detective 迁移到 Mission 层；
-- [x] 将对应 OpenMAIC prompt 拆分到 OpenMAIC 层；
-- [ ] 迁移 System Map 到 Knowledge Base；
-- [ ] 迁移 Embedded C 到 Knowledge Base；
-- [ ] 迁移 Projects / Debugging / Resources；
-- [ ] 更新旧路径引用；
-- [ ] 清理 deprecated 目录；
-- [ ] 全仓内部链接检查；
-- [ ] V2.1 PR Review；
-- [ ] 合并到 main。
+- [x] Architecture Refactor completed;
+- [x] P0 navigation / stale-link / beginner-readability validation completed;
+- [x] PR #1 merged to `main`;
+- [x] V2.1 is now the project baseline.
 
-## Learning Track
+## Current Work — V2.2
 
-学习内容建设暂时冻结在 Stage 01 Mission 001，优先完成架构迁移。
+目标：把 Stage 01 从“知识页 + 两个互动原型”整理成一条完整、连续、可验证的学习体验。
 
-下一批内容开发：
+### Core Missions
 
-1. Mission 002 — Bit Hacker；
-2. Memory Visualizer；
-3. 32-bit Register Playground。
+- [x] Mission 01 — Memory Detective;
+- [x] Mission 02 — Bit Hacker;
+- [x] Mission 03 — Volatile Mystery;
+- [x] Mission 04 — Struct Explorer;
+- [x] Mission 05 — Linker Detective;
 
-这些内容在 V2.1 架构稳定后进入 V2.2。
+### Interactive / Knowledge
+
+- [x] Memory Visualizer;
+- [x] Register Playground;
+- [x] Data / Address / Memory 新手重写；
+- [x] Pointer & Hardware 新手重写；
+- [x] Bitwise / Register 新手重写；
+- [x] volatile / const / static 新手重写；
+- [x] Struct / Enum / Typedef 新手重写；
+- [x] Compilation / Linking 新手重写；
+
+### Integration & Validation
+
+- [x] Stage 01 Debug Challenge — mixed failures;
+- [x] Virtual GPIO Controller Boss Project;
+- [x] Stage 01 Exit Check;
+- [x] 统一五个 Mission 的 Before You Start → Predict → Observe → Explain → Break It → Debug → Transfer → Report 教学节奏；
+- [x] 按零基础学习者视角走查 Stage Entry → Mission 01～05 → Debug Challenge → Boss → Exit Check；
+- [x] 检查 Stage 01 核心内部链接与首次术语解释；
+- [x] 修复走查中发现的旧 `Phase-1-C` 路径；
+- [x] 修复 Struct Explorer 标题字节数错误；
+- [ ] PR #2 final review / mergeability check；
+- [ ] PR #2 Ready for Review；
+- [ ] merge to `main`；
+
+## Current Rule
+
+V2.2 聚焦 Stage 01 教学闭环，不扩展新的 MCU / RTOS / Linux / FPGA 主题。后续阶段已有内容继续视为 vertical-slice prototype。
+
+## V2.2 Completion Target
+
+```text
+Stage Entry
+→ Mission 01～05
+→ Existing Interactive Labs
+→ Mixed Debug Challenge
+→ Virtual GPIO Controller Boss
+→ Exit Check
+→ Stage 02
+```
+
+内容和学习路径验收已完成。V2.2 当前只剩 PR 最终检查与合并流程。

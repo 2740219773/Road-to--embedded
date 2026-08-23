@@ -1,6 +1,6 @@
-# Mission 01 — 内存侦探：CPU 到底去哪里找数据？
+# Mission 01 — Memory Detective：CPU 到底去哪里找数据？
 
-## Hook
+## Mission Brief
 
 你接手了一段“看起来完全正常”的程序：
 
@@ -10,24 +10,53 @@ int *p = &value;
 *p = 20;
 ```
 
-同事告诉你：`value` 明明没有被直接赋值成 20，但它最后却变成了 20。
+同事告诉你：`value` 明明没有直接写 `value = 20`，最后却变成了 20。
 
-你的任务不是背“指针定义”，而是调查这次数据变化到底是怎么发生的。
+你的任务不是背 Pointer 定义，而是调查这次数据变化到底是怎么发生的。
 
-## Mission Goal
+---
 
-完成任务后，你应该能够回答：数据存在什么地方、地址和数据有什么区别、指针保存什么、`*p = 20` 为什么能修改 `value`，以及这些概念为什么最终会连接到 MCU 寄存器。
+## 0. Before You Start
 
-## Predict
+第一次看到这些词时，先只建立最小概念：
 
-先不要运行代码。预测 `value` 最后是多少、`p` 保存的是什么、`&value` 表示什么。
+- CPU：Central Processing Unit，可以先理解成执行程序指令的处理核心；
+- Memory：保存程序数据的地方；
+- Address：Memory 位置的编号；
+- Variable：程序给一个数据对象使用的名字；
+- Pointer：保存 Address 的变量；
+- Dereference：按照 Pointer 里的地址访问那个对象。
 
-## Explore — 打开内存地图
+先读：
+
+- [Data / Address / Memory](../../../01-Knowledge-Base/C/01-Data-Address-Memory.md)
+- [Pointer & Hardware](../../../01-Knowledge-Base/C/02-Pointers-and-Hardware.md)
+
+---
+
+## 1. Predict
+
+先不要运行代码。
+
+回答：
+
+1. `value` 最后是多少？
+2. `p` 保存的是 10，还是某个地址？
+3. `&value` 表示什么？
+4. `*p` 又表示什么？
+
+把答案写下来，再进入下一步。
+
+---
+
+## 2. Observe
+
+想象一张最小内存地图：
 
 ```text
-地址          内容
-0x1000       10       ← value
-0x1004       0x1000   ← p
+Address      Content
+0x1000       10        ← value
+0x1004       0x1000    ← p
 ```
 
 于是：
@@ -39,40 +68,129 @@ p        = 0x1000
 *p       = 10
 ```
 
-执行 `*p = 20` 的过程可以理解为：读取 p → 得到 0x1000 → 找到这个地址 → 把其中的数据改成 20。
+执行：
 
-## Interactive Lab
+```c
+*p = 20;
+```
 
-配套：`03-Interactive-Labs/Memory-Visualizer/`。
+可以拆成：
 
-先在可视化里观察，再用普通 C 程序打印 `value`、`&value`、`p` 和 `*p` 验证。
+```text
+读取 p
+→ 得到 0x1000
+→ 找到 0x1000
+→ 把那个地址中的内容改成 20
+→ value 因此变成 20
+```
 
-## Break It
+配套互动：`03-Interactive-Labs/Memory-Visualizer/`。
+
+再用普通 C 程序打印 `value`、`&value`、`p`、`*p`，验证自己的预测。
+
+---
+
+## 3. Explain
+
+不用术语堆砌，自己解释：
+
+```text
+value
+&value
+p
+*p
+```
+
+四者有什么区别？
+
+如果只能背“p 是指针”，但画不出它们在 Memory 中的关系，就继续留在这一关。
+
+---
+
+## 4. Break It
+
+故意写：
 
 ```c
 int *p = (int *)0x12345678;
 *p = 20;
 ```
 
-语法可能成立，但这个地址不一定允许当前程序访问。思考为什么“语法正确”不能证明“内存访问正确”。
+先不要真的依赖它运行成功。
 
-## Transfer — 进入 MCU
+思考：
 
-芯片手册可能规定某个 GPIO 寄存器位于固定地址。于是底层 C 会通过地址、指针和解引用访问硬件。
+- C 语法允许写一个地址，不代表这个地址属于当前程序；
+- 如果地址无效，问题属于“Pointer 语法”还是“Memory Access”？
+- 如果程序崩溃，最有价值的证据是什么？
 
-这就是：
+核心认识：
 
 ```text
-数据 → 内存 → 地址 → 指针 → 寄存器地址 → 真实硬件
+Syntax Correct
+≠
+Address Valid
 ```
 
-## Knowledge
+---
 
-- `01-Knowledge-Base/C/01-Data-Address-Memory.md`
-- `01-Knowledge-Base/C/02-Pointers-and-Hardware.md`
+## 5. Debug
 
-## Boss
+假设一个 Pointer 写入后程序异常。
 
-不查资料解释 `value`、`&value`、`p`、`*p` 四者的区别，并解释为什么嵌入式开发中特别常见“通过地址访问对象”。
+你的第一轮调查至少记录：
 
-下一关：`02-Bit-Hacker/`。
+```text
+Pointer value:
+Target address:
+Expected object:
+Access size:
+What changed before failure:
+```
+
+这比直接换一份“正确代码”更接近真正的调试。
+
+---
+
+## 6. Transfer — 进入 MCU
+
+芯片手册会规定某些 Peripheral Register 位于固定地址。
+
+于是后面的嵌入式 C 会逐渐变成：
+
+```text
+Data
+→ Memory
+→ Address
+→ Pointer
+→ Register Address
+→ Real Hardware
+```
+
+这就是为什么 Stage 01 第一关先学地址，而不是先背 STM32 API。
+
+---
+
+## Mission Report
+
+提交：
+
+```text
+My prediction:
+What value means:
+What &value means:
+What p contains:
+What *p does:
+One invalid-address risk:
+How this can connect to hardware later:
+```
+
+## Achievement Unlocked
+
+你已经建立第一条底层链：
+
+```text
+Variable → Memory → Address → Pointer → Dereference
+```
+
+下一关：[Mission 02 — Bit Hacker](../02-Bit-Hacker/Mission.md)。
