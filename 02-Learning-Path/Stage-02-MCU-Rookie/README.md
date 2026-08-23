@@ -26,6 +26,7 @@ C Code
 - [Interrupt](../../01-Knowledge-Base/MCU/02-Interrupt.md)
 - [Timer & PWM](../../01-Knowledge-Base/MCU/03-Timer-PWM.md)
 - [Clock Tree](../../01-Knowledge-Base/MCU/05-Clock-Tree.md)
+- [Debugger Basics](../../01-Knowledge-Base/MCU/06-Debugger-Basics.md)
 
 不要求把这些知识页全部顺序读完。Mission 遇到问题时再进入对应 Knowledge。
 
