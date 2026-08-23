@@ -79,6 +79,8 @@ ISR / Callback
 tick_count++
 ```
 
+这里的 Callback（回调）可以先理解成：平台库在硬件事件发生后帮你调用的一段处理函数；底层仍然对应 Timer 事件/中断链路。
+
 用 Debugger 观察：
 
 - Timer Counter 是否变化；
@@ -158,9 +160,9 @@ Toggle LED
 
 不要只改数字。先根据 Clock 和 Prescaler 计算预期 Tick Frequency，再用测量验证。
 
-### Fault C — Period / ARR 错了
+### Fault C — Period 设置错了
 
-分辨这是“计数速度错了”，还是“每次需要数的 Tick 数量错了”。
+分辨这是“计数速度错了”，还是“每次需要数的 Tick 数量错了”。具体芯片里这个周期值可能放在名为 ARR、Period 或其他名称的寄存器/配置项中，不需要在本关死记寄存器名。
 
 ### Fault D — Interrupt 没 Enable
 
@@ -196,7 +198,7 @@ Timer Event
 
 ## Transfer — 为什么后面所有外设都需要时间模型
 
-UART 有 Baud Rate，PWM 有 Frequency，ADC 有 Sampling Rate，RTOS 有 Tick/Deadline，FPGA 有 Clock。
+UART（串行通信）有 Baud Rate，PWM 有 Frequency，ADC（模数转换）有 Sampling Rate，RTOS（实时操作系统）有 Tick/Deadline，FPGA（可编程逻辑器件）有 Clock。
 
 所以 Timer 这一关真正训练的不是某个 API，而是：
 
