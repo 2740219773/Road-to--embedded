@@ -22,7 +22,7 @@ Clock Source
 
 - Clock Source：最开始的节拍来源，例如内部振荡器或外部晶振；
 - Crystal：板上的外部晶体/晶振器件之一，用来提供较稳定的时钟来源；
-- PLL：可以把输入时钟变成另一个更高或合适的频率；
+- PLL：一种把输入时钟变成另一个更高或合适频率的时钟电路；
 - Divider / Prescaler：分频，把时钟变慢；
 - Mux：多选一，决定当前使用哪一路时钟；
 - Peripheral Clock：真正送给 UART、Timer、ADC 等外设的时钟。
@@ -31,7 +31,7 @@ Clock Source
 
 ## 为什么这件事很重要
 
-假设 UART 配置里写的是 115200，但 UART 实际收到的 Peripheral Clock 和程序以为的不一样，那么最终 TX 引脚上的真实 Baud Rate 就可能不是 115200。
+例如 UART（串行通信外设）配置里写的是 115200，但 UART 实际收到的 Peripheral Clock 和程序以为的不一样，那么最终 TX 引脚上的真实 Baud Rate（每秒符号速率）就可能不是 115200。
 
 同样地，PWM Frequency、Timer Period、ADC Sampling 等也都可能被时钟配置影响。
 
@@ -66,6 +66,8 @@ Source
 
 ## 互动说明
 
-Clock Tree Playground 属于后续规划中的 Interactive Lab，当前 V2.1 尚未实现，因此本页只建立概念模型。现阶段可以结合已实现的 PWM Visualizer 和 UART Frame Visualizer 理解“时钟错误如何传递到最终波形”。
+Clock Tree Playground 属于后续规划中的 Interactive Lab，目前尚未实现，因此本页只建立概念模型。
 
-学习入口：`02-Learning-Path/Stage-02-MCU-Rookie/README.md`，之后在 Stage 03 的 UART / PWM 调试中反复使用这套思路。
+现阶段先结合 Stage 02 的 Timer Tick、PWM Measurement 和已实现的 PWM Visualizer 理解“时钟错误如何传递到最终周期和波形”；进入 Stage 03 后，再把同一套方法迁移到 UART、ADC 等更多外设。
+
+学习入口：`02-Learning-Path/Stage-02-MCU-Rookie/README.md`。

@@ -1,27 +1,14 @@
-# Development Plan — V2.1
+# Development Plan — Living Plan
 
-## 目标
+## Purpose
 
-V2.1 的核心仍然是完成架构重构和维护体系，而不是宣布所有后续课程完成。
+这个文件描述当前项目如何继续建设，不再作为 V2.1 迁移清单。
 
-当前分支已经提前制作了多个后续 Stage 的纵向样板，用来验证新架构是否能支持 MCU、Debugging、RTOS、Embedded Linux、FPGA。接下来必须从“继续扩内容”切回“整理、验证、收口”。
+V2.1 已完成架构重构，V2.2 已完成 Stage 01 互动闭环。当前开发版本为 V2.3。
 
-## Workstream A — Project Governance
+## Stable Architecture
 
-- [x] `PROJECT.md`
-- [x] `ROADMAP.md`
-- [x] `CONTRIBUTING.md`
-- [x] `docs/ARCHITECTURE.md`
-- [x] `docs/CONTENT-DESIGN.md`
-- [x] `docs/MIGRATION-V2.1.md`
-- [x] `docs/BEGINNER-READABILITY.md`
-- [x] 课程 / Mission / Lab / Debug Case 模板
-- [x] README 已切换到新架构
-- [ ] 完成本轮 Repository Audit 修订
-
-## Workstream B — New Directory Model
-
-新主结构已经建立：
+顶层结构保持稳定：
 
 ```text
 01-Knowledge-Base/
@@ -35,27 +22,9 @@ V2.1 的核心仍然是完成架构重构和维护体系，而不是宣布所有
 09-Progress/
 ```
 
-当前任务不是再增加新的顶层分类，而是保持这些职责稳定。
+除非现有职责无法表达真实需求，不再增加新的顶层分类。
 
-## Workstream C — Migration & Cleanup
-
-已完成第一轮内容迁移，但旧目录仍然存在，因此当前存在“新旧双轨”。
-
-接下来按下面顺序收口：
-
-1. 统一 Mission 命名为 `Stage-XX-.../NN-Mission-Name/`；
-2. 修复 Stage README 中仍指向旧知识目录的说明；
-3. 检查 README / Mission / OpenMAIC 的内部路径；
-4. 在旧顶层目录增加明确 Legacy 标识；
-5. 搜索仍引用 `01-Fundamentals`、旧 `02-MCU`～`10-Interactive-Labs` 的新内容；
-6. 确认旧文件已经迁移或废弃；
-7. 最后删除旧目录。
-
-在完成第 1～6 步之前，不直接批量删除旧目录。
-
-## Workstream D — Learning Path Consistency
-
-Stage 主线保持：
+## Learning Path Contract
 
 ```text
 Stage 00 System Explorer
@@ -69,104 +38,113 @@ Stage 07 FPGA Builder
 Stage 08 System Integrator
 ```
 
-检查每个 Stage 是否至少明确：
+每个正式建设 Stage 最终应具备：
 
-- 学之前要知道什么；
-- 为什么现在学这个；
-- 核心 Mission；
-- 可用 Interactive Lab；
+- Entry Requirements；
+- Beginner Concept；
+- Mission Chain；
+- Interactive / Instrument Evidence；
+- Failure Injection；
 - Debug Challenge；
 - Boss Project；
-- Exit Criteria。
+- Exit Check。
 
-V2.1 不要求每个 Stage 内容完整，但不允许 Stage 顺序和技术职责互相冲突。
+## Current Work — V2.3
 
-## Workstream E — Vertical-Slice Validation
+V2.3 分两个 Phase。
 
-已经完成的纵向样板包括：
+### Phase A — Stage 02 MCU Foundation
 
-- Stage 01：Memory / Register；
-- Stage 02～03：GPIO、UART、I2C、SPI、ADC、PWM、DMA、CAN、Modbus；
-- Stage 04：HardFault、Watchpoint、Stack、仪器取证；
-- Stage 05：Scheduler、Race、Deadlock 等；
-- Stage 06：Linux System / Boot / Device Tree / Cross Compilation；
-- Stage 07：FPGA mindset / combinational / sequential / RTL。
-
-这些样板用于验证：
+当前优先完成和验证：
 
 ```text
-Beginner Concept
-→ Knowledge
-→ Mission
-→ Interactive Lab
-→ Real / Simulated Evidence
-→ Debug Case
-→ Boss
+First Contact
+→ First LED
+→ Button Interrupt
+→ Timer Tick
+→ PWM Measurement
+→ Mixed Hardware Debug Challenge
+→ GPIO Control Node Boss
+→ Exit Check
 ```
 
-后续正式版本再补齐缺失环节。
+核心能力：Build / Flash / Debugger、GPIO、Clock、Interrupt、Timer/PWM、Schematic、万用表/示波器、软件证据与物理证据联合定位。
 
-## Workstream F — Beginner Readability
+### Phase B — Stage 03 Peripheral Engineer
 
-所有新人第一次可能遇到的术语，按以下顺序表达：
+Phase A 通过质量门后，再正式整理已有纵向样板：UART、I²C、SPI、ADC、DMA、CAN、RS-485 / Modbus，以及 Multi-Peripheral Sensor Node。
+
+当前不提前继续扩 Stage 03 新主题。
+
+## Development Unit
+
+后续尽量以“小闭环”而不是“章节数量”为单位推进：
+
+```text
+一个真实问题
+→ 一个 Mission
+→ 一组必要 Knowledge
+→ 一个互动或真实测量
+→ 一个故障注入
+→ 一份 Evidence Record
+→ 更新 Stage / Progress
+```
+
+如果一个主题只有知识页，没有任务、实验和故障，不视为正式课程完成。
+
+## Beginner Readability Gate
+
+新人第一次遇到术语时优先按：
 
 ```text
 它是什么
 → 在系统哪里
 → 为什么需要
-→ 直觉类比
+→ 一个直觉模型
 → 英文名 / 缩写
 → 最小结构图
 → 参数 / API / 寄存器
 ```
 
-当前优先反查：MCU、Protocol、Debugging、RTOS、Linux、FPGA 的第一入口页面。
+不要因为目标是“工程化”就默认读者已经知道 IDE、ISR、DMA、ABI、Pin Mux、Clock Tree 等术语。
 
-## Workstream G — Quality Gate
+## Scope Guardrails
 
-V2.1 合并前必须满足：
+1. Stage 02 不扩张成外设百科；
+2. Stage 03 不重复教授 Stage 02 已完成的 GPIO/Timer/PWM 基础；
+3. Stage 04 专注系统性 Debug 方法，不靠继续增加外设制造内容量；
+4. Stage 05 必须建立在裸机多外设系统经验之上；
+5. Linux 和 FPGA 的纵向样板在对应版本到来前只维护明显错误，不继续横向扩张；
+6. V3.0 Web/平台化在真实学习路径成熟前不抢占主线。
 
-- [ ] 首页只把新结构作为正式入口；
-- [ ] 所有新顶层目录职责清晰；
-- [ ] Stage 00～08 导航一致；
-- [ ] Mission 命名一致；
-- [ ] Knowledge 与 Mission 没有大段重复维护；
-- [ ] OpenMAIC prompt 指向正确 Knowledge / Mission；
-- [ ] 无关键死链；
-- [ ] 旧目录带 Legacy 标识；
-- [ ] 旧内容都有迁移去向；
-- [ ] 新手关键术语有第一次解释；
-- [ ] backup branch 可恢复重构前状态；
-- [ ] `09-Progress/V2.1-Migration-Status.md` 与真实状态一致。
+## Quality Gate for Each Version
 
-## 当前优先级
+合并正式版本前至少检查：
 
-### P0
+- Roadmap 与真实 Stage 职责一致；
+- README / PROJECT / Current Progress 不使用过期版本状态；
+- Mission 链能够从 Stage Entry 连续走到 Boss / Exit；
+- Knowledge 没有被多个 Mission 大段复制；
+- 新手关键术语第一次出现有解释；
+- 链接没有指向退役路径；
+- 已实现与 planned/prototype 明确区分；
+- PR 只包含当前版本范围内的变化；
+- 有明确的“为什么现在停止扩张”的质量门。
 
-一致性、导航、命名、迁移、死链、Legacy 清理。
+## Long-term Direction
 
-### P1
-
-Stage 01 完整闭环和新手可读性。
-
-### P2
-
-修订现有纵向样板，使其真正引用同一套 Knowledge / Mission / Lab。
-
-### P3
-
-在 V2.1 合并后，再继续批量扩展新内容。
-
-## 维护节奏
-
-后续新增内容继续采用小闭环：
+总路线保持不变：
 
 ```text
-一个知识主题
-→ 一个 Mission
-→ 一个互动或真实实验
-→ 一个故障场景
-→ 更新 Stage / Progress
+System View
+→ C / Memory
+→ Real MCU Foundation
+→ MCU Peripherals
+→ Systematic Debugging
+→ RTOS
+→ Embedded Linux
+→ FPGA
+→ PC / MCU / Linux / FPGA System Integration
 ```
 
-避免再次出现“内容增加很快，但导航和版本说明没有同步”的情况。
+最终竞争力来自跨层工程能力，而不是单独堆某一种 API 或框架。

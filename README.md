@@ -4,9 +4,19 @@
 
 ## 当前状态
 
-项目目前处于 **V2.1 架构重构分支** `refactor/v2.1-learning-system`，尚未正式合并到 `main`。重构前状态保存在 `backup/pre-v2.1-restructure`。
+V2.1 架构重构和 V2.2 Stage 01 Interactive Pilot 已经完成并合并到 `main`。
 
-V2.1 的结构迁移已经完成，旧的课程目录已经退休。当前 P0 工作只剩：导航与内部链接验证、命名一致性、新手可读性复查、PR 最终检查。
+当前正在推进 **V2.3 — MCU / STM32 Learning Path**。V2.3 采用两段式推进：
+
+```text
+Phase A — Stage 02 MCU Foundation
+真实开发板 / Debugger / GPIO / Interrupt / Timer / PWM / 仪器证据
+
+Phase B — Stage 03 Peripheral Engineer
+UART / I2C / SPI / ADC / DMA / CAN / RS-485 / Modbus
+```
+
+当前开发重点是 Phase A，暂不横向扩张 Stage 03 外设。
 
 ## 为什么做这个项目
 
@@ -72,34 +82,31 @@ Road-to--embedded/
 └─ 09-Progress/
 ```
 
-旧结构与迁移历史记录在 [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)，但旧目录已不再存在于当前重构分支。
+V2.1 的迁移历史记录在 [`docs/MIGRATION-V2.1.md`](docs/MIGRATION-V2.1.md)。
 
 ## 一节课的理想体验
 
 ```text
-Hook        一个值得追究的现象
+Hook / Mission Brief
 ↓
-Predict     操作前先猜
+Before You Start
 ↓
-Visualize   图、动画或交互建立直觉
+Predict
 ↓
-Action      自己操作
+Observe / Visualize
 ↓
-Break It    故意制造错误
+Explain
 ↓
-Debug       用证据定位原因
+Break It
 ↓
-Boss        独立解决新问题
+Debug with Evidence
 ↓
-Review      短复盘
+Transfer
+↓
+Mission Report / Boss / Review
 ```
 
-Stage 01 当前入口：
-
-- [`Memory Detective`](04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
-- [`Bit Hacker`](04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
-- [`Memory Visualizer`](03-Interactive-Labs/Memory-Visualizer/)
-- [`Register Playground`](03-Interactive-Labs/Register-Playground/)
+Stage 01 已完成完整闭环。当前 Stage 02 正把虚拟寄存器接到真实开发板、物理 Pin 和仪器测量。
 
 ## 五级能力模型
 
@@ -119,11 +126,11 @@ L5 迁移     换芯片、换项目仍能使用
 
 1. [`PROJECT.md`](PROJECT.md)
 2. [`ROADMAP.md`](ROADMAP.md)
-3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-4. [`docs/CONTENT-DESIGN.md`](docs/CONTENT-DESIGN.md)
-5. [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)
-6. [`docs/DEVELOPMENT-PLAN.md`](docs/DEVELOPMENT-PLAN.md)
-7. [`09-Progress/V2.1-Migration-Status.md`](09-Progress/V2.1-Migration-Status.md)
+3. [`09-Progress/Current.md`](09-Progress/Current.md)
+4. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+5. [`docs/CONTENT-DESIGN.md`](docs/CONTENT-DESIGN.md)
+6. [`docs/BEGINNER-READABILITY.md`](docs/BEGINNER-READABILITY.md)
+7. [`docs/DEVELOPMENT-PLAN.md`](docs/DEVELOPMENT-PLAN.md)
 8. [`CONTRIBUTING.md`](CONTRIBUTING.md)
 
 新增内容前先判断最合适的媒介，不要默认创建新的长篇 Markdown。
@@ -132,7 +139,7 @@ L5 迁移     换芯片、换项目仍能使用
 
 OpenMAIC 是互动课堂载体之一，不是唯一内容源。技术事实保存在 Knowledge Base，教学任务保存在 Mission。
 
-Stage 01 第一份 OpenMAIC 源：
+当前已有 Stage 01 第一份 OpenMAIC 样板：
 
 [`07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md`](07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md)
 

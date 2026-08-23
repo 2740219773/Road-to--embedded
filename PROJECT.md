@@ -14,24 +14,15 @@ Road to Embedded 是一套面向工程实践的交互式嵌入式学习系统。
 
 ```text
 产生兴趣
-  ↓
-观察现象
-  ↓
-提出问题
-  ↓
-做出预测
-  ↓
-互动验证
-  ↓
-真实实验
-  ↓
-故障注入
-  ↓
-调试定位
-  ↓
-工程项目
-  ↓
-复盘沉淀
+→ 观察现象
+→ 提出问题
+→ 做出预测
+→ 互动验证
+→ 真实实验
+→ 故障注入
+→ 调试定位
+→ 工程项目
+→ 复盘沉淀
 ```
 
 ## 目标学习者
@@ -80,8 +71,6 @@ Road to Embedded 不追求：
 
 ## 内容分层
 
-项目内容分为三个主要学习层：
-
 ### Knowledge Base
 
 保证知识准确，适合查询、复习和作为 AI / OpenMAIC 的课程源。
@@ -107,33 +96,22 @@ Road to Embedded 不追求：
 
 ## 技术载体
 
-项目允许使用多种载体：
-
-- Markdown：知识底稿、规范、任务说明；
-- HTML/CSS/JavaScript：交互模拟与可视化；
-- OpenMAIC：Slides、Quiz、AI 多角色课堂、PBL；
-- C / C++ / Python / Verilog 等：实验代码；
-- STM32 / MCU / FPGA 开发板：真实硬件实验；
-- 示波器 / 逻辑分析仪 / 万用表 / JTAG：调试实验。
+项目允许使用 Markdown、HTML/CSS/JavaScript、OpenMAIC、C/C++/Python/Verilog、MCU/FPGA 开发板，以及示波器、逻辑分析仪、万用表和 JTAG/SWD 等工具。
 
 平台不是项目本身。课程设计和核心知识必须能够保存在仓库中，避免锁定在单一平台。
 
 ## 当前版本目标
 
-当前正在进行 **V2.1 架构重构**。
+当前正在进行 **V2.3 — MCU / STM32 Learning Path**。
 
-V2.1 的任务是把现有“技术章节式资料库”重构为：
+V2.1 已完成架构重构，V2.2 已完成 Stage 01 Interactive Pilot。V2.3 继续把虚拟模型接到真实硬件，并分成两个连续阶段：
 
 ```text
-Knowledge Base
-Learning Path
-Interactive Labs
-Missions
-Projects
-Debugging Cases
-OpenMAIC
-Resources
-Progress
+Phase A — Stage 02 MCU Foundation
+Build / Flash / Debugger / GPIO / Interrupt / Timer / PWM / Instrument
+
+Phase B — Stage 03 Peripheral Engineer
+UART / I2C / SPI / ADC / DMA / CAN / RS-485 / Modbus
 ```
 
-详细计划见 `ROADMAP.md` 与 `docs/DEVELOPMENT-PLAN.md`。
+详细计划见 `ROADMAP.md`，当前真实进度见 `09-Progress/Current.md`。
