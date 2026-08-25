@@ -1,5 +1,25 @@
 # Mission 03 — SPI Wrong Data：四根线都有波形，为什么数据还是错的？
 
+## Beginner Guide
+
+- 适合：已完成 I²C No ACK 的学习者；
+- 前置：CS、Clock、CPOL/CPHA、Bit Order 和 Datasheet 时序图；
+- 预计：75 分钟；
+- 本关产出：SPI 波形、采样边沿、Bit Order 和 Device Timing 证据；
+- 上一关：I²C No ACK；当前关：SPI Wrong Data；下一关：ADC Jitter。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录期望模式、实际采样边沿、解码结果和最小修复。
+
+## If You Are Stuck
+
+先看 CS 是否包围完整事务，再看 CPOL/CPHA 和 Bit Order，最后才讨论设备数据含义。
+
+## Ready to Continue
+
+能够从波形判断采样边沿和位序后，再进入 ADC Jitter。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[SPI](../../../01-Knowledge-Base/Protocols/03-SPI.md) · 互动实验：[SPI Timing Playground](../../../03-Interactive-Labs/SPI-Timing-Playground/README.md)
 
 ## Mission Brief

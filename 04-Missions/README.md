@@ -34,6 +34,8 @@ Stage-07-FPGA/
 
 Stage 00 目前以系统地图和认知建立为主；Stage 08 目前保留系统集成路线骨架，还没有正式 Mission 资产。不要为了目录完整而创建空 Mission。
 
+Stage 01 的 Mission 00 是面向 C# 开发者的过渡任务：它不替代后续正式关卡，而是把 C# 的对象、数组和 API 直觉连接到 C 的值、地址、指针和寄存器模型。
+
 ## 命名规则
 
 统一使用：
@@ -88,4 +90,4 @@ Mixed Challenge
 → Quality Gate
 ```
 
-当前 V2.3 Phase B 已进入 Stage 03 最终质量验收。Stage 04～08 现有 Mission 仍主要是 vertical-slice prototype，除必要导航修复外，不在 Phase B 提前扩写。
+当前 V2.3 Phase B 已完成并合并。下一阶段是 V2.4 / Stage 04 Debug Hunter；Stage 04～08 现有 Mission 仍主要是 vertical-slice prototype，不应误读为完整正式课程。

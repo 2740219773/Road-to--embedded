@@ -1,5 +1,25 @@
 # Mission 02 — Button Interrupt：按下按键，CPU 怎么知道？
 
+## Beginner Guide
+
+- 适合：已完成 First LED 的学习者；
+- 前置：GPIO 输入、Pin 电压、Polling 和基本 Debugger 观察；
+- 预计：60 分钟；
+- 本关产出：Button → Pin → Interrupt → ISR 的证据记录；
+- 上一关：First LED；当前关：Button Interrupt；下一关：Timer Tick。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录输入电平、Edge、Pending、ISR 和 Bounce 证据。
+
+## If You Are Stuck
+
+先不用中断，只证明 Button Pin 的电平真的会变化，再继续检查 Edge 和 ISR。
+
+## Ready to Continue
+
+能够区分物理输入变化、Pending Flag 和 ISR 命中后，再进入 Timer Tick。
+
 > 学习路径：[Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md) · 知识支撑：[GPIO](../../../01-Knowledge-Base/MCU/01-GPIO.md) · [Interrupt](../../../01-Knowledge-Base/MCU/02-Interrupt.md) · [Debugger Basics](../../../01-Knowledge-Base/MCU/06-Debugger-Basics.md)
 
 ## Before You Start

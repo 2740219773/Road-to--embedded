@@ -47,7 +47,7 @@ Other Node
 ACK
 ```
 
-## Diagnosis
+## Root Cause / Diagnosis
 
 发送节点已经赢得仲裁并发送完整 Frame，但总线上没有另一个正确工作的接收节点，因此没有其他节点在 ACK Slot 提供确认。
 

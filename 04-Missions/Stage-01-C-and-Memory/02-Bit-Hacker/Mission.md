@@ -1,5 +1,25 @@
 # Mission 02 — Bit Hacker：只想打开一个 LED，为什么其他灯全灭了？
 
+## Beginner Guide
+
+- 适合：已完成 Memory Detective 的学习者；
+- 前置：能区分变量、地址、指针和内存内容；
+- 预计：45 分钟；
+- 本关产出：一份 bit mask 操作前后对照；
+- 上一关：Memory Detective；当前关：Bit Hacker；下一关：Volatile Mystery。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交 Set/Clear/Toggle/Overwrite 的预测和实际寄存器值。
+
+## If You Are Stuck
+
+先把寄存器值写成二进制，只观察一个 bit，再比较 `|=`、`&= ~` 和 `^=` 的变化。
+
+## Ready to Continue
+
+能够预测 mask 操作保留和改变哪些 bit 后，再进入 Volatile Mystery。
+
 ## Mission Brief
 
 假设一个 8-bit 输出寄存器当前是：

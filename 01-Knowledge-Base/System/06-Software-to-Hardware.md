@@ -19,3 +19,4 @@ Memory-mapped Register
 例如代码修改 GPIO 寄存器后，芯片内部逻辑改变输出引脚状态，最终可以让 LED 亮灭。
 
 这也是为什么地址、指针、位运算、volatile 和寄存器是嵌入式 C 的核心基础。
+

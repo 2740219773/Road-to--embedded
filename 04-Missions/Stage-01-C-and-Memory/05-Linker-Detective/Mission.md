@@ -1,5 +1,25 @@
 # Mission 05 — Linker Detective：代码看起来都对，为什么就是生成不了程序？
 
+## Beginner Guide
+
+- 适合：已完成 Struct Explorer 的学习者；
+- 前置：函数、声明、定义、多个 `.c` 文件和命令行编译基础；
+- 预计：60 分钟；
+- 本关产出：一份 Compile / Link / Memory 分层调查记录；
+- 上一关：Struct Explorer；当前关：Linker Detective；下一关：Stage 01 Mixed Debug Challenge。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交至少一个编译错误、一个链接错误和一个最小修复的证据链。
+
+## If You Are Stuck
+
+先区分 Compiler error、Linker error 和运行期错误，不要把所有失败都称为“编译失败”。
+
+## Ready to Continue
+
+能够画出 C Source → Compiler → Object → Linker → Executable 后，再进入 Stage 01 Mixed Debug Challenge。
+
 ## Mission Brief
 
 你接手一个很小的 C 工程：

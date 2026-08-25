@@ -1,5 +1,12 @@
 # I²C Bus Visualizer
 
+## Beginner Start
+
+- 第一次操作：先保持设备供电、Pull-up 和地址为默认值，运行一次最小事务；
+- 预期观察：出现 START、Address、R/W、ACK/NACK 和 STOP 的顺序；
+- 观察不到：先确认 Device Power、Pull-up 和 Address 没有被同时改动；
+- Mission Integration：对应 I²C No ACK 的电气、地址和应答证据。
+
 浏览器直接打开 `index.html`，无需构建。
 
 ## 它解决什么问题

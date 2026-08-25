@@ -1,5 +1,16 @@
 # Stage 01 — C & Memory Explorer
 
+## 当前状态与适合谁
+
+正式阶段。适合已经完成 Stage 00、会读变量/条件/循环/函数的学习者；C# 学习者通过 Bridge 把已有直觉迁移到 C 的内存模型。
+
+## 学习环境与阶段产出
+
+- 环境：普通 PC、已验证的 C 编译器、浏览器；先完成 [Beginner Setup](../../docs/BEGINNER-SETUP.md)，不要求开发板。
+- 必做产出：五份 Mission Record、一份 Mixed Debug Record、Virtual GPIO Boss 和 Exit Check。
+- 必须阅读：当前 Mission 的 Before You Start；其他 Knowledge 按需查询。
+- 选读内容：完整 C Knowledge 目录用于复习，不作为线性教材。
+
 ## 这一阶段为什么存在
 
 你不需要先成为 C 语言专家。Stage 01 的目标是建立一条很重要的底层链路：
@@ -21,7 +32,7 @@ C Code
 
 ## Entry Requirements
 
-只需要知道变量、`if/for`、函数这些最基本概念。
+只需要知道变量、`if/for`、函数这些最基本概念。完全零基础者先完成 [C Basics Check](C-BASICS-CHECK.md)。C# 上位机开发者应先完成 [Mission 00 — C# → C → Embedded C Bridge](../../04-Missions/Stage-01-C-and-Memory/00-CSharp-to-C-Bridge/Mission.md)，把对象、数组和 API 的直觉迁移到 C 的内存、指针和寄存器模型。
 
 第一次看到陌生词时，不要求马上记住定义。先看当前 Mission 的 `Before You Start`，必要时再查 `01-Knowledge-Base/Glossary.md`。
 
@@ -32,7 +43,8 @@ C Code
 按这个顺序走：
 
 ```text
-Mission 提出问题
+C Basics Check / C# Bridge
+→ Mission 提出问题
 → 先预测
 → 只查当前需要的 Knowledge
 → 运行 / 互动观察
@@ -44,13 +56,14 @@ Mission 提出问题
 
 ## Core Mission Map
 
+0. [Mission 00 — C# → C → Embedded C Bridge](../../04-Missions/Stage-01-C-and-Memory/00-CSharp-to-C-Bridge/Mission.md)
 1. [Mission 01 — Memory Detective](../../04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md)
 2. [Mission 02 — Bit Hacker](../../04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md)
 3. [Mission 03 — Volatile Mystery](../../04-Missions/Stage-01-C-and-Memory/03-Volatile-Mystery/Mission.md)
 4. [Mission 04 — Struct Explorer](../../04-Missions/Stage-01-C-and-Memory/04-Struct-Explorer/Mission.md)
 5. [Mission 05 — Linker Detective](../../04-Missions/Stage-01-C-and-Memory/05-Linker-Detective/Mission.md)
 
-五关是一条连续调查链：
+六关是一条连续调查链；Mission 00 是进入底层内存模型前的迁移关：
 
 ```text
 数据到底放哪？
@@ -103,6 +116,8 @@ Before You Start
 完整路径是：
 
 ```text
+Mission 00 Bridge
+↓
 5 Core Missions
 ↓
 Mixed Debug Challenge

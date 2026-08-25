@@ -1,5 +1,12 @@
 # ADC Sampling Simulator
 
+## Beginner Start
+
+- 第一次操作：保持 Vin、Vref、Resolution 和 Noise 默认，执行一批采样；
+- 预期观察：Raw Code 集中在预期范围，并能看到采样统计；
+- 观察不到：先恢复默认 Vref 和 Resolution，再检查输入值是否超范围；
+- Mission Integration：对应 ADC Jitter 的 Vin / Vref / Sampling / Noise 证据。
+
 浏览器直接打开 `index.html`。
 
 ## 它解决什么问题

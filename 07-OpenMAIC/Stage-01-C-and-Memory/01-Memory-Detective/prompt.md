@@ -1,5 +1,15 @@
 # OpenMAIC Prompt — Stage 01 / Mission 01 Memory Detective
 
+## Source manifest
+
+- `status`: `prompt-only`
+- `mission`: `04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md`
+- `knowledge`: `01-Knowledge-Base/C/00-CSharp-to-C-Bridge.md`, `01-Knowledge-Base/C/01-Data-Address-Memory.md`, `01-Knowledge-Base/C/02-Pointers-and-Hardware.md`
+- `lab`: `03-Interactive-Labs/Memory-Visualizer/index.html`
+- `expectedScenes`: `slides`, `quiz`, `html-simulation`, `debug-challenge`, `review`
+
+这个文件是课堂生成约束，不是已生成课堂。生成结果必须经过人工验收后，才可以从 `prompt-only` 变为已审阅状态。
+
 请基于：
 
 - `04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md`
@@ -7,6 +17,14 @@
 - `01-Knowledge-Base/C/02-Pointers-and-Hardware.md`
 
 生成一节面向零基础/初级嵌入式学习者的互动课堂。
+
+## 生成约束
+
+- 只把 Knowledge 当作技术事实源、Mission 当作任务和验收源、Lab 当作可操作实验源；不要复制整篇 Knowledge，也不要另造一套结论。
+- 必须保留“先预测、再操作/观察、故意制造故障、用证据调试、迁移到寄存器”的闭环。
+- 不得虚构真实 MCU、示波器、逻辑分析仪或其他硬件测量结果；没有真实证据时必须明确写成虚拟模型或静态推理。
+- 每个生成场景都要能回指仓库中的 Mission 或 Lab；不相关的游戏化内容不能替代学习证据。
+- 课堂验收至少包括：预测题有可核对答案，Memory Visualizer 可操作，故障挑战要求写出现象/假设/证据/结论，结束复习回到 Mission Exit Check。
 
 ## 教学目标
 

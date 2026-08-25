@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CAN Arbitration Visualizer</title>
+<title>CAN Arbitration Visualizer</title><link rel="stylesheet" href="../lab-foundation.css"><link rel="icon" href="data:,">
 <style>
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1150px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
 h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,button{font:inherit;padding:8px 10px;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}button{cursor:pointer;background:#293246}.nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.node{background:#111722;padding:13px;border-radius:8px}.active{border-left:4px solid #62b47a}.lost{opacity:.65;border-left:4px solid #d76868}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:8px 9px;border-bottom:1px solid #30394d;text-align:center}th{background:#202737}.dom{font-weight:700}.losebit{color:#ff9e9e;font-weight:700}.winner{border-left:4px solid #62b47a}.small{color:#b9c2d0;font-size:.92rem}.flow{white-space:pre-wrap}
@@ -30,8 +30,8 @@ h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12p
   </table>
 </div>
 
-<div id="result" class="card"></div>
-<div id="explain" class="card mono flow"></div>
+<div id="result" class="card" role="status" aria-live="polite"></div>
+<div id="explain" class="card mono flow" role="status" aria-live="polite"></div>
 
 <script>
 const $=id=>document.getElementById(id);

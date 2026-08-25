@@ -102,16 +102,19 @@ Road to Embedded 不追求：
 
 ## 当前版本目标
 
-当前正在进行 **V2.3 — MCU / STM32 Learning Path**。
+当前内容版本为 **V2.5 — Stage 05 RTOS Engineer**，本地质量门已通过；**V2.6 — Beginner Journey Audit 已完成**；**V2.7 — Beginner Framework and Content Quality Gate 已通过**。
 
-V2.1 已完成架构重构，V2.2 已完成 Stage 01 Interactive Pilot。V2.3 继续把虚拟模型接到真实硬件，并分成两个连续阶段：
+V2.1 已完成架构重构，V2.2 已完成 Stage 01 Interactive Pilot，V2.3 Phase A/B 已完成并合并，V2.4 已把 Stage 01～03 中反复使用的证据驱动方法提炼成独立的系统调试能力，V2.5 已把并发、调度和资源协作收口为可验证的 RTOS 学习闭环：
 
 ```text
 Phase A — Stage 02 MCU Foundation
 Build / Flash / Debugger / GPIO / Interrupt / Timer / PWM / Instrument
 
-Phase B — Stage 03 Peripheral Engineer
-UART / I2C / SPI / ADC / DMA / CAN / RS-485 / Modbus
+V2.4 — Stage 04 Debug Hunter ✅
+Evidence / Watchpoint / HardFault / Stack / Interrupt / Timing / Instrument
+
+V2.5 — Stage 05 RTOS Engineer
+Task / Scheduler / Synchronization / Queue / Race / Deadline
 ```
 
-详细计划见 `ROADMAP.md`，当前真实进度见 `09-Progress/Current.md`。
+V2.3 的历史路线见 `ROADMAP.md`，当前真实进度见 `09-Progress/Current.md`。

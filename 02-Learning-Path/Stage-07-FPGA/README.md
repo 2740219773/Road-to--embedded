@@ -4,9 +4,17 @@ FPGA 不是“更高级的 MCU”。这一阶段的核心是从顺序执行的�
 
 ## 当前定位
 
-Stage 07 已有第一批纵向样板，用于验证 FPGA 能否按同一套“概念 → Mission → 实验 → 故障 → 项目”体系教学。完整正式建设属于 ROADMAP 的 V2.7。
+Stage 07 当前是 prototype，已有第一批纵向样板，用于验证 FPGA 能否按同一套“概念 → Mission → 实验 → 故障 → 项目”体系教学。完整正式建设属于后续版本。
 
-当前 V2.3 不继续扩 FPGA 内容，除非修复明显错误或断链。
+## Entry Requirements / 环境 / 产出
+
+- Entry：建议完成 Stage 01；系统集成学习者还应完成 Stage 05。
+- 环境：当前只需要阅读和 HDL 基础示例；真实 FPGA 工具链属于后续实践。
+- 必须完成：当前样板 Mission。
+- 可选阅读：数字逻辑、时序逻辑、RTL 和 Verilog Knowledge。
+- 阶段产出：当前不要求 Boss 或 Exit Check。
+
+当前 V2.6 不继续扩 FPGA 内容，除非修复明显错误或断链。
 
 ## 当前 Knowledge 样板
 

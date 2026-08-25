@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "courses": [
+    {
+      "id": "stage-01-memory-detective",
+      "status": "prompt-only",
+      "prompt": "07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md",
+      "mission": "04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md",
+      "knowledge": [
+        "01-Knowledge-Base/C/00-CSharp-to-C-Bridge.md",
+        "01-Knowledge-Base/C/01-Data-Address-Memory.md",
+        "01-Knowledge-Base/C/02-Pointers-and-Hardware.md"
+      ],
+      "labs": [
+        "03-Interactive-Labs/Memory-Visualizer/index.html"
+      ],
+      "expectedScenes": [
+        "slides",
+        "quiz",
+        "html-simulation",
+        "debug-challenge",
+        "review"
+      ],
+      "generatedArtifacts": []
+    }
+  ]
+}

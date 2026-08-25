@@ -12,7 +12,7 @@ V2.2 — Stage 01 Interactive Pilot
 V2.3 Phase A — Stage 02 MCU Foundation
 ```
 
-当前正在推进 **V2.3 Phase B — Stage 03 Peripheral Engineer**。
+V2.3 Phase B — Stage 03 Peripheral Engineer 已完成并合并到 main。
 
 Stage 03 已建立：
 
@@ -30,7 +30,7 @@ UART
 → Exit Check
 ```
 
-目前处于最终质量验收：零基础路径、导航、首次术语、PR 范围和合并状态检查。Phase B 合并后才进入 Stage 04 正式建设。
+当前内容基线是 **V2.5 — Stage 05 RTOS Engineer**，已通过本地内容、浏览器和确定性 Host Fixture 质量门；**V2.6 — Beginner Journey Audit 已完成**；**V2.7 — Beginner Framework and Content Quality Gate 已通过**。V2.4 Stage 04 同样已完成。Stage 06～08 仍保留为 vertical-slice prototype，真实 FreeRTOS、MCU 与仪器验证不在本轮范围内。
 
 ## 为什么做这个项目
 
@@ -42,7 +42,9 @@ Road to Embedded 希望把学习变成：
 
 ## 学习者从哪里开始
 
-从 [`02-Learning-Path/README.md`](02-Learning-Path/README.md) 进入，不要从仓库第一个文件开始顺序阅读。
+从 [`02-Learning-Path/START-HERE.md`](02-Learning-Path/START-HERE.md) 进入，不要从仓库第一个文件开始顺序阅读。它会根据你的编程基础分流，并给出第一周的执行顺序。完全零基础时，先完成 [`docs/BEGINNER-SETUP.md`](docs/BEGINNER-SETUP.md)，确认 PC 能编译并运行最小 C 程序。
+
+完整阶段总览仍在 [`02-Learning-Path/README.md`](02-Learning-Path/README.md)，机器可验证的路线清单在 [`02-Learning-Path/route-manifest.json`](02-Learning-Path/route-manifest.json)。
 
 ```text
 Stage 00  System Explorer
@@ -160,6 +162,8 @@ L5 迁移     换芯片、换项目仍能使用
 
 新增内容前先判断最合适的媒介，不要默认创建新的长篇 Markdown。
 
+新手路线走查记录见 [`09-Progress/BEGINNER-WALKTHROUGH-V2.6.md`](09-Progress/BEGINNER-WALKTHROUGH-V2.6.md)。
+
 ## OpenMAIC
 
 OpenMAIC 是互动课堂载体之一，不是唯一内容源。技术事实保存在 Knowledge Base，教学任务保存在 Mission。
@@ -167,6 +171,14 @@ OpenMAIC 是互动课堂载体之一，不是唯一内容源。技术事实保�
 当前已有 Stage 01 第一份 OpenMAIC 样板：
 
 [`07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md`](07-OpenMAIC/Stage-01-C-and-Memory/01-Memory-Detective/prompt.md)
+
+OpenMAIC 源管理约束见 [07-OpenMAIC/OPENMAIC-CONTRACT.md](07-OpenMAIC/OPENMAIC-CONTRACT.md)，当前课堂资产状态见 [07-OpenMAIC/manifest.json](07-OpenMAIC/manifest.json)。
+
+## License
+
+- 学习笔记、Mission、提示词和其他教育内容：[LICENSE-CONTENT.md](LICENSE-CONTENT.md)；
+- HTML、CSS、JavaScript 和脚本代码：[LICENSE-CODE.md](LICENSE-CODE.md)；
+- 第三方资料按各自许可证执行。
 
 ## 最终目标
 

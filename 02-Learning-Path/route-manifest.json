@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "entry": "START-HERE.md",
+  "preparation": [
+    "../docs/BEGINNER-SETUP.md",
+    "00-Programming-Warmup/README.md",
+    "00-Programming-Warmup/examples/README.md"
+  ],
+  "stages": [
+    {
+      "id": "00",
+      "status": "formal",
+      "entry": "Stage-00-System-Explorer/README.md",
+      "required": [
+        "../../01-Knowledge-Base/System/01-What-Is-Embedded-System.md",
+        "../../01-Knowledge-Base/System/02-Computer-System-Layers.md",
+        "../../01-Knowledge-Base/System/03-Embedded-Product-Anatomy.md",
+        "../../01-Knowledge-Base/System/04-Upper-Lower-Computer.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-00-System-Explorer/00-System-Map/Mission.md"
+      ],
+      "labs": [],
+      "boss": "README.md#boss",
+      "exit": "EXIT-CHECK.md",
+      "next": "01",
+      "nextEntry": "Stage-01-C-and-Memory/README.md",
+      "environment": "browser-and-pc",
+      "estimatedSessions": 3,
+      "requiredOutputs": ["system map", "Stage 00 Exit Check"],
+      "requiredTools": ["browser", "PC", "paper-or-markdown"],
+      "blockers": ["cannot explain code-to-device chain"]
+    },
+    {
+      "id": "01",
+      "status": "formal",
+      "entry": "Stage-01-C-and-Memory/README.md",
+      "required": [
+        "../../02-Learning-Path/Stage-00-System-Explorer/EXIT-CHECK.md",
+        "../../docs/BEGINNER-SETUP.md",
+        "../../01-Knowledge-Base/C/10-C-Basics-for-Beginners.md",
+        "C-BASICS-CHECK.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-01-C-and-Memory/00-CSharp-to-C-Bridge/Mission.md",
+        "../../04-Missions/Stage-01-C-and-Memory/01-Memory-Detective/Mission.md",
+        "../../04-Missions/Stage-01-C-and-Memory/02-Bit-Hacker/Mission.md",
+        "../../04-Missions/Stage-01-C-and-Memory/03-Volatile-Mystery/Mission.md",
+        "../../04-Missions/Stage-01-C-and-Memory/04-Struct-Explorer/Mission.md",
+        "../../04-Missions/Stage-01-C-and-Memory/05-Linker-Detective/Mission.md"
+      ],
+      "labs": [
+        "../../03-Interactive-Labs/Memory-Visualizer/README.md",
+        "../../03-Interactive-Labs/Register-Playground/README.md"
+      ],
+      "boss": "../../05-Projects/Beginner/Stage-01-Boss-Virtual-GPIO/PROJECT.md",
+      "exit": "EXIT-CHECK.md",
+      "next": "02",
+      "nextEntry": "Stage-02-MCU-Rookie/README.md",
+      "environment": "browser-and-pc",
+      "estimatedSessions": 8,
+      "requiredOutputs": ["six Mission Records", "Mixed Debug Record", "Virtual GPIO Boss", "Stage 01 Exit Check"],
+      "requiredTools": ["PC", "C compiler", "browser"],
+      "blockers": ["cannot explain variables/arrays/functions", "cannot explain pointer and register expression"]
+    },
+    {
+      "id": "02",
+      "status": "formal",
+      "entry": "Stage-02-MCU-Rookie/README.md",
+      "required": [
+        "../../02-Learning-Path/Stage-01-C-and-Memory/EXIT-CHECK.md",
+        "HARDWARE-SETUP.md",
+        "RECOVERY-GUIDE.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-02-MCU/00-First-Contact/Mission.md",
+        "../../04-Missions/Stage-02-MCU/01-First-LED/Mission.md",
+        "../../04-Missions/Stage-02-MCU/02-Button-Interrupt/Mission.md",
+        "../../04-Missions/Stage-02-MCU/03-Timer-Tick/Mission.md",
+        "../../04-Missions/Stage-02-MCU/04-PWM-Measurement/Mission.md"
+      ],
+      "labs": [
+        "../../03-Interactive-Labs/Register-Playground/README.md",
+        "../../03-Interactive-Labs/PWM-Visualizer/README.md"
+      ],
+      "boss": "../../05-Projects/Beginner/Stage-02-Boss-GPIO-Controller/PROJECT.md",
+      "exit": "EXIT-CHECK.md",
+      "next": "03",
+      "nextEntry": "Stage-03-Peripheral-Engineer/README.md",
+      "environment": "mcu-and-instruments",
+      "estimatedSessions": 7,
+      "requiredOutputs": ["five hardware Mission Records", "Mixed Hardware Debug Record", "GPIO Boss", "Stage 02 Exit Check"],
+      "requiredTools": ["NUCLEO-F401RE or equivalent", "STM32CubeIDE or equivalent", "Debug Probe", "multimeter", "oscilloscope-or-logic-analyzer"],
+      "blockers": ["cannot prove Build/Flash/Run separately", "cannot identify board Pin from User Manual/Schematic"]
+    },
+    {
+      "id": "03",
+      "status": "formal",
+      "entry": "Stage-03-Peripheral-Engineer/README.md",
+      "required": [
+        "../../02-Learning-Path/Stage-02-MCU-Rookie/EXIT-CHECK.md",
+        "../../01-Knowledge-Base/Debugging/00-Instrument-Basics.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-03-Peripherals/01-UART-Garbled/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/02-I2C-No-ACK/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/03-SPI-Wrong-Data/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/04-ADC-Jitter/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/05-DMA-No-Transfer/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/06-CAN-Arbitration/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/07-RS485-No-Reply/Mission.md",
+        "../../04-Missions/Stage-03-Peripherals/08-Modbus-Wrong-Register/Mission.md"
+      ],
+      "labs": [
+        "../../03-Interactive-Labs/UART-Frame-Visualizer/README.md",
+        "../../03-Interactive-Labs/I2C-Bus-Visualizer/README.md",
+        "../../03-Interactive-Labs/SPI-Timing-Playground/README.md",
+        "../../03-Interactive-Labs/ADC-Sampling-Simulator/README.md",
+        "../../03-Interactive-Labs/DMA-Transfer-Simulator/README.md",
+        "../../03-Interactive-Labs/CAN-Arbitration-Visualizer/README.md",
+        "../../03-Interactive-Labs/RS485-Half-Duplex-Visualizer/README.md",
+        "../../03-Interactive-Labs/Modbus-Frame-Builder/README.md"
+      ],
+      "boss": "../../05-Projects/Beginner/Stage-03-Boss-Sensor-Node/PROJECT.md",
+      "exit": "EXIT-CHECK.md",
+      "next": "04",
+      "nextEntry": "Stage-04-Debug-Hunter/README.md",
+      "environment": "mcu-and-instruments",
+      "estimatedSessions": 10,
+      "requiredOutputs": ["eight peripheral Mission Records", "Mixed Peripheral Record", "Sensor Node Boss", "Stage 03 Exit Check"],
+      "requiredTools": ["MCU board", "protocol device", "multimeter", "oscilloscope-or-logic-analyzer"],
+      "blockers": ["cannot distinguish protocol, electrical and data-meaning layers"]
+    },
+    {
+      "id": "04",
+      "status": "formal",
+      "entry": "Stage-04-Debug-Hunter/README.md",
+      "required": [
+        "../../02-Learning-Path/Stage-03-Peripheral-Engineer/EXIT-CHECK.md",
+        "../../docs/LEARNING-RECORD-TEMPLATE.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-04-Debug-Hunter/01-Fault-Scene/Mission.md",
+        "../../04-Missions/Stage-04-Debug-Hunter/02-Who-Wrote-It/Mission.md",
+        "../../04-Missions/Stage-04-Debug-Hunter/03-Choose-The-Instrument/Mission.md"
+      ],
+      "labs": [
+        "../../03-Interactive-Labs/Debug-Evidence-Workbench/README.md"
+      ],
+      "boss": "../../05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md",
+      "exit": "EXIT-CHECK.md",
+      "next": "05",
+      "nextEntry": "Stage-05-RTOS-Engineer/README.md",
+      "environment": "browser-and-host-fixture",
+      "estimatedSessions": 6,
+      "requiredOutputs": ["three Mission Records", "Mixed Evidence Record", "Broken Firmware Boss", "Stage 04 Exit Check"],
+      "requiredTools": ["browser", "Debug Evidence Workbench", "C11 compiler when available"],
+      "blockers": ["cannot choose a high-value measurement", "cannot separate symptom from root cause"]
+    },
+    {
+      "id": "05",
+      "status": "formal",
+      "entry": "Stage-05-RTOS-Engineer/README.md",
+      "required": [
+        "../../02-Learning-Path/Stage-04-Debug-Hunter/EXIT-CHECK.md",
+        "../../docs/LEARNING-RECORD-TEMPLATE.md"
+      ],
+      "missions": [
+        "../../04-Missions/Stage-05-RTOS/01-Race-Condition/Mission.md",
+        "../../04-Missions/Stage-05-RTOS/02-Priority-Inversion/Mission.md",
+        "../../04-Missions/Stage-05-RTOS/03-Deadlock/Mission.md",
+        "../../04-Missions/Stage-05-RTOS/04-Queue-Is-Full/Mission.md"
+      ],
+      "labs": [
+        "../../03-Interactive-Labs/RTOS-Concurrency-Workbench/README.md"
+      ],
+      "boss": "../../05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor/PROJECT.md",
+      "exit": "EXIT-CHECK.md",
+      "next": "06",
+      "nextEntry": "Stage-06-Embedded-Linux/README.md",
+      "environment": "browser-and-host-fixture",
+      "estimatedSessions": 8,
+      "requiredOutputs": ["four RTOS Mission Records", "Mixed Concurrency Record", "RTOS Refactor Boss", "Stage 05 Exit Check"],
+      "requiredTools": ["browser", "RTOS Concurrency Workbench", "C11 compiler"],
+      "blockers": ["cannot explain Task state", "cannot distinguish Race/Deadlock/Queue backpressure"]
+    },
+    {
+      "id": "06",
+      "status": "prototype",
+      "entry": "Stage-06-Embedded-Linux/README.md",
+      "required": [],
+      "missions": [],
+      "labs": [],
+      "boss": null,
+      "exit": null,
+      "next": "07",
+      "nextEntry": "Stage-07-FPGA/README.md",
+      "environment": "prototype",
+      "estimatedSessions": null,
+      "requiredOutputs": [],
+      "requiredTools": [],
+      "blockers": ["formal course not built"]
+    },
+    {
+      "id": "07",
+      "status": "prototype",
+      "entry": "Stage-07-FPGA/README.md",
+      "required": [],
+      "missions": [],
+      "labs": [],
+      "boss": null,
+      "exit": null,
+      "next": "08",
+      "nextEntry": "Stage-08-System-Integrator/README.md",
+      "environment": "prototype",
+      "estimatedSessions": null,
+      "requiredOutputs": [],
+      "requiredTools": [],
+      "blockers": ["formal course not built"]
+    },
+    {
+      "id": "08",
+      "status": "prototype",
+      "entry": "Stage-08-System-Integrator/README.md",
+      "required": [],
+      "missions": [],
+      "labs": [],
+      "boss": null,
+      "exit": null,
+      "next": null,
+      "nextEntry": null,
+      "environment": "prototype",
+      "estimatedSessions": null,
+      "requiredOutputs": [],
+      "requiredTools": [],
+      "blockers": ["formal course not built"]
+    }
+  ]
+}

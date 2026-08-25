@@ -1,5 +1,25 @@
 # Mission 04 — ADC Jitter：读数一直抖，应该先滤波吗？
 
+## Beginner Guide
+
+- 适合：已完成 SPI Wrong Data 的学习者；
+- 前置：Vin、Vref、Resolution、Sampling 和 Noise；
+- 预计：75 分钟；
+- 本关产出：输入电压、参考电压、Raw Code 和采样统计证据；
+- 上一关：SPI Wrong Data；当前关：ADC Jitter；下一关：DMA No Transfer。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录 ADC 预测码值、采样结果、噪声来源和是否需要滤波的结论。
+
+## If You Are Stuck
+
+先检查 Vin、Vref 和采样时间，再决定是否滤波；不要把所有抖动都归因于软件。
+
+## Ready to Continue
+
+能够把模拟电压、采样过程和数字码联系起来后，再进入 DMA No Transfer。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[ADC](../../../01-Knowledge-Base/MCU/06-ADC.md) · 互动实验：[ADC Sampling Simulator](../../../03-Interactive-Labs/ADC-Sampling-Simulator/README.md)
 
 ## Mission Brief

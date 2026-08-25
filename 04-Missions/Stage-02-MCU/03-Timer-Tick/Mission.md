@@ -1,5 +1,25 @@
 # Mission 03 — Timer Tick：为什么系统不能一直靠 delay 等时间？
 
+## Beginner Guide
+
+- 适合：已完成 Button Interrupt 的学习者；
+- 前置：Clock、Interrupt、Counter 和基本周期计算；
+- 预计：60 分钟；
+- 本关产出：Timer Clock、Prescaler、Period 和实际事件证据；
+- 上一关：Button Interrupt；当前关：Timer Tick；下一关：PWM Measurement。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交时钟计算、Breakpoint/Counter 观察和一次周期故障定位。
+
+## If You Are Stuck
+
+先画出 Clock Source → Prescaler → Counter → Period，不要直接尝试多个分频数字。
+
+## Ready to Continue
+
+能够区分 Timer running 和 Timer interrupt working 后，再进入 PWM Measurement。
+
 ## Mission Brief
 
 你已经能点亮 LED，也能用按键触发事件。

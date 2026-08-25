@@ -86,7 +86,7 @@ Bit order
 
 高价值差异已经集中到 Sample Edge。
 
-## Diagnosis
+## Root Cause / Diagnosis
 
 Controller 使用：
 

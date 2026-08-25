@@ -131,3 +131,4 @@ static   → 生命周期 / 可见范围发生变化
 3. 它以后为什么会出现在硬件寄存器、ISR、模块接口里？
 
 对应 Mission：`04-Missions/Stage-01-C-and-Memory/03-Volatile-Mystery/Mission.md`。
+

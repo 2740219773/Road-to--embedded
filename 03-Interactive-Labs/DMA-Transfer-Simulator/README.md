@@ -1,5 +1,12 @@
 # DMA Transfer Simulator
 
+## Beginner Start
+
+- 第一次操作：保持 Request、Direction、Count 和 Buffer Capacity 默认，运行一次 Transfer；
+- 预期观察：源数据按 Count 写入目标 Buffer，并显示完成状态；
+- 观察不到：先比较 Count 与 Buffer Capacity，再检查 Request 是否产生；
+- Mission Integration：对应 DMA No Transfer 的 Request / Address / Length / Boundary 调查。
+
 浏览器直接打开 `index.html`。
 
 ## 它解决什么问题

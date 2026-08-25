@@ -110,6 +110,12 @@ Expected Baud
 ≈ Receiver Configuration
 ```
 
+## Root Cause and Fix
+
+当前证据支持的最小根因是 UART 外设实际得到的 Clock 或 Timing 参数只有预期的一半，导致测得的 bit time 约为 17.36 µs，而不是 115200 Baud 对应的约 8.68 µs。
+
+最小修复是修正 Clock / UART Timing 配置或其计算输入，不把 PC 端改成 57600 当作最终修复。
+
 ## Regression Check
 
 修复 Clock / UART Timing 后：

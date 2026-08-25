@@ -2,6 +2,8 @@
 
 这里是学习者真正应该走的主线。不要从 Knowledge Base 第一篇开始顺序读，也不要把“看完文件”当成学习完成。
 
+第一次进入请先打开 [Start Here](START-HERE.md)。完全没有编程经验的学习者先完成 [Beginner Setup](../docs/BEGINNER-SETUP.md) 和 [Programming Warmup](00-Programming-Warmup/README.md)；有 C# 或 C 基础的学习者也应先确认 PC C 工具链可用，再进入 Stage 00。
+
 ## 推荐路线
 
 1. [Stage 00 — System Explorer](Stage-00-System-Explorer/README.md)：先认识整个嵌入式世界。
@@ -29,6 +31,8 @@ Mission 提出问题
 ```
 
 不是每个早期 vertical-slice prototype 都已经拥有完整闭环；正式建设到某个 Stage 时才按这套标准收口。
+
+正式 Stage 的入口契约固定包含：适用人群、前置条件、学习环境、必做内容、阶段产出、Mission、Lab、Debug Case、Boss、Exit Check 和下一阶段。路线机器清单见 [route-manifest.json](route-manifest.json)。
 
 ## Stage 02 与 Stage 03 的边界
 
@@ -62,11 +66,17 @@ Modbus RTU = protocol/data meaning
 - 遇到“这个名词到底是什么”：进入 `01-Knowledge-Base/`；
 - 想直接训练问题定位：进入 `04-Missions/` 或 `06-Debugging-Cases/`。
 
+硬件边界也按顺序推进：Stage 00～01 先使用 PC/浏览器，Stage 02 才进入 MCU 和仪器，Stage 04～05 先使用模拟与 Host Fixture。
+
+Stage 02 的真实硬件准备见 [Hardware Setup](Stage-02-MCU-Rookie/HARDWARE-SETUP.md)，仪器入门见 [Instrument Basics](../01-Knowledge-Base/Debugging/00-Instrument-Basics.md)。
+
 ## 当前建设状态
 
 - V2.1 — Architecture Refactor：已完成并合并；
 - V2.2 — Stage 01 Interactive Pilot：已完成并合并；
 - V2.3 Phase A — Stage 02 MCU Foundation：已完成并合并；
-- V2.3 Phase B — Stage 03 Peripheral Engineer：单主题闭环、Mixed Challenge、Boss、Exit Check 已建立，当前处于最终质量验收。
+- V2.3 Phase B — Stage 03 Peripheral Engineer：单主题闭环、Mixed Challenge、Boss、Exit Check 已建立并完成合并。
 
-Stage 04～08 已有部分 vertical-slice prototype，但不代表对应正式版本已经完成。Phase B 合并后才进入 Stage 04 正式建设。
+V2.4 Stage 04 Debug Hunter 与 V2.5 Stage 05 RTOS Engineer 已完成本地质量门；Stage 06～08 仍是 vertical-slice prototype，不代表对应正式版本已经完成。
+
+V2.6 Beginner Journey Audit 已完成；V2.7 Beginner Framework and Content Quality Gate 已通过：Start Here 到 Stage 05 的新手连续路线、阶段契约、Mission/Lab 新手提示和 Warmup CI 入口已收口。Stage 06～08 仍是 prototype。

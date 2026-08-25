@@ -1,5 +1,25 @@
 # Mission 01 — First LED：代码执行了，灯为什么没亮？
 
+## Beginner Guide
+
+- 适合：已完成 First Contact 的学习者；
+- 前置：能证明 Firmware 正在运行，并能查板卡原理图；
+- 预计：60 分钟；
+- 本关产出：Clock、Pin Mode、Register、Voltage、LED Circuit 证据；
+- 上一关：First Contact；当前关：First LED；下一关：Button Interrupt。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录至少一个软件证据、一个电气证据和一次故障注入。
+
+## If You Are Stuck
+
+按 Firmware → Clock → Mode → Register → Pin → Voltage → Board Circuit 顺序排查。
+
+## Ready to Continue
+
+能够从原理图确认 LED Pin 和极性，并证明 Pin 电压变化后，再进入 Button Interrupt。
+
 > 学习路径：[Stage 02 — MCU Rookie](../../../02-Learning-Path/Stage-02-MCU-Rookie/README.md) · 知识支撑：[GPIO](../../../01-Knowledge-Base/MCU/01-GPIO.md) · [Clock Tree](../../../01-Knowledge-Base/MCU/05-Clock-Tree.md) · [Debugger Basics](../../../01-Knowledge-Base/MCU/06-Debugger-Basics.md)
 
 ## Mission Brief

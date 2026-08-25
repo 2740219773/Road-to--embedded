@@ -2,6 +2,17 @@
 
 这一阶段不以新增外设为主，而是系统训练定位能力。
 
+## 当前状态与适合谁
+
+正式阶段。适合完成 Stage 03 Exit Check、但希望把“会操作”提升为“会定位根因”的学习者。
+
+## 学习环境与阶段产出
+
+- 环境：浏览器、Debug Evidence Workbench、Host Fixture；真实 Cortex-M 和仪器验证属于后续扩展。
+- 必做产出：三份 Mission Record、三个 Debug Case、一份 Mixed Evidence Record、Broken Firmware Boss 和 Exit Check。
+- 必须阅读：Evidence-Driven Debugging 和当前 Mission 的 Before You Start。
+- 选读内容：Fault Model、Watchpoint、示波器和逻辑分析仪知识按故障需要查询。
+
 ## 核心方法
 
 先建立 [Evidence-Driven Debugging](../../01-Knowledge-Base/Debugging/01-Evidence-Driven-Debugging.md)：
@@ -34,9 +45,15 @@ Symptom
 ## Boss Project
 
 - [Broken Firmware Investigation](../../05-Projects/Intermediate/Stage-04-Boss-Broken-Firmware/PROJECT.md)
+- [Stage 04 Mixed Debug Challenge](../../06-Debugging-Cases/Stage-04-Mixed-Failures/CASE.md)
+
+## Exit Check
+
+- [Stage 04 Exit Check](./EXIT-CHECK.md)
+- [V2.4 Quality Gate](../../docs/V2.4-QUALITY-GATE.md)
 
 ## 完成标准
 
 面对陌生故障时，能够先描述现象、选择高信息量测量、保护现场、建立证据链，而不是反复随机改代码。
 
-完成后进入 [Stage 05 — RTOS Engineer](../Stage-05-RTOS-Engineer/README.md)。
+通过 Exit Check 后进入 [Stage 05 — RTOS Engineer](../Stage-05-RTOS-Engineer/README.md)。Stage 04 已完成本地 Quality Gate；真实 MCU、Debugger、示波器和逻辑分析仪验证保留为后续人工路径。

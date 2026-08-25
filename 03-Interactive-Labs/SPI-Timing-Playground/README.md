@@ -1,5 +1,12 @@
 # SPI Timing Playground
 
+## Beginner Start
+
+- 第一次操作：保持 CS、CPOL、CPHA 和 Bit Order 默认，运行一帧；
+- 预期观察：Clock、MOSI、MISO 和采样边沿形成稳定对应关系；
+- 观察不到：先恢复默认 Mode，再一次只改变 CPHA；
+- Mission Integration：对应 SPI Wrong Data 的 CS / Edge / Bit Order 调查。
+
 浏览器直接打开 `index.html`。
 
 ## 它解决什么问题

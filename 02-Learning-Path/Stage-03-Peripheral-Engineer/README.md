@@ -1,5 +1,16 @@
 # Stage 03 — Peripheral Engineer / 外设工程师
 
+## 当前状态与适合谁
+
+正式阶段。适合已经完成 Stage 02 Exit Check，能够使用 Debugger、Datasheet 和基本仪器取证的学习者。
+
+## 学习环境与阶段产出
+
+- 环境：MCU 开发板、串口/总线设备、逻辑分析仪或示波器；具体设备按 Mission 标注。
+- 必做产出：八个外设 Mission Record、一份 Mixed Peripheral Record、Sensor Node Boss 和 Exit Check。
+- 必须阅读：当前 Mission 的 Before You Start、对应协议或 MCU Knowledge。
+- 选读内容：其他协议页面作为查询资料，不要求一次读完。
+
 ## 核心目标
 
 Stage 02 已经建立真实 MCU 基础：Build / Flash / Debugger / GPIO / Interrupt / Timer / PWM / Pin / Voltage。
@@ -46,6 +57,8 @@ Stage 03 不是“八套 API 教程”，而是不断换场景训练同一种证
 ## Entry Requirements
 
 进入前应完成 Stage 02 Exit Check，并至少会使用：
+
+- [Instrument Basics — 新手第一次使用测量工具](../../01-Knowledge-Base/Debugging/00-Instrument-Basics.md)
 
 - Debugger：证明程序、寄存器和 Buffer 状态；
 - Schematic / Datasheet：确认 Pin、连线、时序和器件要求；

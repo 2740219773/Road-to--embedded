@@ -1,5 +1,25 @@
 # Mission 00 — First Contact：先证明你真的控制住了这颗 MCU
 
+## Beginner Guide
+
+- 适合：完成 Stage 01 Exit Check、第一次接触真实开发板的学习者；
+- 前置：确认板卡、IDE、Debug Probe 和工程来源；
+- 预计：60 分钟；
+- 本关产出：Build、Flash、Reset、Run、Breakpoint 证据记录；
+- 上一关：Stage 01 Exit Check；当前关：First Contact；下一关：First LED。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，补充 Board、MCU、Probe、Build、Flash 和 Breakpoint 证据。
+
+## If You Are Stuck
+
+先看 [Stage 02 Hardware Setup](../../../02-Learning-Path/Stage-02-MCU-Rookie/HARDWARE-SETUP.md) 和 [Recovery Guide](../../../02-Learning-Path/Stage-02-MCU-Rookie/RECOVERY-GUIDE.md)，不要先换 LED 代码。
+
+## Ready to Continue
+
+能够分别证明 Build、Flash、CPU Run 和 Breakpoint 后，再进入 First LED。
+
 ## Mission Brief
 
 你拿到一块开发板，安装好开发环境，新建了一个最小工程。

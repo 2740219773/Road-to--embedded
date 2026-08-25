@@ -1,12 +1,20 @@
 # Stage 08 — System Integrator / 系统集成工程师
 
-Stage 08 是整条路线的最终整合阶段：把 PC、网络、MCU、Embedded Linux、FPGA 和真实设备重新连接成一个完整系统。
+Stage 08 是整条路线的最终整合阶段，目前仍是 prototype：把 PC、网络、MCU、Embedded Linux、FPGA 和真实设备重新连接成一个完整系统。
 
 ## 当前状态
 
 Stage 08 目前只保留能力边界与 Final Boss 方向，用于定义整个 Road to Embedded 最终要走到哪里。
 
-正式建设属于 ROADMAP 的 V2.8。当前 V2.3 不新增 Stage 08 Mission、Interactive Lab 或独立 Boss 空壳。
+正式建设属于后续版本。当前 V2.6 只维护能力边界，不新增 Stage 08 Mission、Interactive Lab 或独立 Boss 空壳。
+
+## Entry Requirements / 环境 / 产出
+
+- Entry：完成 Stage 02～05，并在后续补齐 Stage 06～07 的正式能力。
+- 环境：需要 PC、MCU、Linux、FPGA 或模拟设备的系统工程环境；当前不要求搭建。
+- 必须完成：理解已有 Stage 的接口、数据流、证据和回归要求。
+- 可选阅读：前面各 Stage 的 Boss 和 Debug Case。
+- 阶段产出：正式建设前不要求 Final Boss 或 Exit Check。
 
 ## 核心能力
 
