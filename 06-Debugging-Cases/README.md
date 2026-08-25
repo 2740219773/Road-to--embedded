@@ -33,11 +33,15 @@ Symptom
 - [HardFault Bad Pointer](HardFault-Bad-Pointer/CASE.md) — 从 Stacked PC 回到非法地址访问。
 - [Interrupt Storm](Interrupt-Storm/CASE.md) — 中断源没有被正确清除/确认。
 - [Stack Overflow](Stack-Overflow/CASE.md) — 崩溃位置变化，但根因来自任务栈不足。
+- [Stage 04 Mixed Debug Challenge](Stage-04-Mixed-Failures/CASE.md) — 五个跨 Clock、Interrupt、Memory、DMA、Stack 层的混合故障，只提供现象和 Evidence Pack。
 
 ### Stage 05 / RTOS
 
 - [RTOS Race Lost Update](RTOS-Race-Lost-Update/CASE.md) — 两个 Task 的读改写交错导致更新丢失。
+- [RTOS Priority Inversion](RTOS-Priority-Inversion/CASE.md) — High 等待 Low 持有的资源，却被 Medium 间接拖延。
 - [RTOS Deadlock](RTOS-Deadlock/CASE.md) — Task 都存在、CPU 也正常，但资源形成循环等待。
+- [RTOS Queue Overflow](RTOS-Queue-Overflow/CASE.md) — Producer 长期快于 Consumer，有限 Queue 最终产生背压和丢失。
+- [Stage 05 Mixed Concurrency Challenge](Stage-05-Mixed-Concurrency/CASE.md) — Race、Priority、Deadlock、Queue 和 ISR/Stack 的跨层混合故障。
 
 ## 使用方式
 

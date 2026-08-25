@@ -21,7 +21,7 @@ Remote node response attempt: not visible on bus
 3. 为什么远端即使想回应，也可能无法真正驱动总线？
 4. 下一步最有价值的是抓协议字节，还是测 Direction timing？
 
-## Diagnosis
+## Root Cause / Diagnosis
 
 主站发送后没有及时释放 RS-485 Driver。半双工总线仍被主站占用，因此远端没有正常的发送窗口。
 

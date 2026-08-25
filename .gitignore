@@ -1,0 +1,34 @@
+# Local editor and operating-system files
+.vscode/
+.idea/
+.vs/
+*.user
+*.suo
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Generated reports and local test output
+coverage/
+test-results/
+reports/
+
+# Tool caches
+node_modules/
+__pycache__/
+.pytest_cache/
+
+# Build and binary output if future firmware/code projects are added
+bin/
+obj/
+build/
+out/
+*.elf
+*.hex
+*.bin
+*.map
+*.axf
+*.exe
+*.out
+stage05-fixture

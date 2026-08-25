@@ -1,5 +1,25 @@
 # Mission 06 — CAN Arbitration：三个节点同时发送，谁能继续？
 
+## Beginner Guide
+
+- 适合：已完成 DMA No Transfer 的学习者；
+- 前置：CAN ID、逐 bit 仲裁、Controller、Transceiver、ACK；
+- 预计：75 分钟；
+- 本关产出：Arbitration、Controller、Bus、Peer 和 ACK 证据；
+- 上一关：DMA No Transfer；当前关：CAN Arbitration；下一关：RS-485 No Reply。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交逐 bit 仲裁记录，并区分赢得仲裁与通信成功。
+
+## If You Are Stuck
+
+先用 CAN Arbitration Visualizer 看逐 bit 结果，再分别检查 Controller、Transceiver、总线和 Peer。
+
+## Ready to Continue
+
+能够解释 Arbitration Lost、ACK 和物理总线证据的区别后，再进入 RS-485 No Reply。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[CAN](../../../01-Knowledge-Base/Protocols/04-CAN.md) · 互动实验：[CAN Arbitration Visualizer](../../../03-Interactive-Labs/CAN-Arbitration-Visualizer/README.md)
 
 ## Mission Brief

@@ -1,5 +1,25 @@
 # Mission 01 — Memory Detective：CPU 到底去哪里找数据？
 
+## Beginner Guide
+
+- 适合：已完成 C Basics Check 或 C# → C Bridge 的学习者；
+- 前置：变量、函数、数组和 C 编译运行基础；
+- 预计：45 分钟；
+- 本关产出：一份地址、数据、指针和解引用预测记录；
+- 上一关：C Basics Check / C# → C Bridge；当前关：Memory Detective；下一关：Bit Hacker。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交 `value`、`&value`、`p`、`*p` 的关系图和一次无效地址风险分析。
+
+## If You Are Stuck
+
+先使用 Memory Visualizer 的 `Read p`，再使用 `Dereference *p`，不要直接跳到无效地址案例。
+
+## Ready to Continue
+
+能够画出 Variable → Memory → Address → Pointer → Dereference 后，再进入 Bit Hacker。
+
 ## Mission Brief
 
 你接手了一段“看起来完全正常”的程序：

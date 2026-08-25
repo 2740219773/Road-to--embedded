@@ -31,4 +31,6 @@ Stage-01-C-and-Memory/
 - OpenMAIC 路径跟随 Stage + Mission 命名；
 - 更换课堂平台时，Knowledge / Mission / Lab 仍应独立可用。
 
-> P0 阶段只验证已有 OpenMAIC 样板的路径和依赖，不扩展新的课堂内容。
+当前状态仍为 prompt-only：已经保存课程源和依赖关系，但没有生成课堂产物，也没有进行人工课堂验收。
+
+字段、状态和复现要求见 07-OpenMAIC/OPENMAIC-CONTRACT.md，机器可读的来源清单见 07-OpenMAIC/manifest.json。

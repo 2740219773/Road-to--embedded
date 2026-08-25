@@ -11,3 +11,4 @@ Knowledge Base 中的 Mini Lab 只作为快速验证入口；完整课程应放�
 5. 定义一个模拟 GPIO 寄存器结构体并通过指针访问。
 
 完成后进入：`04-Missions/Phase-1-C/01-Memory-Detective/Mission.md`，再逐步进入 Bit Hacker 等任务。
+

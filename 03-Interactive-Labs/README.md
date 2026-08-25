@@ -1,5 +1,14 @@
 # Interactive Labs
 
+## Beginner Start
+
+- 第一次操作：不要遍历整个目录，先从当前 Stage / Mission 入口打开对应 Lab；
+- 预期观察：至少一个输入参数或按钮会改变页面上的状态、数值或时序；
+- 观察不到：确认 Lab 的 `index.html` 能打开，再查看对应 README 的第一步和 Mission；
+- Mission Integration：Lab 负责观察和操作，Mission 负责预测、故障、证据和验收。
+
+## Purpose
+
 这里保存可直接操作的可视化与模拟器。Interactive Lab 与 Mission 分离：Mission 负责教学任务，Lab 负责让抽象概念可以被观察和操作。
 
 ## 当前可运行 Lab
@@ -29,7 +38,17 @@
 - `RTOS-Scheduler-Timeline/`：Task Priority 与 CPU Timeline；
 - `Race-Interleaving-Visualizer/`：Race Condition 的执行交错。
 
-Stage 05 这些仍属于后续 Stage 的 vertical-slice prototype；它们已经可运行，但不代表 Stage 05 正式课程已经完成。
+Stage 05 的两个既有 Lab 是 prototype 基线；本阶段新增 RTOS Concurrency Workbench 后，Stage 05 已通过正式课程质量门。
+
+### Stage 05 — RTOS Engineer
+
+- `RTOS-Concurrency-Workbench/`：Scheduler、Priority、Race、Deadlock、Queue、ISR 和 Stack 的统一虚拟证据实验。
+
+### Stage 04 — Debug Hunter
+
+- `Debug-Evidence-Workbench/`：虚拟 Evidence Pack、Watchpoint 调查链和 Instrument Selection 训练。
+
+该 Workbench 只模拟证据流程，不代表真实 MCU、调试器或仪器已经完成验证。
 
 ## 当前未实现但保留在后续 Roadmap
 
@@ -47,4 +66,4 @@ Interrupt Timeline、Clock Tree Playground、GPIO Playground、FPGA FSM/Clock/CD
 6. Lab 名称、Mission 链接和 Stage 导航必须保持一致；
 7. 课程文档不能描述 Lab 尚未实现的交互能力；如果 Mission 需要某种观察，优先让工具能力与课程描述对齐。
 
-当前正式建设到 V2.3 Phase B / Stage 03；后续新增 Lab 应继续服务完整学习闭环，而不是为了增加数量。
+当前正式建设到 V2.5 Stage 05 RTOS Engineer；Stage 06～08 仍是后续 prototype。新增 Lab 应继续服务完整学习闭环，而不是为了增加数量。

@@ -1,5 +1,25 @@
 # Mission 05 — DMA No Transfer：初始化成功，为什么 Buffer 一个字节都没变？
 
+## Beginner Guide
+
+- 适合：已完成 ADC Jitter 的学习者；
+- 前置：Peripheral Request、地址、长度、Buffer、Completion；
+- 预计：75 分钟；
+- 本关产出：DMA Request、Transfer Contract、Memory 和 Completion 证据；
+- 上一关：ADC Jitter；当前关：DMA No Transfer；下一关：CAN Arbitration。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录 Request、Direction、Count、Buffer Capacity 和越界/无传输原因。
+
+## If You Are Stuck
+
+先确认外设是否产生 Request，再检查地址、长度、Buffer 边界和完成标志。
+
+## Ready to Continue
+
+能够区分 DMA Complete、实际搬运和 Memory Safety 后，再进入 CAN Arbitration。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[DMA](../../../01-Knowledge-Base/MCU/04-DMA.md) · 互动实验：[DMA Transfer Simulator](../../../03-Interactive-Labs/DMA-Transfer-Simulator/README.md)
 
 ## Mission Brief

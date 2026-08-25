@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Debug Evidence Workbench</title>
+<link rel="stylesheet" href="../lab-foundation.css">
+<link rel="icon" href="data:,">
+<style>
+:root{--ink:#eef2f7;--muted:#b9c2d0;--surface:#171c27;--raised:#202737;--line:#394150;--accent:#7dd3fc;--good:#62b47a;--warn:#d4a657;--bad:#d76868}
+body{max-width:1180px;margin:0 auto;padding:28px 20px;background:#10131a;color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.1;margin:0 0 10px}h2{margin:0 0 10px;font-size:1.35rem}p{max-width:75ch}.lead{color:var(--muted);max-width:70ch}
+.shell{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:18px;align-items:start}.panel,.record{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}.tab{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:10px 14px;font:inherit}.tab[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#07131c;font-weight:700}
+label{display:block;color:var(--muted);font-weight:600;margin:12px 0 6px}select,textarea{width:100%;font:inherit;color:var(--ink);background:#0f1420;border:1px solid #58657c;border-radius:8px;padding:10px}textarea{min-height:92px;resize:vertical}
+button{font:inherit}.action-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}.primary,.secondary,.danger{border:1px solid var(--line);border-radius:9px;padding:10px 14px;cursor:pointer}.primary{background:var(--accent);border-color:var(--accent);color:#07131c;font-weight:700}.secondary{background:#293246;color:var(--ink)}.danger{background:transparent;color:#ffc1c1;border-color:#7c4646}
+.status{margin-top:16px;padding:13px;border-top:2px solid var(--accent);background:#111722;min-height:48px}.status.good{border-color:var(--good)}.status.warn{border-color:var(--warn)}.status.bad{border-color:var(--bad)}
+.evidence{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:9px}.evidence li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:11px;background:#111722;border:1px solid #293246;border-radius:9px}.step{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#293246;color:var(--accent);font-weight:700}
+.meter{height:8px;background:#0f1420;border-radius:99px;overflow:hidden;margin:12px 0}.meter span{display:block;height:100%;width:0;background:var(--accent)}.callout{color:var(--muted);border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+.record{position:sticky;top:18px}.record h2{color:var(--accent)}.record small{color:var(--muted)}.tools{display:grid;gap:8px;margin-top:14px}.tool{padding:11px;background:#111722;border:1px solid #293246;border-radius:9px}.tool strong{display:block;color:var(--ink)}.tool span{color:var(--muted);font-size:.92rem}
+table{width:100%;border-collapse:collapse;margin-top:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:9px}th{color:var(--muted);font-size:.9rem}[hidden]{display:none!important}
+@media(max-width:780px){body{padding:18px 10px}.shell{grid-template-columns:1fr}.record{position:static}.panel,.record{padding:16px}}
+</style>
+</head>
+<body>
+<header><h1>Debug Evidence Workbench</h1><p class="lead">一个虚拟调试实验：先预测问题属于哪一层，再逐步揭示证据。数字和 Evidence Pack 都是教学用合成数据，不代表真实 MCU 或仪器测量。</p></header>
+<nav class="tabs" role="tablist" aria-label="调试实验模式">
+<button class="tab" id="sceneTab" role="tab" aria-selected="true" aria-controls="scenePanel" type="button">Fault Scene</button>
+<button class="tab" id="watchTab" role="tab" aria-selected="false" aria-controls="watchPanel" type="button">Watchpoint</button>
+<button class="tab" id="instrumentTab" role="tab" aria-selected="false" aria-controls="instrumentPanel" type="button">Instrument Selection</button>
+</nav>
+<div class="shell"><main>
+<section class="panel" id="scenePanel" role="tabpanel" aria-labelledby="sceneTab">
+<h2>Fault Scene：先预测，再揭示</h2><p>选择一个现象，先选择你认为最可能的系统层。只有写下预测后，Evidence Pack 才会逐条展开。</p>
+<label for="sceneSelect">故障场景</label><select id="sceneSelect"><option value="hardfault">HardFault / Pointer</option><option value="interrupt">Interrupt Storm</option><option value="stack">Stack Overflow</option><option value="dma">DMA Boundary</option><option value="uart">UART Timing</option></select>
+<label for="scenePrediction">我的预测层级</label><select id="scenePrediction"><option value="">请选择后再揭示证据</option><option value="memory">Memory / Pointer</option><option value="interrupt">Interrupt / Peripheral</option><option value="stack">Stack / Memory</option><option value="dma">DMA / Memory</option><option value="timing">Clock / Timing</option></select>
+<div class="action-row"><button class="primary" id="revealSceneBtn" type="button">揭示下一条证据</button><button class="secondary" id="resetSceneBtn" type="button">重新开始</button></div>
+<div class="meter" aria-hidden="true"><span id="sceneMeter"></span></div><div class="status" id="sceneStatus" role="status" aria-live="polite">先选预测层级，再揭示 Evidence Pack。</div><ol class="evidence" id="sceneEvidence" aria-label="逐条揭示的证据"></ol>
+<p class="callout">调试原则：源码配置是线索，Pin、Memory、寄存器、时间和外部设备状态才是需要验证的事实。</p>
+</section>
+<section class="panel" id="watchPanel" role="tabpanel" aria-labelledby="watchTab" hidden>
+<h2>Watchpoint：谁改了这个变量？</h2><p>逐步观察一个非法状态的第一现场。重点区分 CPU 写入、数组越界、DMA 写入和“只在事后观察”的局限。</p>
+<div class="tools"><div class="tool"><strong>system_state</strong><span id="watchValue">RUN @ 0x20001020</span></div><div class="tool"><strong>候选写入者</strong><span id="watchWriter">尚未展开</span></div><div class="tool"><strong>调试现场</strong><span id="watchContext">尚未展开</span></div></div>
+<div class="action-row"><button class="primary" id="watchNextBtn" type="button">推进到下一条证据</button><button class="secondary" id="watchResetBtn" type="button">重新开始</button></div><div class="meter" aria-hidden="true"><span id="watchMeter"></span></div><div class="status" id="watchStatus" role="status" aria-live="polite">先观察变量地址，再决定是否使用 Watchpoint。</div>
+</section>
+<section class="panel" id="instrumentPanel" role="tabpanel" aria-labelledby="instrumentTab" hidden>
+<h2>Instrument Selection：选择第一件高价值工具</h2><p>工具选择必须回答当前假设，而不是因为工具看起来更“高级”。选择后查看它能证明什么、不能证明什么。</p>
+<label for="instrumentScene">故障场景</label><select id="instrumentScene"><option value="uart">UART PC 端乱码，但 TX 有输出</option><option value="i2c">I²C 错误帧，SDA 上升沿很慢</option><option value="variable">变量偶发变成非法值</option><option value="spi">SPI 只在高频率下错误</option><option value="firmware">修改源码后板子行为不变</option><option value="power">输出固定电平，怀疑 Pin 或供电</option></select>
+<label for="instrumentChoice">我的第一件工具</label><select id="instrumentChoice"><option value="">请选择工具</option><option value="debugger">Debugger</option><option value="memory">Memory View</option><option value="watchpoint">Watchpoint</option><option value="multimeter">Multimeter</option><option value="oscilloscope">Oscilloscope</option><option value="logic">Logic Analyzer</option><option value="datasheet">Datasheet</option><option value="build">Build / Flash Log</option></select>
+<div class="action-row"><button class="primary" id="evaluateInstrumentBtn" type="button">评估选择</button></div><div class="status" id="instrumentStatus" role="status" aria-live="polite">先做选择，再查看反馈。</div>
+<table><thead><tr><th>问题</th><th>记录要求</th></tr></thead><tbody><tr><td>支持假设</td><td>这件工具能直接观察什么？</td></tr><tr><td>反驳假设</td><td>什么结果会让你换层级？</td></tr><tr><td>下一步</td><td>如果证据不足，下一条测量是什么？</td></tr></tbody></table>
+</section>
+</main>
+<aside class="record"><h2>Evidence Record</h2><small>内容仅保存在当前浏览器；不上传、不调用 API。</small>
+<label for="recordSymptom">Symptom</label><textarea id="recordSymptom" placeholder="实际看到了什么？"></textarea>
+<label for="recordEvidence">Observed Evidence</label><textarea id="recordEvidence" placeholder="代码、内存、寄存器、波形或模拟结果。"></textarea>
+<label for="recordRootCause">Root Cause / Next Test</label><textarea id="recordRootCause" placeholder="当前最小根因或下一条验证。"></textarea>
+<div class="action-row"><button class="primary" id="saveRecordBtn" type="button">保存记录</button><button class="secondary" id="loadRecordBtn" type="button">读取记录</button><button class="danger" id="clearRecordBtn" type="button">清空</button></div>
+<div class="status" id="recordStatus" role="status" aria-live="polite">保存后可回到其他模式继续调查。</div></aside></div>
+<script>
+const $=id=>document.getElementById(id);
+const sceneData={
+hardfault:{layer:"memory",label:"Memory / Pointer",items:[["异常入口","系统进入 HardFault_Handler；这只是异常入口，不是根因。"],["Stacked PC / LR","现场需要保存 PC、LR、xPSR，再映射回故障指令。"],["访问目标","样例指令尝试通过空指针写入 0x00000000。"],["结论边界","下一步仍要按目标 Cortex-M 型号确认 Fault Status 和地址有效位。"]]},
+interrupt:{layer:"interrupt",label:"Interrupt / Peripheral",items:[["ISR 频率","ISR entry counter 以异常速度增长，主循环几乎不前进。"],["Pending 条件","外设状态 flag 在 ISR 后仍保持 asserted。"],["清除顺序","当前证据没有显示目标外设要求的 clear/acknowledge sequence。"],["结论边界","降低优先级可能改变表面现象，但不能证明请求已解除。"]]},
+stack:{layer:"stack",label:"Stack / Memory",items:[["栈预算","任务栈为 512 bytes，局部 temp 已占据 420 bytes。"],["调用链","格式化和日志调用还会增加峰值栈使用。"],["高水位","stack high-water mark 已接近边界，故障位置在不同运行中变化。"],["结论边界","增大栈只能作为验证实验，必须继续测量真实使用量。"]]},
+dma:{layer:"dma",label:"DMA / Memory",items:[["配置","uint16_t[64] 只能容纳 64 个 half-word。"],["请求","DMA 被配置为 128 个 half-word，超出目标边界。"],["完成事件","DMA Complete 只表示请求数量已完成，不表示内存安全。"],["结论边界","需要检查 Buffer 后的 Guard Pattern 或 Memory View。"]]},
+uart:{layer:"timing",label:"Clock / Timing",items:[["源码线索","PC 和 Firmware 都写着 115200 8N1。"],["Pin 事实","TX bit time 约 17.36 µs，对应真实 Baud 约 57600。"],["电平事实","0–3.3 V 更像逻辑电平 UART，不能直接归因于 RS-232 电平。"],["结论边界","继续调查 Clock Source、Peripheral Clock 和 Baud Divider。"]]}}; 
+const instrumentData={
+uart:{answer:"oscilloscope",reason:"示波器可直接测 TX Pin 的 bit time 和电平；源码 Baud 不能替代物理事实。",reject:"如果 bit time 正确，再转向帧格式、接收端配置和线路连接。"},
+i2c:{answer:"oscilloscope",reason:"慢上升沿是电气波形问题，示波器能看到电压、边沿和是否达到合法逻辑电平。",reject:"若波形满足时序，再检查地址、设备状态和 ACK 位。"},
+variable:{answer:"watchpoint",reason:"变量何时被谁改写是数据流问题，Watchpoint 能把 PC 和 Call Stack 带到 CPU 写入现场。",reject:"若 CPU Watchpoint 不命中，要转查 DMA、越界写和其他 bus master。"},
+spi:{answer:"logic",reason:"先用 Logic Analyzer 对照 CS、SCLK、MOSI/MISO 的边沿和时序事件，再结合 Datasheet；高频边沿质量异常时补示波器。",reject:"Decoder 能出字节不等于 Device 采样边沿正确。"},
+firmware:{answer:"build",reason:"源码变化但板上行为不变，第一步应证明 Build、Flash、Reset 和当前 PC 确实属于新镜像。",reject:"确认镜像生效后，才继续查外设、Pin 和物理信号。"},
+power:{answer:"multimeter",reason:"固定电平和供电/PIN 假设需要先测真实电压、参考点和电源状态。",reject:"电压正确仍不代表时序正确，再用示波器或 Debugger 缩小范围。"}};
+const watchSteps=[["变量地址","system_state = RUN，地址为 0x20001020；相邻对象边界已记录。","先建立数据对象和边界，而不是全局猜函数。"],["候选写入者","直接赋值、相邻数组越界、DMA destination 都列入候选。","候选清单必须能被不同证据区分。"],["CPU Watchpoint","一次运行中 Watchpoint 命中：PC=0x080012A4，Call Stack 指向 state_update()。","这条证据支持 CPU 直接写入，但不排除其他运行中的 DMA 越界。"],["边界检查","另一运行中 Watchpoint 未命中，system_state 仍改变；DMA 写入区覆盖了相邻边界。","普通 CPU Watchpoint 不保证捕获 DMA 写入。"],["第一现场","最小结论：先分别修复直接写入契约和 DMA/数组边界，再用 Guard Pattern 回归。","不要只修改最后读到非法状态的函数。"]];
+let sceneIndex=0,watchIndex=0;
+function resetScene(){sceneIndex=0;$("sceneEvidence").innerHTML="";$("sceneMeter").style.width="0%";$("sceneStatus").className="status";$("sceneStatus").textContent="先选预测层级，再揭示 Evidence Pack。";}
+function revealScene(){const key=$("sceneSelect").value,data=sceneData[key],prediction=$("scenePrediction").value;if(!prediction){$("sceneStatus").className="status warn";$("sceneStatus").textContent="请先写下预测层级，再揭示证据。";return;}if(prediction!==data.layer){$("sceneStatus").className="status warn";$("sceneStatus").textContent="预测已记录，但当前场景的证据尚未支持它；继续揭示并准备修正。";}if(sceneIndex>=data.items.length){$("sceneStatus").className="status good";$("sceneStatus").textContent="Evidence Pack 已完整展开。现在把结果写入 Evidence Record，并给出最小修复与回归。";return;}const item=data.items[sceneIndex],li=document.createElement("li");li.innerHTML="<span class=\"step\">"+(sceneIndex+1)+"</span><div><strong>"+item[0]+"</strong><br>"+item[1]+"</div>";$("sceneEvidence").appendChild(li);sceneIndex++;$("sceneMeter").style.width=(sceneIndex/data.items.length*100)+"%";if(sceneIndex===data.items.length){$("sceneStatus").className="status good";$("sceneStatus").textContent="证据已揭示：重点层级是 "+data.label+"。请记录支持和反驳证据。";}}
+function resetWatch(){watchIndex=0;$("watchValue").textContent="RUN @ 0x20001020";$("watchWriter").textContent="尚未展开";$("watchContext").textContent="尚未展开";$("watchMeter").style.width="0%";$("watchStatus").className="status";$("watchStatus").textContent="先观察变量地址，再决定是否使用 Watchpoint。";}
+function nextWatch(){if(watchIndex>=watchSteps.length){$("watchStatus").className="status good";$("watchStatus").textContent="调查链完成：把 CPU、边界和 DMA 证据分别记录。";return;}const step=watchSteps[watchIndex];$("watchWriter").textContent=step[0];$("watchContext").textContent=step[1];$("watchStatus").textContent=step[2];$("watchStatus").className=watchIndex===watchSteps.length-1?"status good":"status";watchIndex++;$("watchMeter").style.width=(watchIndex/watchSteps.length*100)+"%";if(watchIndex===3)$("watchValue").textContent="0x7F @ 0x20001020";}
+function evaluateInstrument(){const key=$("instrumentScene").value,choice=$("instrumentChoice").value,data=instrumentData[key];if(!choice){$("instrumentStatus").className="status warn";$("instrumentStatus").textContent="请先选择第一件工具。";return;}if(choice===data.answer){$("instrumentStatus").className="status good";$("instrumentStatus").textContent="高价值选择： "+data.reason+" 下一步： "+data.reject;}else{$("instrumentStatus").className="status warn";$("instrumentStatus").textContent="当前选择信息量不足或容易误判。更适合的第一步是 "+data.answer+"。先问：它能直接观察当前假设所需的哪个事实？";}}
+function switchTab(id){["scene","watch","instrument"].forEach(name=>{const active=name===id;$(name+"Tab").setAttribute("aria-selected",active?"true":"false");$(name+"Panel").hidden=!active;});}
+function recordFields(){return {symptom:$("recordSymptom").value,evidence:$("recordEvidence").value,rootCause:$("recordRootCause").value};}
+function saveRecord(){try{localStorage.setItem("road-to-embedded-stage04-evidence",JSON.stringify(recordFields()));$("recordStatus").className="status good";$("recordStatus").textContent="Evidence Record 已保存到当前浏览器。";}catch(e){$("recordStatus").className="status warn";$("recordStatus").textContent="当前浏览器不允许本地保存，请手动复制记录。";}}
+function loadRecord(){try{const data=JSON.parse(localStorage.getItem("road-to-embedded-stage04-evidence")||"{}");$("recordSymptom").value=data.symptom||"";$("recordEvidence").value=data.evidence||"";$("recordRootCause").value=data.rootCause||"";$("recordStatus").textContent="已读取当前浏览器中的记录。";}catch(e){$("recordStatus").textContent="没有可读取的本地记录。";}}
+function clearRecord(){["recordSymptom","recordEvidence","recordRootCause"].forEach(id=>$(id).value="");try{localStorage.removeItem("road-to-embedded-stage04-evidence");}catch(e){}$("recordStatus").textContent="记录已清空。";}
+$("sceneTab").addEventListener("click",()=>switchTab("scene"));$("watchTab").addEventListener("click",()=>switchTab("watch"));$("instrumentTab").addEventListener("click",()=>switchTab("instrument"));
+document.querySelectorAll("[role=tab]").forEach((tab,index)=>tab.addEventListener("keydown",event=>{if(event.key==="ArrowRight"||event.key==="ArrowDown"){event.preventDefault();document.querySelectorAll("[role=tab]")[(index+1)%3].focus();}if(event.key==="ArrowLeft"||event.key==="ArrowUp"){event.preventDefault();document.querySelectorAll("[role=tab]")[(index+2)%3].focus();}}));
+$("sceneSelect").addEventListener("change",resetScene);$("revealSceneBtn").addEventListener("click",revealScene);$("resetSceneBtn").addEventListener("click",resetScene);$("watchNextBtn").addEventListener("click",nextWatch);$("watchResetBtn").addEventListener("click",resetWatch);$("evaluateInstrumentBtn").addEventListener("click",evaluateInstrument);$("saveRecordBtn").addEventListener("click",saveRecord);$("loadRecordBtn").addEventListener("click",loadRecord);$("clearRecordBtn").addEventListener("click",clearRecord);resetScene();resetWatch();
+</script>
+</body>
+</html>

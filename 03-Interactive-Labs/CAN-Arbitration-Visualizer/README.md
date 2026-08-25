@@ -1,5 +1,12 @@
 # CAN Arbitration Visualizer
 
+## Beginner Start
+
+- 第一次操作：保持三个 Node 的默认 Identifier，运行逐 bit Arbitration；
+- 预期观察：节点按 dominant/recessive 规则退出并产生最终胜者；
+- 观察不到：先恢复三个 Identifier，再检查是否已经运行当前帧；
+- Mission Integration：对应 CAN Arbitration 的仲裁证据，不代表真实总线 ACK。
+
 浏览器直接打开 `index.html`。
 
 ## 它解决什么问题
@@ -34,6 +41,10 @@ Visualizer 现在支持三个标准 11-bit Identifier，并逐 bit 展示：
 - Bus 最终是 Dominant 0 还是 Recessive 1；
 - 哪个节点在当前 bit 失去仲裁；
 - 最终谁继续发送。
+
+## Interactions
+
+在页面中操作并修改三个 Node 的 Identifier，运行逐 bit 仲裁，然后观察 Bus bit、退出节点和最终胜者的变化。
 
 ## 推荐实验
 

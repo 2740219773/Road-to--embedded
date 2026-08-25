@@ -1,0 +1,48 @@
+name: Content Quality
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate learning content
+        run: node tools/validate-content.mjs
+      - name: Validate Stage 05 quality contract
+        run: node tools/validate-content.mjs
+      - name: Run Stage 05 deterministic Host Fixture
+        working-directory: 05-Projects/Intermediate/Stage-05-Boss-RTOS-Refactor
+        run: |
+          gcc -std=c11 -Wall -Wextra -Werror host/rtos_fixture.c host/test_rtos_fixture.c -o host/stage05-fixture
+          ./host/stage05-fixture
+      - name: Compile and run beginner C warmup samples
+        shell: bash
+        run: |
+          set -euo pipefail
+          out_dir="${RUNNER_TEMP}/road-to-embedded-warmup"
+          mkdir -p "$out_dir"
+          sample_dir="02-Learning-Path/00-Programming-Warmup/examples"
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/hello.c" -o "$out_dir/hello"
+          test "$("$out_dir/hello")" = "Hello, embedded world!"
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/01-variable.c" -o "$out_dir/01-variable"
+          "$out_dir/01-variable" | grep -F "temperature = 25"
+          "$out_dir/01-variable" | grep -F "temperature = 80"
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/02-condition.c" -o "$out_dir/02-condition"
+          test "$("$out_dir/02-condition" | tr '\n' ' ')" = "OK OK ALARM "
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/03-loop.c" -o "$out_dir/03-loop"
+          test "$("$out_dir/03-loop" | wc -l)" -eq 5
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/04-function.c" -o "$out_dir/04-function"
+          "$out_dir/04-function" | grep -F "max(2, 5) = 5"
+          gcc -std=c11 -Wall -Wextra -Werror "$sample_dir/05-array.c" -o "$out_dir/05-array"
+          "$out_dir/05-array" | grep -F "Valid indexes are 0, 1, 2 and 3"

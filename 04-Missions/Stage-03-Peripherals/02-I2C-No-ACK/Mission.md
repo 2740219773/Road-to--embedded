@@ -1,5 +1,25 @@
 # Mission 02 — I²C No ACK：地址明明对，为什么设备不回答？
 
+## Beginner Guide
+
+- 适合：已完成 UART Garbled 的学习者；
+- 前置：SDA/SCL、Pull-up、7-bit Address、ACK/NACK；
+- 预计：75 分钟；
+- 本关产出：电气 Idle、Address、ACK 和设备状态证据；
+- 上一关：UART Garbled；当前关：I²C No ACK；下一关：SPI Wrong Data。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，提交总线 Idle、地址字节、ACK 和一个排除假设。
+
+## If You Are Stuck
+
+先确认 SDA/SCL 的电气状态和 Pull-up，再判断 Address 或协议事务，不要从 API 名字猜原因。
+
+## Ready to Continue
+
+能够区分总线没有 Idle、地址不匹配和设备不 ACK 后，再进入 SPI Wrong Data。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[I²C](../../../01-Knowledge-Base/Protocols/02-I2C.md) · 互动实验：[I²C Bus Visualizer](../../../03-Interactive-Labs/I2C-Bus-Visualizer/README.md)
 
 ## Mission Brief

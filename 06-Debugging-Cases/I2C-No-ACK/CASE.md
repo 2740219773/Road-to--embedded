@@ -49,7 +49,7 @@ Protocol address
 
 这时故障已经在协议分析之前暴露。
 
-## Diagnosis
+## Root Cause / Diagnosis
 
 I²C 常见 Open-Drain 总线依靠 Pull-up 形成 High。
 
@@ -63,6 +63,10 @@ SCL Pull-up
 ```
 
 不要继续通过换地址碰运气。
+
+## Fix
+
+补齐符合器件和总线电压要求的 SDA/SCL Pull-up，先验证空闲电平回到合法 HIGH，再重新检查 START、地址和 ACK。
 
 ## Regression Check
 

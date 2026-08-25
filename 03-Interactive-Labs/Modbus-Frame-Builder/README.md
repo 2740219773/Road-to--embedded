@@ -1,5 +1,12 @@
 # Modbus RTU Frame Builder
 
+## Beginner Start
+
+- 第一次操作：使用默认站号、FC03、起始地址和数量生成一帧；
+- 预期观察：PDU、CRC、线上的字节和手册显示地址保持可对照；
+- 观察不到：先只检查 Function Code、Address 和 CRC，不要同时改变协议和物理层假设；
+- Mission Integration：对应 Modbus Wrong Register 的地址映射和数据语义调查。
+
 用于观察 Modbus RTU FC03 请求中的站号、功能码、协议地址、数量和 CRC，并重点比较“手册显示编号”和“真正 PDU 地址字段”。
 
 - 运行：浏览器直接打开 `index.html`。

@@ -1,5 +1,25 @@
 # Mission 04 — PWM Measurement：LED 变暗了，就能证明 PWM 配对了吗？
 
+## Beginner Guide
+
+- 适合：已完成 Timer Tick 的学习者；
+- 前置：Timer、Frequency、Period、Duty Cycle 和基本仪器安全；
+- 预计：75 分钟；
+- 本关产出：PWM Frequency、Duty、Pin 和测量工具证据；
+- 上一关：Timer Tick；当前关：PWM Measurement；下一关：Stage 02 Mixed Debug Challenge。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录计算值、示波器/逻辑分析仪测量值和一次输出 Pin 故障。
+
+## If You Are Stuck
+
+先用 PWM Visualizer 建立预测，再检查 Timer Channel、Alternate Function、Pin 和测量参考地。
+
+## Ready to Continue
+
+能够用计算和仪器证明 Frequency 与 Duty 后，再进入 Stage 02 Mixed Debug Challenge。
+
 ## Mission Brief
 
 你已经会让 Timer 周期性产生事件。

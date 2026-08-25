@@ -4,7 +4,15 @@
 
 ## 当前定位
 
-Stage 06 已有纵向样板，用于验证后续路线和架构；完整正式建设属于 ROADMAP 的 V2.6。当前 V2.3 不继续扩展 Linux 内容，除非修复明显错误或断链。
+Stage 06 目前仍是 prototype，用于验证后续路线和架构；完整正式建设属于后续版本。当前 V2.6 不把它作为新手完成 Stage 05 后的必修课程。
+
+## Entry Requirements / 环境 / 产出
+
+- Entry：Stage 05 Exit Check；当前只需理解 MCU、RTOS、进程和设备分层。
+- 环境：Linux 板卡或虚拟机属于后续实践，本页现阶段只提供静态路线。
+- 必须完成：先读系统地图和当前 Device Not Found Mission。
+- 可选阅读：Boot、Kernel、Device Tree、Driver 和 Buildroot/Yocto Knowledge。
+- 阶段产出：正式建设前不要求提交 Boss 或 Exit Check。
 
 ## 先建立系统地图
 
@@ -39,4 +47,4 @@ Application
 
 最终应能够解释一块 Linux 板从 Boot 到 Application 的基本链路，并能把“应用读不到设备”拆到 User Space、Driver、Device Tree、Bus 与硬件层逐步取证。
 
-在 V2.6 到来前，本页只维护路线边界，不把样板误写成正式完成。
+在正式建设完成前，本页只维护路线边界，不把样板误写成正式完成。

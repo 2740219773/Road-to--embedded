@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>I²C Bus Visualizer</title>
+<title>I²C Bus Visualizer</title><link rel="stylesheet" href="../lab-foundation.css"><link rel="icon" href="data:,">
 <style>
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
 h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,select{padding:8px 10px;font:inherit;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}.frame{display:flex;gap:5px;overflow:auto;padding-bottom:4px}.cell{min-width:90px;text-align:center;padding:13px 7px;border-radius:7px;background:#293246}.ack{background:#1f5c3a}.nack{background:#6b2530}.start,.stop{background:#4f3b78}.addr{background:#25466a}.rw{background:#59461f}.data{background:#315063}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.small{color:#b9c2d0;font-size:.92rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.kv{background:#111722;padding:12px;border-radius:8px}.flow{white-space:pre-wrap}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#293246;margin-right:4px}
@@ -45,11 +45,11 @@ h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12p
   <div id="frame" class="frame"></div>
 </div>
 
-<div id="summary" class="card"></div>
+<div id="summary" class="card" role="status" aria-live="polite"></div>
 
 <div class="card">
   <h2>3. Investigation View</h2>
-  <div id="explain" class="flow"></div>
+  <div id="explain" class="flow" role="status" aria-live="polite"></div>
 </div>
 
 <script>

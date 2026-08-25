@@ -1,5 +1,25 @@
 # Mission 03 — Volatile Mystery：变量明明会变，程序为什么像没看见？
 
+## Beginner Guide
+
+- 适合：已完成 Bit Hacker 的学习者；
+- 前置：bit、寄存器和基本 C 编译运行；
+- 预计：45 分钟；
+- 本关产出：一份“谁可能修改状态”的证据记录；
+- 上一关：Bit Hacker；当前关：Volatile Mystery；下一关：Struct Explorer。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，说明 `volatile` 能解决什么、不能解决什么，并记录一次观察结果。
+
+## If You Are Stuck
+
+先列出当前函数、ISR 或硬件可能的写入者，再讨论编译器是否缓存读取结果。
+
+## Ready to Continue
+
+能够区分“编译器观察规则”和“原子性/线程安全”后，再进入 Struct Explorer。
+
 ## Mission Brief
 
 你已经知道普通变量可以被程序代码修改。现在考虑一个更接近嵌入式的场景：

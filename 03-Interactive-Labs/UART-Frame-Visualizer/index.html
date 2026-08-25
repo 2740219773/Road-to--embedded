@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>UART Frame Visualizer</title>
+<title>UART Frame Visualizer</title><link rel="stylesheet" href="../lab-foundation.css"><link rel="icon" href="data:,">
 <style>
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
 h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end}.control{display:flex;flex-direction:column;gap:5px}input,select{padding:8px 10px;font:inherit;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}.frame{display:flex;gap:4px;align-items:stretch;overflow:auto;padding-bottom:4px}.bit{min-width:76px;padding:14px 5px;text-align:center;border-radius:7px;background:#293246}.start{background:#6b2530}.stop{background:#1f5c3a}.data{background:#25466a}.idle{background:#394050}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.result{font-size:1.05rem}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #30394d}th{background:#202737}.match{color:#8ed6a1}.mismatch{color:#ff9e9e;font-weight:700}.small{color:#b9c2d0;font-size:.92rem}.flow{white-space:pre-wrap}.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#293246;margin-right:4px}
@@ -36,7 +36,7 @@ h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12p
   <p class="small">8N1：Idle=1 → Start=0 → 8 Data Bits（LSB first，最低有效位先发）→ Stop=1。</p>
 </div>
 
-<div id="summary" class="card result"></div>
+<div id="summary" class="card result" role="status" aria-live="polite"></div>
 
 <div class="card">
   <h2>2. RX 采样调查</h2>
@@ -51,7 +51,7 @@ h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12p
 
 <div class="card">
   <h2>3. 工程解释</h2>
-  <div id="explain" class="flow"></div>
+  <div id="explain" class="flow" role="status" aria-live="polite"></div>
 </div>
 
 <script>

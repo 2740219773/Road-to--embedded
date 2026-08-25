@@ -102,6 +102,47 @@
 未来如何避免。
 ```
 
+## Evidence Record Template
+
+Stage 04 的 Mission、Mixed Challenge 和 Boss 统一使用下面的调查记录。没有证据的猜测不能直接写成 Root Cause。
+
+```text
+# Evidence Record — Title
+
+## Symptom
+实际看到什么。
+
+## Expected
+正常行为是什么。
+
+## System Layer
+Build / Run / Clock / Peripheral / Pin / Electrical / Memory / Interrupt / Protocol / Data Meaning。
+
+## Hypotheses
+至少列出两个可被证据区分的假设。
+
+## First High-value Measurement
+第一件要做的测量，以及为什么它的信息量最高。
+
+## Predicted Evidence
+每个假设成立时应该看到什么。
+
+## Observed Evidence
+实际观察到的代码、寄存器、内存、波形、日志或模拟结果。
+
+## Root Cause
+由证据支持的最小根因描述。
+
+## Minimal Fix
+只修改解决根因所需的最小范围。
+
+## Regression
+修复后如何重现原场景、验证边界并确认相关功能没有回归。
+
+## Transfer
+换一个设备、接口或故障现象时，哪条调查原则仍然适用。
+```
+
 ## Stage Template
 
 ```text
@@ -134,6 +175,31 @@
 ## Next Stage
 进入下一阶段需要什么。
 ```
+
+## Beginner Entry Template
+
+```text
+# Start Here
+
+## 起点分流
+零编程 / C# / C / 已有 MCU 经验分别从哪里开始。
+
+## 第一次学习
+第一次打开仓库后的最小阅读和操作。
+
+## 第一周顺序
+每次学习的主题、操作和产出。
+
+## 环境边界
+PC、浏览器、Host Fixture、真实 MCU 和仪器分别从哪里开始。
+
+## 下一步
+明确链接到 Stage 00 和路线清单。
+```
+
+## Route Manifest Template
+
+机器可验证的学习路线至少包含：`schemaVersion`、`entry`、`preparation`，以及每个 Stage 的 `id`、`status`、`entry`、`required`、`missions`、`labs`、`boss`、`exit`、`next` 和 `environment`。
 
 ## OpenMAIC Source Template
 

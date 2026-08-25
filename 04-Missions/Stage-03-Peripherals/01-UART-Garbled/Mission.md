@@ -1,5 +1,25 @@
 # Mission 01 — UART Garbled：乱码到底从哪一层开始？
 
+## Beginner Guide
+
+- 适合：完成 Stage 02 Exit Check、第一次调查串口时序的学习者；
+- 前置：Clock、Pin、Frame、Baud 和基本逻辑分析仪概念；
+- 预计：60 分钟；
+- 本关产出：UART 配置、Frame、Bit Time 和采样证据；
+- 上一关：Stage 02 Exit Check；当前关：UART Garbled；下一关：I²C No ACK。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录 TX/RX Baud、Frame、测量 Bit Time 和根因。
+
+## If You Are Stuck
+
+先用 UART Frame Visualizer 观察采样点，再区分软件 Baud、Clock、Pin 和物理波形。
+
+## Ready to Continue
+
+能够解释配置 Baud 与真实 Bit Time 的关系后，再进入 I²C No ACK。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[UART](../../../01-Knowledge-Base/Protocols/01-UART.md) · [Clock Tree](../../../01-Knowledge-Base/MCU/05-Clock-Tree.md) · 互动实验：[UART Frame Visualizer](../../../03-Interactive-Labs/UART-Frame-Visualizer/README.md)
 
 ## Mission Brief

@@ -1,5 +1,25 @@
 # Mission 08 — Modbus Wrong Register：通信明明通了，为什么读到的不是那个参数？
 
+## Beginner Guide
+
+- 适合：已完成 RS-485 No Reply 的学习者；
+- 前置：Frame、Function Code、PDU Address、手册显示地址和数据语义；
+- 预计：75 分钟；
+- 本关产出：物理通信、Frame、地址映射和数据含义证据；
+- 上一关：RS-485 No Reply；当前关：Modbus Wrong Register；下一关：Stage 03 Mixed Challenge。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，列出 Manual Display、API Value、PDU Address、Actual Bytes 和最终含义。
+
+## If You Are Stuck
+
+先确认 RS-485 和 Frame 已经正确，再检查站号、功能码、PDU 地址和手册映射。
+
+## Ready to Continue
+
+能够把物理层、协议层和数据语义分开后，再进入 Stage 03 Mixed Challenge。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[RS-485 与 Modbus RTU](../../../01-Knowledge-Base/Protocols/05-RS485-Modbus.md) · 互动实验：[Modbus RTU Frame Builder](../../../03-Interactive-Labs/Modbus-Frame-Builder/README.md)
 
 ## Mission Brief

@@ -1,5 +1,16 @@
 # Stage 02 — MCU Rookie / MCU 新兵
 
+## 当前状态与适合谁
+
+正式阶段。适合通过 Stage 01 Exit Check、能够解释指针/bit/Register 基础的学习者。
+
+## 学习环境与阶段产出
+
+- 环境：MCU 开发板、Debug Probe、编译/烧录工具；万用表和示波器按 Mission 使用。
+- 必做产出：五个硬件 Mission Record、一份 Mixed Hardware Debug Record、GPIO Boss 和 Exit Check。
+- 必须阅读：当前 Mission 的 Before You Start、板卡原理图和对应芯片手册。
+- 选读内容：其他 MCU Knowledge 在遇到对应故障时查询，不要求预读完。
+
 ## 这一阶段的目标
 
 第一次把 Stage 01 的“虚拟寄存器”接到真实 MCU：
@@ -20,6 +31,9 @@ C Code
 ## 开始前
 
 先完成 Stage 01 Exit Check。进入 Stage 02 后按需使用：
+
+- [Hardware Setup — 第一次准备开发板](HARDWARE-SETUP.md)
+- [Recovery Guide — 新手故障恢复手册](RECOVERY-GUIDE.md)
 
 - [MCU Bring-up](../../01-Knowledge-Base/MCU/00-MCU-Bring-Up.md)
 - [GPIO](../../01-Knowledge-Base/MCU/01-GPIO.md)

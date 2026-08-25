@@ -1,5 +1,12 @@
 # UART Frame Visualizer
 
+## Beginner Start
+
+- 第一次操作：使用 `0x55`、TX 115200、RX 115200；
+- 预期观察：TX/RX 采样点对齐，Frame 能正确解码；
+- 观察不到：先恢复默认 Baud，再确认 TX/RX 两个输入没有混淆；
+- Mission Integration：对应 UART Garbled 的 Baud / Frame / Sampling 调查。
+
 浏览器直接打开 `index.html`，无需安装依赖或构建。
 
 ## 它现在解决什么问题

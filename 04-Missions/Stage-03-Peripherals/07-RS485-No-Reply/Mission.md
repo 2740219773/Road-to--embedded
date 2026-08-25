@@ -1,5 +1,25 @@
 # Mission 07 — RS-485 No Reply：UART 已经发了，A/B 总线为什么没有正确回应？
 
+## Beginner Guide
+
+- 适合：已完成 CAN Arbitration 的学习者；
+- 前置：UART、Transceiver、DE/RE、A/B、参考地和总线方向；
+- 预计：75 分钟；
+- 本关产出：UART、Transceiver、Direction、A/B 和 Peer 证据；
+- 上一关：CAN Arbitration；当前关：RS-485 No Reply；下一关：Modbus Wrong Register。
+
+## What to Submit
+
+使用 [Learning Record Template](../../../docs/LEARNING-RECORD-TEMPLATE.md)，记录 UART TX、DE/RE、差分总线和远端响应的分层证据。
+
+## If You Are Stuck
+
+先区分 MCU UART 已发、Transceiver 已驱动和 A/B 总线真实变化，不要直接修改 Modbus 地址。
+
+## Ready to Continue
+
+能够证明 RS-485 物理路径后，再进入 Modbus Wrong Register。
+
 > 学习路径：[Stage 03 — Peripheral Engineer](../../../02-Learning-Path/Stage-03-Peripheral-Engineer/README.md) · 知识支撑：[RS-485 与 Modbus RTU](../../../01-Knowledge-Base/Protocols/05-RS485-Modbus.md) · 互动实验：[RS-485 Half-Duplex Visualizer](../../../03-Interactive-Labs/RS485-Half-Duplex-Visualizer/README.md)
 
 ## Mission Brief

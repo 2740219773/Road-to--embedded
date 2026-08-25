@@ -10,7 +10,7 @@ V2.2 — Stage 01 Interactive Pilot
 V2.3 Phase A — Stage 02 MCU Foundation
 ```
 
-当前正在完成 **V2.3 Phase B — Stage 03 Peripheral Engineer** 的最终质量验收。
+**V2.3 Phase B — Stage 03 Peripheral Engineer 已完成并合并到 main。**
 
 需要长期区分：
 
@@ -50,7 +50,7 @@ Knowledge
 
 ---
 
-## V2.3 — MCU / STM32 Learning Path ← 当前版本
+## V2.3 — MCU / STM32 Learning Path ← Historical Baseline
 
 V2.3 保留 MCU / STM32 大目标，但拆成两个连续 Phase，避免新手第一次接触开发板时同时吞下所有通信外设。
 
@@ -88,7 +88,7 @@ C Code
 
 状态：已完成并合并到 `main`。
 
-### Phase B — Stage 03 Peripheral Engineer ← Quality Gate
+### Phase B — Stage 03 Peripheral Engineer ✅
 
 目标：在 Stage 02 的真实硬件底座上扩展外设、总线和数据链复杂度，同时保持统一调查模型。
 
@@ -132,7 +132,9 @@ Stage 03 Mixed Peripheral Debug Challenge
 - 不在 Phase B 尾部临时追加 Watchdog、Flash、Ethernet 或更多协议；
 - 新主题只有在后续版本存在明确学习目标和完整闭环时加入。
 
-当前状态：内容闭环已建立，正在做零基础走查、导航/术语/治理一致性和 PR 最终验收。
+当前状态：内容闭环、零基础走查、导航/术语检查和质量门已完成并合并。
+
+V2.4 Stage 04 与 V2.5 Stage 05 已完成本地质量门；V2.6 Beginner Journey Audit 已完成；当前 **V2.7 — Beginner Framework and Content Quality Gate 已通过**。Stage 06～08 仍保持 prototype 边界，正式建设暂不提前开始。
 
 ### V2.3 总验收标准
 
@@ -152,7 +154,7 @@ Application / Data
 
 ---
 
-## V2.4 — Debugging Track / Stage 04
+## V2.4 — Debugging Track / Stage 04 ✅
 
 目标：把 Stage 01～03 已经反复使用的“会排错”提升为独立、可迁移的方法体系，而不是继续通过增加外设制造内容量。
 
@@ -171,21 +173,35 @@ Symptom
 
 主题包括：Evidence-driven Debugging、Build/Link Error、Watchpoint、HardFault、Stack/Memory、Interrupt、Timing、Wiring、Power/Ground，以及 Debugger / Oscilloscope / Logic Analyzer 的工具选择。
 
+当前状态：Mission 闭环、Debug Case、Mixed Challenge、Evidence Workbench、Boss Host Fixture 和 Exit Check 已建立；内容、浏览器和 Host Fixture 质量门已通过。真实 MCU、Debugger、示波器和逻辑分析仪仍未验证。
+
 Boss：Broken Firmware Investigation。
 
 ---
 
-## V2.5 — FreeRTOS
+## V2.5 — RTOS Engineer / Stage 05 ✅
 
-目标：理解并发系统为什么需要 RTOS，以及如何避免并发把系统变得不可控。
+目标：理解并发系统为什么需要 RTOS，以及如何用证据定位调度、同步、队列和实时性问题。
 
 重点：Task/Scheduler、Queue、Semaphore/Mutex、ISR→Task、Race Condition、Priority Inversion、Deadlock、Queue Overflow、Task Stack、Deadline/Timing。
+
+当前状态：四个 Mission、RTOS Concurrency Workbench、Mixed Concurrency Challenge、RTOS Refactor Boss、Exit Check 和 V2.5 Quality Gate 已完成；真实 FreeRTOS、MCU、Debugger 和仪器不纳入本地质量门。
 
 Boss：把裸机多外设采集系统改造成多任务系统。
 
 ---
 
-## V2.6 — Embedded Linux
+## V2.6 — Beginner Journey Audit
+
+目标：从完全没有嵌入式经验的学习者视角，验证入口、前置知识、Mission、Lab、Debug、Boss 和 Exit Check 是否连续可执行。
+
+重点：Start Here、零基础编程热身、Stage 00 正式闭环、路线 manifest、正式内容字段一致性、GitHub 参考清单和新手走查记录。
+
+当前状态：Start Here、路线 manifest、Stage 00 闭环、正式内容结构、浏览器回归和新手视角验收均已通过。Stage 06～08 仍保持 prototype 边界。
+
+---
+
+## V2.7 — Embedded Linux
 
 目标：建立从 Boot 到 Application 的完整系统链路。
 
@@ -210,7 +226,11 @@ Bootloader
 
 ---
 
-## V2.8 — System Integration
+## V2.8 — FPGA
+
+---
+
+## V2.9 — System Integration
 
 目标：把 PC、MCU、Embedded Linux、FPGA、网络和真实设备连接成一个可观测、可调试的完整系统。
 

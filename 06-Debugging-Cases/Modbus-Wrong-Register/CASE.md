@@ -37,7 +37,7 @@ Exception response: Illegal Data Address
 3. 手册中的 40001 是否一定应该直接写入 PDU Address？
 4. 下一步应该验证“收发器方向”还是“手册地址映射”？
 
-## Diagnosis
+## Root Cause / Diagnosis
 
 主站把人类显示编号 `40001` 直接当成 Modbus PDU 的 16-bit 地址字段发送，因此实际请求地址变成了十六进制 `0x9C41`。
 

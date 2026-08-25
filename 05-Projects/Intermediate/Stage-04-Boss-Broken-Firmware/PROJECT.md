@@ -7,12 +7,15 @@
 - [Who Wrote It Mission](../../../04-Missions/Stage-04-Debug-Hunter/02-Who-Wrote-It/Mission.md)
 - [Choose the Instrument Mission](../../../04-Missions/Stage-04-Debug-Hunter/03-Choose-The-Instrument/Mission.md)
 - [Debugging Cases](../../../06-Debugging-Cases/README.md)
+- [Host Fault Fixture](firmware/README.md)
 
 ## 目标
 
 你拿到的不是一个待开发项目，而是一份“别人写好但充满故障”的 Firmware。
 
 要求在尽量少修改代码的前提下，逐个定位并证明根因。
+
+PC 侧可重复样例位于 [firmware/](firmware/)，对应的静态 Evidence Pack 位于 [evidence/](evidence/)。它们是教学模型，不代表 Cortex-M、Debugger 或仪器已经真实运行。
 
 ## Fault Set
 
@@ -23,6 +26,14 @@
 - 一个 Pointer/Memory 类故障；
 - 一个 DMA/Buffer 类故障；
 - 一个只在特定运行路径出现的 Stack 类故障。
+
+对应 Evidence Pack：
+
+- [UART / Clock](evidence/uart-clock.md)
+- [Interrupt Storm](evidence/interrupt-storm.md)
+- [Pointer / Memory](evidence/pointer-memory.md)
+- [DMA / Buffer](evidence/dma-boundary.md)
+- [Stack Overflow](evidence/stack-overflow.md)
 
 ## Rules
 
@@ -47,6 +58,7 @@ Regression
 - 能说明为什么排除其他主要假设；
 - 修复后有回归结果；
 - 最终形成 System Fault Map，标出每个故障所在层。
+- Host Fixture 回归输出 `Stage 04 host fixture regression: PASS`；若没有 C 编译器，则完成静态代码检查并明确标记为未运行。
 
 ## 真正考核的能力
 

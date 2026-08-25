@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DMA Transfer Simulator</title>
+<title>DMA Transfer Simulator</title><link rel="stylesheet" href="../lab-foundation.css"><link rel="icon" href="data:,">
 <style>
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1100px;margin:32px auto;padding:0 20px;background:#10131a;color:#eef2f7;line-height:1.55}
 h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12px;margin:16px 0}.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.control{display:flex;flex-direction:column;gap:5px}select,input,button{font:inherit;padding:8px 10px;background:#0f1420;color:#eef2f7;border:1px solid #49536a;border-radius:7px}button{cursor:pointer;background:#293246}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:10px}.box{padding:18px;text-align:center;background:#253047;border-radius:9px}.arrow{font-size:28px}.bar{height:18px;background:#293246;border-radius:10px;overflow:hidden}.fill{height:100%;width:0;background:#76839d}.memory{display:grid;grid-template-columns:repeat(16,1fr);gap:4px}.slot{padding:9px 2px;text-align:center;background:#222a3a;border-radius:5px;font-size:.8rem}.written{background:#315c45}.overflow{background:#72383e}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.s{background:#111722;padding:12px;border-radius:8px}.ok{border-left:4px solid #62b47a}.warn{border-left:4px solid #d4a657}.bad{border-left:4px solid #d76868}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.small{color:#b9c2d0;font-size:.92rem}.flowtext{white-space:pre-wrap}@media(max-width:700px){.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}}
@@ -61,8 +61,8 @@ h1,h2{margin-bottom:10px}.card{background:#171c27;padding:18px;border-radius:12p
   <div class="s">Completion event<br><b id="complete"></b></div>
 </div>
 
-<div id="summary" class="card"></div>
-<div id="explain" class="card mono flowtext"></div>
+<div id="summary" class="card" role="status" aria-live="polite"></div>
+<div id="explain" class="card mono flowtext" role="status" aria-live="polite"></div>
 
 <script>
 const $=id=>document.getElementById(id);

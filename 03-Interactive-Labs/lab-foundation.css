@@ -1,0 +1,119 @@
+:root {
+  --lab-bg: #10131a;
+  --lab-surface: #171c27;
+  --lab-surface-raised: #202737;
+  --lab-text: #eef2f7;
+  --lab-muted: #b9c2d0;
+  --lab-focus: #7dd3fc;
+  --lab-positive: #62b47a;
+  --lab-warning: #d4a657;
+  --lab-negative: #d76868;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--lab-bg);
+}
+
+body {
+  max-width: min(100% - 32px, 1100px);
+  overflow-wrap: anywhere;
+}
+
+img,
+canvas,
+svg,
+table {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  min-height: 44px;
+  max-width: 100%;
+}
+
+button,
+select,
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--lab-focus);
+  outline-offset: 3px;
+}
+
+[role="status"],
+[aria-live] {
+  contain: content;
+}
+
+.table-wrap,
+.table-responsive,
+.frame,
+.bits,
+.flow {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 700px) {
+  body {
+    max-width: calc(100% - 20px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .controls,
+  .control,
+  .stats,
+  .bus {
+    width: 100%;
+  }
+
+  .controls,
+  .stats,
+  .bus {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    display: grid;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+}
